@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useSelector } from "../store";
+import { Typography } from "@material-ui/core";
 
 const Tomato = () => {
   const testId = useSelector((state) => state.test.id);
@@ -10,6 +11,7 @@ const Tomato = () => {
       <Link href="/">
         <a> move to '/'</a>
       </Link>
+      <Typography variant="h1"> 안녕하세요</Typography>
     </div>
   );
 };
