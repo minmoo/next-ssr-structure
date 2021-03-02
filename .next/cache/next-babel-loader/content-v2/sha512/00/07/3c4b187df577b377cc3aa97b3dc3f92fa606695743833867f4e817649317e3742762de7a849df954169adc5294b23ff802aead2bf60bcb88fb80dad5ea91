@@ -1,1 +1,0 @@
-{"ast":null,"code":"export default {\n  red: \"#FFAFB0\",\n  navy: \"#N5C7ED\"\n};","map":{"version":3,"sources":["/project/next-app/styles/palette.ts"],"names":["red","navy"],"mappings":"AAAA,eAAe;AACbA,EAAAA,GAAG,EAAE,SADQ;AAEbC,EAAAA,IAAI,EAAE;AAFO,CAAf","sourcesContent":["export default {\n  red: \"#FFAFB0\",\n  navy: \"#N5C7ED\",\n};\n"]},"metadata":{},"sourceType":"module"}
