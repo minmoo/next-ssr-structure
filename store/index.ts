@@ -1,18 +1,24 @@
-import { combineReducers } from "redux";
+import { AnyAction, CombinedState, combineReducers } from "redux";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
 import { configureStore } from "@reduxjs/toolkit";
-import test from "./test";
+import createSagaMiddleware from "redux-saga";
+import test, { TTest } from "./test";
 import {
   TypedUseSelectorHook,
   useSelector as useReduxSelector,
 } from "react-redux";
+import rootSaga from "./rootSaga";
 
 const rootReducer = combineReducers({
   test,
 });
 
-const reducer = (state, action) => {
-  //서버에서 생성한 리덕스 스토어를 클라이언트에서 사용할 수 있게 해준다.
+const reducer = (
+  state: CombinedState<{ test: TTest }> | undefined,
+  action: AnyAction
+) => {
+  //서버에서 생성한 스토어의 상태를 HYDRATE라는 액션을 통해서 클라이언트에 합쳐주는 작업을 해서
+  //클라이언트에서 사용할 수 있게 해준다.
   if (action.type === HYDRATE) {
     const nextState = {
       ...state, //use previous state
@@ -30,11 +36,15 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 //미들웨어 적용을 위한 스토어 enhancer
 const initStore = () => {
+  const sagaMiddleware = createSagaMiddleware();
+
   const store = configureStore({
     reducer,
     devTools: true,
-    middleware: [],
+    middleware: [sagaMiddleware],
   });
+
+  sagaMiddleware.run(rootSaga);
 
   return store;
 };

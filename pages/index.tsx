@@ -4,6 +4,9 @@ import { wrapper } from "../store";
 import { actions } from "../store/test";
 import Link from "next/link";
 import styled from "styled-components";
+import { Button } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import * as test from "../store/test";
 
 const Container = styled.div`
   padding: 20px;
@@ -11,6 +14,12 @@ const Container = styled.div`
 
 const index: NextPage = () => {
   console.log(process.env.NEXT_PUBLIC_API_URL, "클라이언트");
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(test.actions.testReducer("hi"));
+  };
+
   return (
     <div>
       {/* <h2>Link to 'tomato' page</h2>
@@ -27,7 +36,7 @@ const index: NextPage = () => {
       </div>
       <Container>
         <h1>Styled-components</h1>
-        <h1>Styled-components</h1>
+        <Button onClick={handleClick}>saga test</Button>
       </Container>
     </div>
   );

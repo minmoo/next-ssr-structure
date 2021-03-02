@@ -12,6 +12,12 @@ const reducers = {
   testReducer(state, action: PayloadAction<string>) {
     state.id = action.payload;
   },
+  asycnTest(state, action: PayloadAction<string>) {
+    state.id = action.payload;
+  },
+  finalTest(state, action: PayloadAction<string>) {
+    state.id = action.payload;
+  },
 };
 
 const testSlice = createSlice({

@@ -46,10 +46,6 @@ class MyDocument extends Document {
         <Head>
           <meta name="title" content="next framwork" />
           <meta name="description" content="next framework description" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, minimum-scale=1"
-          />
           {/* Font add */}
           <link
             href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap"
