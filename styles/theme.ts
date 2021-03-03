@@ -7,6 +7,11 @@ const theme = createMuiTheme({
     primary: indigo,
     secondary: pink,
   },
+  custom: {
+    navbar: {
+      width: 200,
+    },
+  },
 });
 
 export default theme;

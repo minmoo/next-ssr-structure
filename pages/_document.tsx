@@ -46,6 +46,10 @@ class MyDocument extends Document {
         <Head>
           <meta name="title" content="next framwork" />
           <meta name="description" content="next framework description" />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          />
           {/* Font add */}
           <link
             href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap"
