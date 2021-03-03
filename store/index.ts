@@ -2,7 +2,7 @@ import { AnyAction, CombinedState, combineReducers } from "redux";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import test, { TTest } from "./test";
+import auth, { Tauth } from "./auth";
 import {
   TypedUseSelectorHook,
   useSelector as useReduxSelector,
@@ -10,11 +10,11 @@ import {
 import rootSaga from "./rootSaga";
 
 const rootReducer = combineReducers({
-  test,
+  auth,
 });
 
 const reducer = (
-  state: CombinedState<{ test: TTest }> | undefined,
+  state: CombinedState<{ auth: Tauth }> | undefined,
   action: AnyAction
 ) => {
   //서버에서 생성한 스토어의 상태를 HYDRATE라는 액션을 통해서 클라이언트에 합쳐주는 작업을 해서

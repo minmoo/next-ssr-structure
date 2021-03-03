@@ -1,12 +1,11 @@
 import { getTodosAPI } from "../lib/api/todos";
 import { GetServerSideProps, NextPage } from "next";
 import { wrapper } from "../store";
-import { actions } from "../store/test";
 import Link from "next/link";
 import styled from "styled-components";
 import { Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import * as test from "../store/test";
+import { actions } from "../store/auth";
 
 const Container = styled.div`
   padding: 20px;
@@ -17,7 +16,7 @@ const index: NextPage = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(test.actions.testReducer("hi"));
+    dispatch(actions.asyncLogout());
   };
 
   return (
@@ -46,10 +45,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   async ({ store }) => {
     try {
       console.log(process.env.NEXT_PUBLIC_API_URL, "서버");
-
-      const res = await getTodosAPI();
-      store.dispatch(actions.testReducer("redux store"));
-      console.log(res.data);
       return { props: {} };
     } catch (e) {
       console.log(e);

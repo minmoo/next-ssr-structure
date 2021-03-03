@@ -1,6 +1,6 @@
-import { watchTest, watchAycnTest } from "./test/sagas";
+import watchAuth from "./auth/sagas";
 import { all, fork } from "redux-saga/effects";
 
 export default function* rootSaga(): Generator {
-  yield all([fork(watchTest), fork(watchAycnTest)]);
+  yield all([fork(watchAuth)]);
 }
