@@ -10,7 +10,7 @@ const useSignCheck = () => {
   const isLogged = useSelector((state) => state.auth.isLogged);
   useEffect(() => {
     if (isLogged) {
-      router.push("/");
+      router.push("/admin/dashboard");
     }
   }, [router, isLogged]);
 };
