@@ -70,7 +70,7 @@ export default function ToolbarHeader(): React.ReactElement {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" className={classes.title}>
+        <Typography variant="h5" className={classes.title}>
           {admin.toolbar.title}
         </Typography>
 

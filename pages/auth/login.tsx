@@ -53,6 +53,9 @@ export default function login(): React.ReactElement {
 
   return (
     <>
+      <Typography component="h1" variant="h5">
+        Login
+      </Typography>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
         <Controller
           name="userId"

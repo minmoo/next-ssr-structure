@@ -5,7 +5,7 @@ const name = "admin";
 
 const initialState: Tadmin = {
   toolbar: {
-    title: "Title",
+    title: "Brain",
   },
   navbar: {
     isFix: true,

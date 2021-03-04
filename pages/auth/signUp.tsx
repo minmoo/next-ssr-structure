@@ -10,7 +10,7 @@ import * as yup from "yup";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     box: {
-      margin: theme.spacing(15, 0, 0),
+      margin: theme.spacing(3, 0, 0),
       textAlign: "center",
     },
     form: {
@@ -63,6 +63,9 @@ export default function signUp(): React.ReactElement {
 
   return (
     <>
+      <Typography component="h1" variant="h5">
+        Sign Up
+      </Typography>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
         <Controller
           name="name"

@@ -14,9 +14,10 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
     },
     input: {
-      margin: theme.spacing(8, 4, 4),
+      margin: theme.spacing(4, 4, 4),
       width: "20vw",
       minWidth: "400px",
+      minHeight: "550px",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -61,10 +62,6 @@ export default function Auth({ children }: TAuthProps): React.ReactElement {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            타이틀 입니다.
-          </Typography>
-
           {children}
         </div>
         <div className={classes.side}>
