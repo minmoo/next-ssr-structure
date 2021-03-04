@@ -1,17 +1,17 @@
 import App, { AppContext, AppProps, AppInitialProps } from "next/app";
-import { useEffect } from "react";
-import GlobalStyle from "../styles/GlobalStyle";
+import { Fragment, useEffect } from "react";
 import { wrapper } from "../store";
-import { CssBaseline, ThemeProvider } from "@material-ui/core";
-import theme from "../styles/theme";
+import { CssBaseline } from "@material-ui/core";
+import ThemeProvider from "../styles/ThemeProvider";
+import GlobalStyles from "../styles/GlobalStyles";
 import Head from "next/head";
 import withReduxSaga from "next-redux-saga";
-import { motion, AnimatePresence } from "framer-motion";
 import type { Page } from "../types/page";
 import { cookieStringToObject } from "../lib/utils/cookie";
 import axios from "../lib/api";
 import { checkAPI } from "../lib/api/auth/check";
 import { actions as authActions } from "../store/auth";
+import Admin from "../layout/Admin";
 
 type Tprops = AppProps & {
   Component: Page;
@@ -26,7 +26,8 @@ const app = ({ Component, pageProps, router }: Tprops) => {
     }
   }, []);
 
-  const Layout = Component.layout || (({ children }) => <>{children}</>);
+  const AdminLayout = router.pathname.startsWith("/admin/") ? Admin : Fragment;
+  const Layout = Component.layout || AdminLayout;
 
   const transition = {
     type: "spring",
@@ -43,21 +44,12 @@ const app = ({ Component, pageProps, router }: Tprops) => {
           content="width=device-width, initial-scale=1, minimum-scale=1"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AnimatePresence>
-          <motion.div
-            transition={transition}
-            key={router.pathname}
-            initial={{ x: 300, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: -300, opacity: 0 }}
-          >
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </motion.div>
-        </AnimatePresence>
+      <ThemeProvider>
+        <GlobalStyles />
+
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </ThemeProvider>
     </>
   );
@@ -83,5 +75,5 @@ app.getInitialProps = async (context: AppContext) => {
   return { ...appInitialProps };
 };
 
-//redux store를 컴포넌트에 전달
+//redux store, redux-saga를 컴포넌트에 전달
 export default wrapper.withRedux(withReduxSaga(app));

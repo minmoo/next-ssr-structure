@@ -13,6 +13,4 @@ const dashboard = () => {
   );
 };
 
-dashboard.layout = Admin;
-
 export default dashboard;

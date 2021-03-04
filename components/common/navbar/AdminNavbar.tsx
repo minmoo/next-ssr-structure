@@ -45,18 +45,13 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
       },
     },
     toolbar: {
+      ...theme.mixins.toolbar,
+    },
+    navbarHead: {
       display: "flex",
       alignItems: "center",
       justifyContent: "flex-end",
       padding: theme.spacing(0, 1),
-    },
-    avatar: {
-      cursor: "pointer",
-      width: 44,
-      height: 44,
-      color: theme.palette.getContrastText(deepPurple[500]),
-      backgroundColor: deepPurple[500],
-      marginRight: theme.spacing(1),
     },
     title: {
       paddingRight: theme.spacing(1),
@@ -72,28 +67,15 @@ export default function AdminNavbar(): React.ReactElement {
   const content = (
     <Box height="100%" display="flex" flexDirection="column">
       <Box className={classes.toolbar}>
-        <Link href="/" passHref>
-          <Avatar className={classes.avatar} component="a">
-            SSG
-          </Avatar>
-        </Link>
-        <Typography className={classes.title} color="textPrimary" variant="h5">
-          Admin
-        </Typography>
-
-        {!navbar.isOpen && (
-          <FormControlLabel
-            control={
-              <Switch
-                checked={navbar.isFix}
-                onChange={handleNavbarFix}
-                name="fix"
-              />
-            }
-            label="Fix"
-            labelPlacement="start"
-          />
-        )}
+        <Box className={classes.navbarHead}>
+          {!navbar.isOpen && (
+            <Switch
+              checked={navbar.isFix}
+              onChange={handleNavbarFix}
+              name="fix"
+            />
+          )}
+        </Box>
       </Box>
 
       <List component="nav" className={classes.navItems}>

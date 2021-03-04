@@ -1,6 +1,7 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Navbar from "../components/common/navbar/AdminNavbar";
 import Toolbar from "../components/common/toolbar/AdminToolbar";
+import FixedSetting from "../components/common/fixed/FixedSetting";
 
 const useStyles = makeStyles<Theme>((theme) =>
   createStyles({
@@ -8,7 +9,6 @@ const useStyles = makeStyles<Theme>((theme) =>
       display: "flex",
     },
     toolbar: {
-      //   display: "flex",
       ...theme.mixins.toolbar,
     },
     wrapper: {
@@ -41,6 +41,7 @@ export default function Admin({ children }: TadminProps): React.ReactElement {
     <div className={classes.root}>
       <Toolbar />
       <Navbar />
+      <FixedSetting />
       {/* <main className={classes.content}>
         <div className={classes.toolbar} />
         <Router routes={routes} />

@@ -1,13 +1,10 @@
-import { getTodosAPI } from "../lib/api/todos";
 import { GetServerSideProps, NextPage } from "next";
 import { wrapper } from "../store";
 import Link from "next/link";
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
 import { useDispatch } from "react-redux";
-import { actions } from "../store/auth";
-import * as Icons from "@material-ui/icons/";
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../styles/ThemeProvider";
 
 const Container = styled.div`
   padding: 20px;
@@ -16,10 +13,6 @@ const Container = styled.div`
 const index: NextPage = () => {
   console.log(process.env.NEXT_PUBLIC_API_URL, "클라이언트");
   const dispatch = useDispatch();
-
-  const handleClick = () => {
-    dispatch(actions.asyncLogout());
-  };
 
   return (
     <div>
@@ -34,11 +27,9 @@ const index: NextPage = () => {
         <Link href="/tomato">
           <a>Move to '/tomato'</a>
         </Link>
-        {React.createElement(Icons["Dashboard"])}
       </div>
       <Container>
         <h1>Styled-components</h1>
-        <Button onClick={handleClick}>saga test</Button>
       </Container>
     </div>
   );

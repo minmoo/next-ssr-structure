@@ -25,7 +25,7 @@ const useStyles = makeStyles<Theme>((theme) =>
       },
     },
     itemIcon: {
-      color: theme.palette.grey[200],
+      color: theme.palette.primary.main,
     },
   })
 );
