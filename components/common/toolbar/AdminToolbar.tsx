@@ -29,8 +29,8 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen,
       }),
       [theme.breakpoints.up("sm")]: {
-        width: `calc(100% - ${theme.spacing(8)}px)`,
-        marginLeft: theme.spacing(8),
+        width: `calc(100% - ${theme.custom.navbar.width / 3}px)`,
+        marginLeft: theme.custom.navbar.width / 3,
       },
     },
     menuButton: {

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.primary.main,
     },
     sideTitle: {
       margin: theme.spacing(10, 10),
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     avatar: {
       margin: theme.spacing(1),
-      backgroundColor: theme.palette.secondary.main,
+      backgroundColor: theme.palette.primary.main,
     },
   })
 );

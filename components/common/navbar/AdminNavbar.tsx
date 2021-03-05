@@ -38,7 +38,7 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
-      width: theme.spacing(8),
+      width: theme.custom.navbar.width / 3,
       overflowX: "hidden",
       "&:hover": {
         width: theme.custom.navbar.width,
@@ -51,7 +51,7 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
       display: "flex",
       alignItems: "center",
       justifyContent: "flex-end",
-      padding: theme.spacing(0, 1),
+      padding: theme.spacing(0, 0.5),
     },
     title: {
       paddingRight: theme.spacing(1),
@@ -70,6 +70,7 @@ export default function AdminNavbar(): React.ReactElement {
         <Box className={classes.navbarHead}>
           {!navbar.isOpen && (
             <Switch
+              color="secondary"
               checked={navbar.isFix}
               onChange={handleNavbarFix}
               name="fix"
