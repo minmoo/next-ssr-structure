@@ -25,7 +25,7 @@ const useStyles = makeStyles<Theme>((theme) =>
       },
     },
     itemIcon: {
-      minWidth: 45,
+      minWidth: 50,
       color: theme.palette.primary.main,
     },
   })

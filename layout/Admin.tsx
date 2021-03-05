@@ -16,15 +16,7 @@ const useStyles = makeStyles<Theme>((theme) =>
       flex: "1 1 auto",
       overflow: "hidden",
     },
-    contentContainer: {
-      display: "flex",
-      flex: "1 1 auto",
-      overflow: "hidden",
-    },
     content: {
-      flex: "1 1 auto",
-      height: "100%",
-      overflow: "auto",
       padding: theme.spacing(3),
     },
   })
@@ -42,17 +34,10 @@ export default function Admin({ children }: TadminProps): React.ReactElement {
       <Toolbar />
       <Navbar />
       <FixedSetting />
-      {/* <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Router routes={routes} />
-      </main> */}
-
       <div className={classes.wrapper}>
-        <div className={classes.contentContainer}>
-          <div className={classes.content}>
-            <div className={classes.toolbar} />
-            {children}
-          </div>
+        <div className={classes.content}>
+          <div className={classes.toolbar} />
+          {children}
         </div>
       </div>
     </div>
