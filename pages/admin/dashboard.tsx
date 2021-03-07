@@ -1,15 +1,18 @@
 import { Container } from "@material-ui/core";
+import Head from "next/head";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import GridContainer from "../../components/common/grid/GridContainer";
 import GridItem from "../../components/common/grid/GridItem";
-import HeadPage from "../../components/common/page/HeadPage";
 import ChartCard from "../../components/common/card/ChartCard";
 import MiniCard from "../../components/common/card/MiniCard";
 import TableCard from "../../components/common/card/TableCard";
 
 const dashboard = () => {
   return (
-    <HeadPage title="Dashboard">
+    <>
+      <Head>
+        <title>Dashboard</title>
+      </Head>
       <Container maxWidth={false}>
         <GridContainer spacing={3}>
           <GridItem xs={12} xl={3} sm={6} lg={3}>
@@ -34,7 +37,7 @@ const dashboard = () => {
           </GridItem>
         </GridContainer>
       </Container>
-    </HeadPage>
+    </>
   );
 };
 
