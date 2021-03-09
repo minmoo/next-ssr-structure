@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:current-alpine
 
 # create & set working directory
 RUN mkdir /app
@@ -12,5 +12,5 @@ RUN yarn
 
 # start app
 RUN yarn build
-EXPOSE 7009
+EXPOSE 7008
 CMD yarn start
