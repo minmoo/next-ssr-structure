@@ -8,11 +8,14 @@ import {
   FormControlLabel,
   FormControl,
   FormLabel,
+  Switch,
+  Typography,
+  Grid,
 } from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
-import { indigo, blueGrey } from "@material-ui/core/colors";
+import { indigo, grey } from "@material-ui/core/colors";
 import useLocalStorage from "../../../store/useLocalStorage";
-import { THEME, TthemeKey } from "../../../styles/types";
+import { THEME, TthemeKey, TthemeType } from "../../../styles/types";
 
 const useStyles = makeStyles<Theme>((theme) =>
   createStyles({
@@ -32,11 +35,14 @@ const useStyles = makeStyles<Theme>((theme) =>
         color: indigo[600],
       },
     },
-    blueGreyRadio: {
-      color: blueGrey[400],
+    greyRadio: {
+      color: grey[400],
       "&$checked": {
-        color: blueGrey[600],
+        color: grey[600],
       },
+    },
+    label: {
+      color: theme.palette.text.secondary,
     },
     box: {
       right: 50,
@@ -45,6 +51,8 @@ const useStyles = makeStyles<Theme>((theme) =>
       position: "absolute",
       display: "inline-block",
       boxShadow: "0 1px 4px 0 rgba(0, 0, 0, 0.14)",
+      backgroundColor: theme.palette.background.default,
+      minWidth: 130,
     },
     checked: {},
   })
@@ -62,11 +70,17 @@ export default function FixedSetting(
     THEME.INDIGO
   );
 
+  const [type, setType] = useLocalStorage<TthemeType>("appThemeType", "light");
+
   const handleClick = () => {
     setOpen(!isOpen);
   };
   const hadleChangeTheme = (e: ChangeEvent<HTMLInputElement>) => {
     setTheme(e.target.value as TthemeKey);
+  };
+
+  const handleChangeType = () => {
+    setType(type === "light" ? "dark" : "light");
   };
 
   return (
@@ -78,7 +92,28 @@ export default function FixedSetting(
       {isOpen && (
         <Box className={classes.box}>
           <FormControl component="fieldset">
-            <FormLabel component="legend">Theme</FormLabel>
+            <FormLabel component="legend">
+              <Typography color="textPrimary">Theme</Typography>
+            </FormLabel>
+            <Typography component="div">
+              <Grid component="label" container alignItems="center">
+                <Grid item xs={3}>
+                  light
+                </Grid>
+                <Grid item xs={6}>
+                  <Switch
+                    color="secondary"
+                    checked={type === "light" ? false : true}
+                    onChange={handleChangeType}
+                    name="type"
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  dark
+                </Grid>
+              </Grid>
+            </Typography>
+
             <RadioGroup
               aria-label="theme"
               name="theme"
@@ -87,6 +122,9 @@ export default function FixedSetting(
             >
               <FormControlLabel
                 value="indigo"
+                classes={{
+                  label: classes.label,
+                }}
                 control={
                   <Radio
                     classes={{
@@ -98,16 +136,19 @@ export default function FixedSetting(
                 label="indigo"
               />
               <FormControlLabel
-                value="blueGrey"
+                value="grey"
+                classes={{
+                  label: classes.label,
+                }}
                 control={
                   <Radio
                     classes={{
-                      root: classes.blueGreyRadio,
+                      root: classes.greyRadio,
                       checked: classes.checked,
                     }}
                   />
                 }
-                label="blueGrey"
+                label="grey"
               />
             </RadioGroup>
           </FormControl>
