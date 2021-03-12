@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  //설정 덮어쓰기
+  "compilerOptions": {
+    "module": "commonjs", //Next.js와 Express를 연계하기 위해 commmonjs 이용
+    "outDir": "./dist",
+    "noEmit": false //Next.js 는 Bebel 을 사용하여 TypeScript 를 컴파일 하므로 TS 컴파일러는 js 를 출력하지 않지만 server는 필요
+  },
+  "include": ["./server"]
+}
