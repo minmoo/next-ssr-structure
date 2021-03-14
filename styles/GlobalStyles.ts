@@ -22,9 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
       a: {
         textDecoration: "none",
       },
-      "#root": {
+      "#__next": {
         height: "100%",
         width: "100%",
+        "&>:nth-child(1)": {
+          height: "100%",
+        },
       },
     },
   })
