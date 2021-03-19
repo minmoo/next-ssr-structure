@@ -18,10 +18,10 @@ const initialState: Tadmin = {
         icon: "dashboard",
       },
       {
-        id: "websocket",
-        title: "Websocket",
-        url: "/admin/websocket",
-        icon: "chat",
+        id: "map",
+        title: "Map",
+        url: "/admin/map",
+        icon: "map",
       },
       {
         id: "pages",

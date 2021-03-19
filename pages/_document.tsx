@@ -59,6 +59,11 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap&subset=korean"
             rel="stylesheet"
           />
+          {/* Map */}
+          <script
+            type="text/javascript"
+            src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=5faf75d8630808c11f1a80f2448cc550&libraries=services`}
+          />
         </Head>
         <body>
           <Main />
