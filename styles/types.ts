@@ -1,7 +1,7 @@
 import { Theme } from "@material-ui/core";
 export const THEME = {
-  INDIGO: "indigo",
-  GREY: "grey",
+	INDIGO: "indigo",
+	GREY: "grey",
 } as const;
 
 export type TthemeKey = typeof THEME[keyof typeof THEME];

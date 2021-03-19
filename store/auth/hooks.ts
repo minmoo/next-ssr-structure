@@ -6,42 +6,42 @@ import { useSelector } from "../";
 import { useRouter } from "next/router";
 
 const useSignCheck = () => {
-  const router = useRouter();
-  const isLogged = useSelector((state) => state.auth.isLogged);
-  useEffect(() => {
-    if (isLogged) {
-      router.push("/admin/dashboard");
-    }
-  }, [router, isLogged]);
+	const router = useRouter();
+	const isLogged = useSelector((state) => state.auth.isLogged);
+	useEffect(() => {
+		if (isLogged) {
+			router.push("/admin/dashboard");
+		}
+	}, [router, isLogged]);
 };
 
 export const useSignUp = () => {
-  useSignCheck();
-  const dispatch = useDispatch();
-  const onSignUp = useCallback(
-    (req: TsignUp) => dispatch(actions.asyncSignUp(req)),
-    [dispatch]
-  );
+	useSignCheck();
+	const dispatch = useDispatch();
+	const onSignUp = useCallback(
+		(req: TsignUp) => dispatch(actions.asyncSignUp(req)),
+		[dispatch],
+	);
 
-  return onSignUp;
+	return onSignUp;
 };
 
 export const useLogin = () => {
-  useSignCheck();
-  const dispatch = useDispatch();
-  const onLogin = useCallback(
-    (req: Tlogin) => dispatch(actions.asyncLogin(req)),
-    [dispatch]
-  );
+	useSignCheck();
+	const dispatch = useDispatch();
+	const onLogin = useCallback(
+		(req: Tlogin) => dispatch(actions.asyncLogin(req)),
+		[dispatch],
+	);
 
-  return onLogin;
+	return onLogin;
 };
 
 export const useLogout = () => {
-  const dispatch = useDispatch();
-  const onLogout = useCallback(() => dispatch(actions.asyncLogout()), [
-    dispatch,
-  ]);
+	const dispatch = useDispatch();
+	const onLogout = useCallback(() => dispatch(actions.asyncLogout()), [
+		dispatch,
+	]);
 
-  return onLogout;
+	return onLogout;
 };

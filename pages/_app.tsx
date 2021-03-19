@@ -14,65 +14,65 @@ import { actions as authActions } from "../store/auth";
 import Admin from "../layout/Admin";
 
 type Tprops = AppProps & {
-  Component: Page;
+	Component: Page;
 };
 
 const app = ({ Component, pageProps, router }: Tprops) => {
-  useEffect(() => {
-    //서버사이드에서 삽입한 CSS를 제거
-    const jssStyles = document.querySelector("#jss-server-side");
-    if (jssStyles) {
-      jssStyles.parentElement?.removeChild(jssStyles);
-    }
-  }, []);
+	useEffect(() => {
+		//서버사이드에서 삽입한 CSS를 제거
+		const jssStyles = document.querySelector("#jss-server-side");
+		if (jssStyles) {
+			jssStyles.parentElement?.removeChild(jssStyles);
+		}
+	}, []);
 
-  const AdminLayout = router.pathname.startsWith("/admin/") ? Admin : Fragment;
-  const Layout = Component.layout || AdminLayout;
+	const AdminLayout = router.pathname.startsWith("/admin/") ? Admin : Fragment;
+	const Layout = Component.layout || AdminLayout;
 
-  const transition = {
-    type: "spring",
-    damping: 20,
-    stiffness: 100,
-    when: "afterChildren",
-  };
+	const transition = {
+		type: "spring",
+		damping: 20,
+		stiffness: 100,
+		when: "afterChildren",
+	};
 
-  return (
-    <>
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, minimum-scale=1"
-        />
-      </Head>
-      <ThemeProvider>
-        <GlobalStyles />
+	return (
+		<>
+			<Head>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1, minimum-scale=1"
+				/>
+			</Head>
+			<ThemeProvider>
+				<GlobalStyles />
 
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
-    </>
-  );
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</ThemeProvider>
+		</>
+	);
 };
 
 app.getInitialProps = async (context: AppContext) => {
-  const appInitialProps = await App.getInitialProps(context);
-  const cookieObject = cookieStringToObject(context.ctx.req?.headers.cookie);
+	const appInitialProps = await App.getInitialProps(context);
+	const cookieObject = cookieStringToObject(context.ctx.req?.headers.cookie);
 
-  const { store } = context.ctx;
-  const { isLogged } = store.getState().auth;
+	const { store } = context.ctx;
+	const { isLogged } = store.getState().auth;
 
-  try {
-    if (!isLogged && cookieObject.access_token) {
-      axios.defaults.headers.cookie = cookieObject.access_token;
-      const { data } = await checkAPI();
-      store.dispatch(authActions.setLoggedUser(data));
-    }
-  } catch (e) {
-    console.log(e);
-  }
+	try {
+		if (!isLogged && cookieObject.access_token) {
+			axios.defaults.headers.cookie = cookieObject.access_token;
+			const { data } = await checkAPI();
+			store.dispatch(authActions.setLoggedUser(data));
+		}
+	} catch (e) {
+		console.log(e);
+	}
 
-  return { ...appInitialProps };
+	return { ...appInitialProps };
 };
 
 //redux store, redux-saga를 컴포넌트에 전달

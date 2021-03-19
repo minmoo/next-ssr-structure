@@ -4,34 +4,34 @@ import Data from "../../../lib/data";
 import { StoredUserType } from "../../../lib/data/user";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "GET") {
-    try {
-      const accessToken = req.headers.cookie;
-      if (!accessToken) {
-        res.statusCode = 400;
-        return res.send("access_token이 없습니다.");
-      }
-      const userId = jwt.verify(accessToken, process.env.JWT_SECRET!);
-      const user = Data.user.find({ userId: userId as string });
+	if (req.method === "GET") {
+		try {
+			const accessToken = req.headers.cookie;
+			if (!accessToken) {
+				res.statusCode = 400;
+				return res.send("access_token이 없습니다.");
+			}
+			const userId = jwt.verify(accessToken, process.env.JWT_SECRET!);
+			const user = Data.user.find({ userId: userId as string });
 
-      if (!user) {
-        res.statusCode = 404;
-        return res.send("해당 사용자가 없습니다.");
-      }
+			if (!user) {
+				res.statusCode = 404;
+				return res.send("해당 사용자가 없습니다.");
+			}
 
-      const userWithoutPassword: Partial<
-        Pick<StoredUserType, "password">
-      > = user;
+			const userWithoutPassword: Partial<
+				Pick<StoredUserType, "password">
+			> = user;
 
-      delete userWithoutPassword.password;
-      res.statusCode = 200;
-      return res.send(user);
-    } catch (e) {
-      res.statusCode = 500;
-      return res.send(e);
-    }
-  }
+			delete userWithoutPassword.password;
+			res.statusCode = 200;
+			return res.send(user);
+		} catch (e) {
+			res.statusCode = 500;
+			return res.send(e);
+		}
+	}
 
-  res.statusCode = 405;
-  return res.end();
+	res.statusCode = 405;
+	return res.end();
 };

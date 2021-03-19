@@ -16,20 +16,20 @@ import MapCard from "../../components/common/card/MapCard";
 // });
 
 const map: NextPage = () => {
-  return (
-    <>
-      <Head>
-        <title>Map</title>
-      </Head>
-      <Container maxWidth={false}>
-        <GridContainer spacing={3}>
-          <GridItem xs={12} xl={12} sm={12} lg={12}>
-            <MapCard />
-          </GridItem>
-        </GridContainer>
-      </Container>
-    </>
-  );
+	return (
+		<>
+			<Head>
+				<title>Map</title>
+			</Head>
+			<Container maxWidth={false}>
+				<GridContainer spacing={3}>
+					<GridItem xs={12} xl={12} sm={12} lg={12}>
+						<MapCard />
+					</GridItem>
+				</GridContainer>
+			</Container>
+		</>
+	);
 };
 
 export default map;

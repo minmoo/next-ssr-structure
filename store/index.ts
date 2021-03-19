@@ -5,32 +5,32 @@ import createSagaMiddleware from "redux-saga";
 import auth, { Tauth } from "./auth";
 import admin, { Tadmin } from "./admin";
 import {
-  TypedUseSelectorHook,
-  useSelector as useReduxSelector,
+	TypedUseSelectorHook,
+	useSelector as useReduxSelector,
 } from "react-redux";
 import rootSaga from "./rootSaga";
 
 const rootReducer = combineReducers({
-  auth,
-  admin,
+	auth,
+	admin,
 });
 
 const reducer = (
-  state: CombinedState<{ auth: Tauth; admin: Tadmin }> | undefined,
-  action: AnyAction
+	state: CombinedState<{ auth: Tauth; admin: Tadmin }> | undefined,
+	action: AnyAction,
 ) => {
-  //서버에서 생성한 스토어의 상태를 HYDRATE라는 액션을 통해서 클라이언트에 합쳐주는 작업을 해서
-  //클라이언트에서 사용할 수 있게 해준다.
-  if (action.type === HYDRATE) {
-    const nextState = {
-      ...state, //use previous state
-      ...action.payload, // apply delta from hydration
-    };
+	//서버에서 생성한 스토어의 상태를 HYDRATE라는 액션을 통해서 클라이언트에 합쳐주는 작업을 해서
+	//클라이언트에서 사용할 수 있게 해준다.
+	if (action.type === HYDRATE) {
+		const nextState = {
+			...state, //use previous state
+			...action.payload, // apply delta from hydration
+		};
 
-    return nextState;
-  }
+		return nextState;
+	}
 
-  return rootReducer(state, action);
+	return rootReducer(state, action);
 };
 
 //스토어 타입
@@ -38,17 +38,17 @@ export type RootState = ReturnType<typeof rootReducer>;
 
 //미들웨어 적용을 위한 스토어 enhancer
 const initStore = () => {
-  const sagaMiddleware = createSagaMiddleware();
+	const sagaMiddleware = createSagaMiddleware();
 
-  const store = configureStore({
-    reducer,
-    devTools: true,
-    middleware: [sagaMiddleware],
-  });
+	const store = configureStore({
+		reducer,
+		devTools: true,
+		middleware: [sagaMiddleware],
+	});
 
-  sagaMiddleware.run(rootSaga);
+	sagaMiddleware.run(rootSaga);
 
-  return store;
+	return store;
 };
 
 export const wrapper = createWrapper(initStore);
