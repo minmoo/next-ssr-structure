@@ -3,7 +3,6 @@ import { wrapper } from "../store";
 import Link from "next/link";
 import styled from "styled-components";
 import React, { useContext } from "react";
-import { ThemeContext } from "../styles/ThemeProvider";
 
 const Container = styled.div`
 	padding: 20px;

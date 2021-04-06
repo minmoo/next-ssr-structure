@@ -12,12 +12,14 @@ import axios from "../lib/api";
 import { checkAPI } from "../lib/api/auth/check";
 import { actions as authActions } from "../store/auth";
 import Admin from "../layout/Admin";
+import { useApollo } from "../lib/apolloClient";
+import { ApolloProvider } from "@apollo/client";
 
 type Tprops = AppProps & {
 	Component: Page;
 };
 
-const app = ({ Component, pageProps, router }: Tprops) => {
+const MyApp = ({ Component, pageProps, router }: Tprops) => {
 	useEffect(() => {
 		//서버사이드에서 삽입한 CSS를 제거
 		const jssStyles = document.querySelector("#jss-server-side");
@@ -25,6 +27,9 @@ const app = ({ Component, pageProps, router }: Tprops) => {
 			jssStyles.parentElement?.removeChild(jssStyles);
 		}
 	}, []);
+
+	// Apollo
+	const apolloClient = useApollo(pageProps.initialApolloState);
 
 	const AdminLayout = router.pathname.startsWith("/admin/") ? Admin : Fragment;
 	const Layout = Component.layout || AdminLayout;
@@ -44,18 +49,19 @@ const app = ({ Component, pageProps, router }: Tprops) => {
 					content="width=device-width, initial-scale=1, minimum-scale=1"
 				/>
 			</Head>
-			<ThemeProvider>
-				<GlobalStyles />
-
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
-			</ThemeProvider>
+			<ApolloProvider client={apolloClient}>
+				<ThemeProvider>
+					<GlobalStyles />
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+				</ThemeProvider>
+			</ApolloProvider>
 		</>
 	);
 };
 
-app.getInitialProps = async (context: AppContext) => {
+MyApp.getInitialProps = async (context: AppContext) => {
 	const appInitialProps = await App.getInitialProps(context);
 	const cookieObject = cookieStringToObject(context.ctx.req?.headers.cookie);
 
@@ -76,4 +82,4 @@ app.getInitialProps = async (context: AppContext) => {
 };
 
 //redux store, redux-saga를 컴포넌트에 전달
-export default wrapper.withRedux(withReduxSaga(app));
+export default wrapper.withRedux(withReduxSaga(MyApp));
