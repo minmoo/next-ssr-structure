@@ -6,37 +6,23 @@ import GridItem from "../../components/common/grid/GridItem";
 import ChartCard from "../../components/common/card/ChartCard";
 import MiniCard from "../../components/common/card/MiniCard";
 import TableCard from "../../components/common/card/TableCard";
-import { useApollo } from "../../lib/apolloClient";
+import { initializeApollo } from "../../lib/apolloClient";
 import { USER_DETAIL } from "../../lib/gql/user";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
+import { GetStaticProps, NextPage } from "next";
+import Link from "next/link";
 
-const Graphql = () => {
-	// const apolloClient = useApollo();
-	// const [user, setUser] = useState();
-
-	// (async () => {
-	// 	const userId = "163235";
-	// 	const { loading, error, data } = await apolloClient.query({
-	// 		query: USER_DETAIL,
-	// 		variables: { userId },
-	// 	});
-	// 	console.log(data.user);
-
-	// 	setUser(data.user);
-	// })();
+const Ssg: NextPage = () => {
 	const userId = "163235";
 	const { loading, error, data } = useQuery(USER_DETAIL, {
 		variables: { userId },
 	});
 
+	let user;
 	if (!loading) {
-		console.log(data);
+		user = data.user;
 	}
-
-	const user = {
-		name: "minsu",
-	};
 
 	return (
 		<>
@@ -46,12 +32,30 @@ const Graphql = () => {
 			<Container maxWidth={false}>
 				<GridContainer spacing={3}>
 					<GridItem xs={12} xl={3} sm={6} lg={3}>
-						{user ? <div>{user.name}</div> : <div>Loading...</div>}
+						{user ? <div>{user.date}</div> : <div>Loading...</div>}
 					</GridItem>
 				</GridContainer>
+				<Link href="/graphql">Move to 'graphql'</Link>
 			</Container>
 		</>
 	);
 };
 
-export default Graphql;
+export const getStaticProps: GetStaticProps = async (ctx) => {
+	//browser단의 context(headers)를 SSR에 넘기는 과정
+	const client = initializeApollo(null, ctx);
+	const userId = "163235";
+	const { data } = await client.query({
+		query: USER_DETAIL,
+		variables: { userId },
+	});
+
+	return {
+		props: {
+			initialApolloState: client.cache.extract(),
+		},
+		revalidate: 1,
+	};
+};
+
+export default Ssg;

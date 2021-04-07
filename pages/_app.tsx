@@ -28,7 +28,7 @@ const MyApp = ({ Component, pageProps, router }: Tprops) => {
 		}
 	}, []);
 
-	// Apollo
+	// Apollo (SSG, SSR)
 	const apolloClient = useApollo(pageProps.initialApolloState);
 
 	const AdminLayout = router.pathname.startsWith("/admin/") ? Admin : Fragment;

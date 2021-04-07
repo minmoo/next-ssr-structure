@@ -6,6 +6,7 @@ export const USERS_LIST = gql`
 			id
 			name
 			color
+			date
 		}
 	}
 `;
@@ -16,6 +17,7 @@ export const USER_DETAIL = gql`
 			id
 			name
 			color
+			date
 		}
 	}
 `;
