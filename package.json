@@ -51,6 +51,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.11",
+    "@types/graphql": "^14.5.0",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/morgan": "^1.9.2",
     "@types/next-redux-saga": "^3.0.2",

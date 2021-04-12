@@ -6,20 +6,35 @@ import GridItem from "../../components/common/grid/GridItem";
 import ChartCard from "../../components/common/card/ChartCard";
 import MiniCard from "../../components/common/card/MiniCard";
 import TableCard from "../../components/common/card/TableCard";
-import { ADD_USER, USERS_LIST } from "../../lib/gql/user";
-import { useState } from "react";
+import { ADD_USER, USERS_LIST } from "../../lib/gql/query/user";
+import { useState, useRef } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
 
+type Tuser = {
+	id: number;
+	name: string;
+	color: string;
+};
+
+type TusersData = {
+	users: Tuser[];
+};
+
 const Graphql = () => {
 	const userId = "1";
-	const { loading, error, data } = useQuery(USERS_LIST);
+	const { loading, error, data } = useQuery<TusersData>(USERS_LIST);
 
-	const [addUser, { data: mutationData }] = useMutation(ADD_USER);
+	const [
+		addUser,
+		{ loading: mutaionLoading, data: mutationData },
+	] = useMutation<{ addUser: Tuser }, { input: Tuser }>(ADD_USER);
+
+	const idRef = useRef(10);
 
 	const handleClick = () => {
 		const input = {
-			id: 100,
+			id: idRef.current++,
 			name: "add",
 			color: "black",
 		};
@@ -29,17 +44,30 @@ const Graphql = () => {
 				input: input,
 			},
 			update: (cache) => {
-				const existingUsers = cache.readQuery({ query: USERS_LIST });
-				const newUsers = [...existingUsers.users, input];
+				const existingUsers = cache.readQuery<TusersData>({
+					query: USERS_LIST,
+				});
+				let newUsers;
+				if (existingUsers) {
+					newUsers = [...existingUsers.users, input];
+				} else {
+					newUsers = [input];
+				}
 				cache.writeQuery({
 					query: USERS_LIST,
 					data: { users: newUsers },
 				});
 			},
 		});
+
+		if (!mutaionLoading) {
+			alert(JSON.stringify(mutationData));
+		}
 	};
 
 	if (loading) return <div> Loading</div>;
+
+	if (!data) return <div> No data </div>;
 
 	const { users } = data;
 
