@@ -6,7 +6,7 @@ import GridItem from "../../components/common/grid/GridItem";
 import ChartCard from "../../components/common/card/ChartCard";
 import MiniCard from "../../components/common/card/MiniCard";
 import TableCard from "../../components/common/card/TableCard";
-import { initializeApollo } from "../../lib/apolloClient";
+import { addApolloState, getApolloClient } from "../../lib/apolloClient";
 import { USER_DETAIL } from "../../lib/gql/user";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
@@ -14,15 +14,16 @@ import { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 
 const Ssg: NextPage = () => {
-	const userId = "163235";
+	const userId = "1";
 	const { loading, error, data } = useQuery(USER_DETAIL, {
 		variables: { userId },
 	});
 
-	let user;
-	if (!loading) {
-		user = data.user;
+	if (loading) {
+		return <div>Loading...</div>;
 	}
+
+	const { user } = data;
 
 	return (
 		<>
@@ -32,10 +33,14 @@ const Ssg: NextPage = () => {
 			<Container maxWidth={false}>
 				<GridContainer spacing={3}>
 					<GridItem xs={12} xl={3} sm={6} lg={3}>
-						{user ? <div>{user.date}</div> : <div>Loading...</div>}
+						<div>{user.name}</div>
+						<div>{user.id}</div>
+						<div>{user.color}</div>
+						<div>{user.date}</div>
 					</GridItem>
 				</GridContainer>
-				<Link href="/graphql">Move to 'graphql'</Link>
+				<Link href="/graphql">Move to '/graphql'</Link>
+				<Link href="/graphql/ssg">Move to '/graphql/ssg'</Link>
 			</Container>
 		</>
 	);
@@ -43,19 +48,21 @@ const Ssg: NextPage = () => {
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
 	//browser단의 context(headers)를 SSR에 넘기는 과정
-	const client = initializeApollo(null, ctx);
-	const userId = "163235";
+	const client = getApolloClient({});
+
+	const userId = "1";
 	const { data } = await client.query({
 		query: USER_DETAIL,
 		variables: { userId },
 	});
 
-	return {
-		props: {
-			initialApolloState: client.cache.extract(),
-		},
+	console.log("getStaticProps");
+	console.log(`${JSON.stringify(data.user)}`);
+
+	return addApolloState(client, {
+		props: {},
 		revalidate: 1,
-	};
+	});
 };
 
 export default Ssg;

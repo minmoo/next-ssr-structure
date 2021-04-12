@@ -29,17 +29,10 @@ const MyApp = ({ Component, pageProps, router }: Tprops) => {
 	}, []);
 
 	// Apollo (SSG, SSR)
-	const apolloClient = useApollo(pageProps.initialApolloState);
+	const apolloClient = useApollo(pageProps);
 
 	const AdminLayout = router.pathname.startsWith("/admin/") ? Admin : Fragment;
 	const Layout = Component.layout || AdminLayout;
-
-	const transition = {
-		type: "spring",
-		damping: 20,
-		stiffness: 100,
-		when: "afterChildren",
-	};
 
 	return (
 		<>

@@ -29,10 +29,14 @@ const SsrEvery: NextPage = ({ user }: TssrEveryProps) => {
 			<Container maxWidth={false}>
 				<GridContainer spacing={3}>
 					<GridItem xs={12} xl={3} sm={6} lg={3}>
-						{user ? <div>{user.date}</div> : <div>Loading...</div>}
+						<div>{user.name}</div>
+						<div>{user.id}</div>
+						<div>{user.color}</div>
+						<div>{user.date}</div>
 					</GridItem>
 				</GridContainer>
-				<Link href="/graphql">Move to 'graphql'</Link>
+				<Link href="/graphql">Move to '/graphql'</Link>
+				<Link href="/graphql/ssrEvery">Move to '/graphql/ssrEvery'</Link>
 			</Container>
 		</>
 	);
@@ -41,11 +45,13 @@ const SsrEvery: NextPage = ({ user }: TssrEveryProps) => {
 export const getServerSideProps: GetServerSideProps<any, any> = async (ctx) => {
 	//browser단의 context(headers)를 SSR에 넘기는 과정
 	const client = getApolloClient({});
-	const userId = "163235";
+	const userId = "1";
 	const { data } = await client.query({
 		query: USER_DETAIL,
 		variables: { userId },
 	});
+	console.log("getServerSideProps");
+	console.log(`${data.user.date}`);
 
 	return {
 		props: {

@@ -1,4 +1,4 @@
-import { Container } from "@material-ui/core";
+import { Button, Container } from "@material-ui/core";
 import Head from "next/head";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import GridContainer from "../../components/common/grid/GridContainer";
@@ -6,36 +6,42 @@ import GridItem from "../../components/common/grid/GridItem";
 import ChartCard from "../../components/common/card/ChartCard";
 import MiniCard from "../../components/common/card/MiniCard";
 import TableCard from "../../components/common/card/TableCard";
-import { useApollo } from "../../lib/apolloClient";
-import { USER_DETAIL } from "../../lib/gql/user";
+import { ADD_USER, USERS_LIST } from "../../lib/gql/user";
 import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
 
-const graphql = () => {
-	// const apolloClient = useApollo();
-	// const [user, setUser] = useState();
+const Graphql = () => {
+	const userId = "1";
+	const { loading, error, data } = useQuery(USERS_LIST);
 
-	// (async () => {
-	// 	const userId = "163235";
-	// 	const { loading, error, data } = await apolloClient.query({
-	// 		query: USER_DETAIL,
-	// 		variables: { userId },
-	// 	});
-	// 	console.log(data.user);
+	const [addUser, { data: mutationData }] = useMutation(ADD_USER);
 
-	// 	setUser(data.user);
-	// })();
-	const userId = "163235";
-	const { loading, error, data } = useQuery(USER_DETAIL, {
-		variables: { userId },
-	});
+	const handleClick = () => {
+		const input = {
+			id: 100,
+			name: "add",
+			color: "black",
+		};
 
-	let user;
+		addUser({
+			variables: {
+				input: input,
+			},
+			update: (cache) => {
+				const existingUsers = cache.readQuery({ query: USERS_LIST });
+				const newUsers = [...existingUsers.users, input];
+				cache.writeQuery({
+					query: USERS_LIST,
+					data: { users: newUsers },
+				});
+			},
+		});
+	};
 
-	if (!loading) {
-		user = data.user;
-	}
+	if (loading) return <div> Loading</div>;
+
+	const { users } = data;
 
 	return (
 		<>
@@ -44,16 +50,22 @@ const graphql = () => {
 			</Head>
 			<Container maxWidth={false}>
 				<GridContainer spacing={3}>
-					<GridItem xs={12} xl={3} sm={6} lg={3}>
-						{user ? <div>{user.date}</div> : <div>Loading...</div>}
-					</GridItem>
+					{users.map((user, index) => (
+						<GridItem xs={12} xl={3} sm={6} lg={3} key={index}>
+							<div> {user.name}</div>
+							<div> {user.id}</div>
+							<div> {user.color}</div>
+							<Link href={`/graphql/${user.id}`}>Move to 'detail'</Link>
+						</GridItem>
+					))}
+					<Link href="/graphql/ssg">Move to 'ssg'</Link>
+					<Link href="/graphql/ssr">Move to 'ssr'</Link>
+					<Link href="/graphql/ssrEvery">Move to 'ssrEvery'</Link>
 				</GridContainer>
-				<Link href="/graphql/ssg">Move to 'ssg'</Link>
-				<Link href="/graphql/ssr">Move to 'ssr'</Link>
-				<Link href="/graphql/ssrEvery">Move to 'ssr every request'</Link>
+				<Button onClick={handleClick}>Add User</Button>
 			</Container>
 		</>
 	);
 };
 
-export default graphql;
+export default Graphql;

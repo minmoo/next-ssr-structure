@@ -18,6 +18,8 @@ type TgraphQlContext = {
 
 let apolloClient: ApolloClient<NormalizedCacheObject> | undefined;
 
+export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
+
 function createIsomorphicLink(context: TgraphQlContext | undefined) {
 	/*
 		SSG and SSR
@@ -37,7 +39,7 @@ function createIsomorphicLink(context: TgraphQlContext | undefined) {
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
 	const { HttpLink } = require("@apollo/client");
 	return new HttpLink({
-		uri: "http://202.8.174.146:7008/api/graphql", //서버 URL (상대주소가 아닌 절대 주소)
+		uri: "http://localhost:7008/api/graphql", //서버 URL (상대주소가 아닌 절대 주소)
 		credentials: "same-origin", // credentials 나 headers 같은 추가적 fetch() 옵션
 	});
 }
@@ -57,11 +59,6 @@ export function initializeApollo(
 	// SchemaLink에서 사용하여 server에서 page render
 	context?: TgraphQlContext,
 ): ApolloClient<any> {
-	console.log(`
-	-----------
-	${apolloClient}
-	-----------
-	`);
 	const _apolloClient = apolloClient ?? createApolloClient(context);
 
 	// Next.js에서 Apollo Client를 이용해 데이터를 가져오는 함수가 있다면, 초기 상태값이 여기에서 합쳐진다.
@@ -70,8 +67,13 @@ export function initializeApollo(
 		const existingCache = _apolloClient.extract();
 
 		// 현재 캐시와 SSR 메소드인 getStaticProps/getServerSideProps로 부터 받은 데이터를 합친다.
-		const data = merge(initialState, existingCache, {
-			// set을 만든다. object가 같은지 보고 합친다.
+		/*
+			TODO existingCache, initial State 순서 생각
+			1. existingCache에 initialState를 merge -> server data cache에 덮어쓰기
+			2. initialState에 existingCache를 merge -> server data 한번만 반영 -> 계속 같은데이터
+		*/
+		const data = merge(existingCache, initialState, {
+			// combine arrays using object equality (like in sets)
 			arrayMerge: (destinationArray, sourceArray) => [
 				...sourceArray,
 				...destinationArray.filter((d) =>
@@ -93,11 +95,23 @@ export function initializeApollo(
 	return apolloClient;
 }
 
+export function addApolloState(
+	client: ApolloClient<NormalizedCacheObject>,
+	pageProps: any,
+): any {
+	if (pageProps?.props) {
+		pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
+	}
+
+	return pageProps;
+}
+
 export const getApolloClient = initializeApollo;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useApollo(initialState: any) {
-	const store = useMemo(() => initializeApollo(initialState), [initialState]);
+export function useApollo(pageProps: any) {
+	const state = pageProps[APOLLO_STATE_PROP_NAME];
+	const store = useMemo(() => initializeApollo(state), [state]);
 
 	return store;
 }

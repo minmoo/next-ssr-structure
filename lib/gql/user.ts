@@ -6,7 +6,6 @@ export const USERS_LIST = gql`
 			id
 			name
 			color
-			date
 		}
 	}
 `;
@@ -18,6 +17,16 @@ export const USER_DETAIL = gql`
 			name
 			color
 			date
+		}
+	}
+`;
+
+export const ADD_USER = gql`
+	mutation addUser($input: InputUser!) {
+		addUser(input: $input) {
+			id
+			name
+			color
 		}
 	}
 `;

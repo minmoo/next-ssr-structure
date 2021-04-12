@@ -11,4 +11,13 @@ export const typeDefs = gql`
 		users: [User!]!
 		user(id: String!): User!
 	}
+
+	input InputUser {
+		id: Int
+		name: String
+		color: String
+	}
+	extend type Mutation {
+		addUser(input: InputUser!): User!
+	}
 `;
