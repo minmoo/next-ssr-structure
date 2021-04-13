@@ -59,10 +59,6 @@ const Graphql = () => {
 				});
 			},
 		});
-
-		if (!mutaionLoading) {
-			alert(JSON.stringify(mutationData));
-		}
 	};
 
 	if (loading) return <div> Loading</div>;

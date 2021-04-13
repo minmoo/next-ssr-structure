@@ -7,7 +7,7 @@ import ChartCard from "../../components/common/card/ChartCard";
 import MiniCard from "../../components/common/card/MiniCard";
 import TableCard from "../../components/common/card/TableCard";
 import { getApolloClient } from "../../lib/apolloClient";
-import { USER_DETAIL } from "../../lib/gql/user";
+import { USER_DETAIL } from "../../lib/gql/query/user";
 import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import {

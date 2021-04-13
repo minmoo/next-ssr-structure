@@ -1,8 +1,8 @@
 import { addApolloState, getApolloClient } from "../../lib/apolloClient";
 import { useRouter } from "next/router";
-import { USER_DETAIL } from "../../lib/gql/user";
+import { USER_DETAIL } from "../../lib/gql/query/user";
 import { useQuery } from "@apollo/client";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticProps } from "next";
 
 const Id = () => {
 	const router = useRouter();
