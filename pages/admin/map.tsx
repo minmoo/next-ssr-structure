@@ -24,7 +24,8 @@ const map: NextPage = () => {
 			<Container maxWidth={false}>
 				<GridContainer spacing={3}>
 					<GridItem xs={12} xl={12} sm={12} lg={12}>
-						<MapCard />
+						{/* <MapCard /> */}
+						MAP
 					</GridItem>
 				</GridContainer>
 			</Container>

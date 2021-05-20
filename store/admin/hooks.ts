@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "../";
 import { useLogout } from "../auth";
 import { actions } from "./";
+import { useSession, signOut } from "next-auth/client";
 
 const useNavbarFixToggle = () => {
 	const dispatch = useDispatch();
@@ -38,18 +39,17 @@ export const useNavbar = () => {
 export const useToolbar = () => {
 	const handleNavbarToggle = useNavbarOpenToggle();
 	const router = useRouter();
-	const onLogout = useLogout();
+	const [session] = useSession();
 
 	const admin = useSelector(({ admin }) => admin);
-	const userId = useSelector(({ auth }) => auth.userId);
 
 	const handleSignOut = () => {
-		onLogout();
+		signOut();
 	};
 
 	const handleSignIn = () => {
 		router.push("/auth/login");
 	};
 
-	return { admin, userId, handleNavbarToggle, handleSignOut, handleSignIn };
+	return { admin, session, handleNavbarToggle, handleSignOut, handleSignIn };
 };
