@@ -48,7 +48,7 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
 export default function ToolbarHeader(): React.ReactElement {
 	const {
 		admin,
-		userId,
+		session,
 		handleNavbarToggle,
 		handleSignOut,
 		handleSignIn,
@@ -74,8 +74,11 @@ export default function ToolbarHeader(): React.ReactElement {
 					{admin.toolbar.title}
 				</Typography>
 
-				<Button color="inherit" onClick={userId ? handleSignOut : handleSignIn}>
-					{userId ? "Sign Out" : "Sign In"}
+				<Button
+					color="inherit"
+					onClick={session ? handleSignOut : handleSignIn}
+				>
+					{session ? "Sign Out" : "Sign In"}
 				</Button>
 			</Toolbar>
 		</AppBar>
