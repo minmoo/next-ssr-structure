@@ -22,7 +22,6 @@ import {
 	csrfToken,
 } from "next-auth/client";
 import Router from "next/router";
-import jwt from "next-auth/jwt";
 
 type Tprops = AppProps & {
 	Component: Page;
