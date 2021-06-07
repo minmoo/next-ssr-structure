@@ -16,10 +16,21 @@ const options: NextAuthOptions = {
 			},
 			async authorize(credentials: any) {
 				if ("userId" in credentials && "password" in credentials) {
-					const { data } = await axios.post(
-						process.env.LOGIN_API_URL +
-							`?userId=${credentials.userId}&userPwd=${credentials.password}`,
-					);
+					// const { data } = await axios.post(
+					// 	process.env.LOGIN_API_URL +
+					// 		`?userId=${credentials.userId}&userPwd=${credentials.password}`,
+					// );
+
+					const data =
+						credentials.userId === "admin"
+							? {
+									login: "SUCCESS",
+									userNm: "minsu",
+									userId: credentials.userId,
+							  }
+							: {
+									login: "FAIL",
+							  };
 
 					if (data?.login !== "SUCCESS") {
 						throw new Error("fail message");
