@@ -1,9 +1,17 @@
-import { Card, CardContent, Typography, Avatar, Box } from "@material-ui/core";
+import {
+	Card,
+	CardContent,
+	Typography,
+	Avatar,
+	Box,
+	Button,
+} from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import MoneyIcon from "@material-ui/icons/Money";
 import GridContainer from "../grid/GridContainer";
 import GridItem from "../grid/GridItem";
 import { useEffect, useRef } from "react";
+import { defaultMergedResolver } from "graphql-tools";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -87,6 +95,9 @@ export default function MapCard() {
 						id="map"
 						style={{ width: "100%", height: "100%" }}
 					/>
+				</Box>
+				<Box>
+					<Button>click</Button>
 				</Box>
 			</CardContent>
 		</Card>

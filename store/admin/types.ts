@@ -15,6 +15,7 @@ export type Tnavbar = {
 
 export type Ttoolbar = {
 	title: string;
+	time: string;
 };
 
 export type Tadmin = {

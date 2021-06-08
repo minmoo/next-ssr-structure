@@ -6,6 +6,7 @@ const name = "admin";
 const initialState: Tadmin = {
 	toolbar: {
 		title: "Brain",
+		time: new Date().toDateString(),
 	},
 	navbar: {
 		isFix: true,
@@ -58,6 +59,9 @@ const reducers = {
 	},
 	navbarFixToggle(state: Tadmin) {
 		state.navbar.isFix = !state.navbar.isFix;
+	},
+	setTime(state: Tadmin, action: PayloadAction<string>) {
+		state.toolbar.time = action.payload;
 	},
 };
 

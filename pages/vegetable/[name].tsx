@@ -12,6 +12,7 @@ const Name = () => {
 			</div>
 			<h2>Hello</h2>
 			<Link href="/">Move to '/'</Link>
+			<Link href="/ssg">Move to '/ssg'</Link>
 		</div>
 	);
 };

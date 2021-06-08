@@ -9,7 +9,7 @@ const getDate = () => {
 export const resolvers = {
 	Query: {
 		users: () => data.users,
-		user(parent, args, context) {
+		user(parent: any, args: any, context: any) {
 			const result = data.users.find((user) => user.id === parseInt(args.id));
 			if (result) {
 				result.date = getDate();
@@ -19,7 +19,7 @@ export const resolvers = {
 		},
 	},
 	Mutation: {
-		addUser: (_, { input }, context) => {
+		addUser: (_: any, { input }: any, context: any) => {
 			const usersBuffer = readFileSync("lib/data/graphqlUser.json");
 			const usersString = usersBuffer.toString();
 			const users = JSON.parse(usersString);
