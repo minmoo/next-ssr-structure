@@ -1,4 +1,4 @@
-import { Container } from "@material-ui/core";
+import { Container, Button } from "@material-ui/core";
 import Head from "next/head";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import GridContainer from "../../components/common/grid/GridContainer";
@@ -6,6 +6,7 @@ import GridItem from "../../components/common/grid/GridItem";
 import ChartCard from "../../components/common/card/ChartCard";
 import MiniCard from "../../components/common/card/MiniCard";
 import TableCard from "../../components/common/card/TableCard";
+import axios from "lib/api";
 
 const dashboard = () => {
 	return (
@@ -35,6 +36,22 @@ const dashboard = () => {
 					<GridItem xs={12} xl={3} md={6} lg={4}>
 						<TableCard />
 					</GridItem>
+
+					<Button
+						onClick={() => {
+							throw new Error("Frontend Error sentry");
+						}}
+					>
+						Sentry FrontEnd Error
+					</Button>
+
+					<Button
+						onClick={() => {
+							axios.get("/api/sentryCheck");
+						}}
+					>
+						Sentry Server Error
+					</Button>
 				</GridContainer>
 			</Container>
 		</>
