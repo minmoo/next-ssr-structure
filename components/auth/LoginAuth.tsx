@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Box, Button, TextField, Typography } from "@material-ui/core";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import Link from "next/link";

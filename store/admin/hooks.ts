@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "../";
 import { useLogout } from "../auth";
 import { actions } from "./";
-import { useSession, signOut } from "next-auth/client";
+import { useSession, signOut } from "next-auth/react";
 
 const useNavbarFixToggle = () => {
 	const dispatch = useDispatch();
@@ -39,7 +39,7 @@ export const useNavbar = () => {
 export const useToolbar = () => {
 	const handleNavbarToggle = useNavbarOpenToggle();
 	const router = useRouter();
-	const [session] = useSession();
+	const {data:session} = useSession();
 
 	const admin = useSelector(({ admin }) => admin);
 

@@ -1,7 +1,7 @@
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Box, Button, TextField, Typography } from "@material-ui/core";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
 import { useLogin } from "../../store/auth";
@@ -40,7 +40,7 @@ export default function LoginForm(): React.ReactElement {
 	const classes = useStyles();
 	const onLogin = useLogin();
 
-	const { handleSubmit, control, errors } = useForm<TformData>({
+	const { handleSubmit, control, formState: { errors} } = useForm<TformData>({
 		defaultValues: defaultValues,
 		resolver: yupResolver(schema),
 	});
@@ -58,7 +58,7 @@ export default function LoginForm(): React.ReactElement {
 			<form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 				<Controller
 					name="userId"
-					as={
+					render={({field}) =>
 						<TextField
 							error={Boolean(errors?.userId)}
 							variant="outlined"
@@ -67,6 +67,7 @@ export default function LoginForm(): React.ReactElement {
 							id="userId"
 							label="ID"
 							helperText={errors.userId?.message}
+							{...field}
 						/>
 					}
 					control={control}
@@ -74,7 +75,7 @@ export default function LoginForm(): React.ReactElement {
 
 				<Controller
 					name="password"
-					as={
+					render={({field}) =>
 						<TextField
 							error={Boolean(errors?.password)}
 							variant="outlined"
@@ -83,6 +84,7 @@ export default function LoginForm(): React.ReactElement {
 							id="password"
 							label="Password"
 							helperText={errors.password?.message}
+							{...field}
 						/>
 					}
 					control={control}

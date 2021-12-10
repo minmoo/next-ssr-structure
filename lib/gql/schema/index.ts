@@ -1,4 +1,5 @@
-import { gql, makeExecutableSchema } from "apollo-server-micro";
+import { gql  } from "apollo-server-micro";
+import {makeExecutableSchema} from 'graphql-tools'
 import * as user from "./user";
 
 const RootSchema = gql`
