@@ -15,12 +15,10 @@ import Admin from "../layout/Admin";
 import { useApollo } from "../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
 import {
-	Provider,
-	providers,
+	SessionProvider,
 	signIn,
 	getSession,
-	csrfToken,
-} from "next-auth/client";
+} from "next-auth/react";
 import Router from "next/router";
 
 type Tprops = AppProps & {
@@ -50,7 +48,7 @@ const MyApp = ({ Component, pageProps = {}, router }: Tprops) => {
 					content="width=device-width, initial-scale=1, minimum-scale=1"
 				/>
 			</Head>
-			<Provider session={pageProps.session}>
+			<SessionProvider session={pageProps.session} refetchInterval={5*60}>
 				<ApolloProvider client={apolloClient}>
 					<ThemeProvider>
 						<GlobalStyles />
@@ -59,7 +57,7 @@ const MyApp = ({ Component, pageProps = {}, router }: Tprops) => {
 						</Layout>
 					</ThemeProvider>
 				</ApolloProvider>
-			</Provider>
+			</SessionProvider>
 		</>
 	);
 };

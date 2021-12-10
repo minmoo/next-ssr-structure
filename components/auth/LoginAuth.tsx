@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/react";
 import Router from "next/router";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,9 +39,10 @@ const schema = yup.object().shape({
 
 export default function LoginForm(): React.ReactElement {
 	const classes = useStyles();
-	const [session, loading] = useSession();
+	const {data: session, status} = useSession();
+	const loading = status === "loading"
 
-	const { handleSubmit, control, errors } = useForm<TformData>({
+	const { handleSubmit, control, formState: { errors} } = useForm<TformData>({
 		defaultValues: defaultValues,
 		resolver: yupResolver(schema),
 	});
@@ -71,7 +72,7 @@ export default function LoginForm(): React.ReactElement {
 			<form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 				<Controller
 					name="userId"
-					as={
+					render={({field}) => 
 						<TextField
 							error={Boolean(errors?.userId)}
 							variant="outlined"
@@ -80,6 +81,7 @@ export default function LoginForm(): React.ReactElement {
 							id="userId"
 							label="ID"
 							helperText={errors.userId?.message}
+							{...field}
 						/>
 					}
 					control={control}
@@ -87,7 +89,7 @@ export default function LoginForm(): React.ReactElement {
 
 				<Controller
 					name="password"
-					as={
+					render={({field}) => 
 						<TextField
 							error={Boolean(errors?.password)}
 							variant="outlined"
@@ -96,6 +98,7 @@ export default function LoginForm(): React.ReactElement {
 							id="password"
 							label="Password"
 							helperText={errors.password?.message}
+							{...field}
 						/>
 					}
 					control={control}
