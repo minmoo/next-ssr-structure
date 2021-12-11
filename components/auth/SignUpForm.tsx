@@ -1,11 +1,12 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { Box, Button, TextField, Typography } from "@material-ui/core";
+import { Theme } from "@mui/material/styles";
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import Link from "next/link";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useSignUp } from "../../store/auth";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
-
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -51,7 +52,11 @@ export default function SignUpForm(): React.ReactElement {
 
 	const onSignUp = useSignUp();
 
-	const { handleSubmit, control, formState: { errors} } = useForm<TformData>({
+	const {
+		handleSubmit,
+		control,
+		formState: { errors },
+	} = useForm<TformData>({
 		defaultValues: defaultValues,
 		resolver: yupResolver(schema),
 	});
@@ -69,7 +74,7 @@ export default function SignUpForm(): React.ReactElement {
 			<form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
 				<Controller
 					name="name"
-					render={({field}) =>
+					render={({ field }) => (
 						<TextField
 							error={Boolean(errors?.name)}
 							variant="outlined"
@@ -81,12 +86,12 @@ export default function SignUpForm(): React.ReactElement {
 							autoFocus
 							{...field}
 						/>
-					}
+					)}
 					control={control}
 				/>
 				<Controller
 					name="userId"
-					render={({field}) => 
+					render={({ field }) => (
 						<TextField
 							error={Boolean(errors?.userId)}
 							variant="outlined"
@@ -97,12 +102,12 @@ export default function SignUpForm(): React.ReactElement {
 							helperText={errors.userId?.message}
 							{...field}
 						/>
-					}
+					)}
 					control={control}
 				/>
 				<Controller
 					name="password"
-					render={({field}) => 
+					render={({ field }) => (
 						<TextField
 							error={Boolean(errors?.password)}
 							variant="outlined"
@@ -113,12 +118,12 @@ export default function SignUpForm(): React.ReactElement {
 							helperText={errors.password?.message}
 							{...field}
 						/>
-					}
+					)}
 					control={control}
 				/>
 				<Controller
 					name="passwordConfirm"
-					render={({field}) =>
+					render={({ field }) => (
 						<TextField
 							error={Boolean(errors?.passwordConfirm)}
 							variant="outlined"
@@ -129,7 +134,7 @@ export default function SignUpForm(): React.ReactElement {
 							helperText={errors.passwordConfirm?.message}
 							{...field}
 						/>
-					}
+					)}
 					control={control}
 				/>
 

@@ -1,4 +1,4 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles } from "@mui/styles";
 import { useState, ChangeEvent, useContext } from "react";
 import {
 	Box,
@@ -11,13 +11,14 @@ import {
 	Switch,
 	Typography,
 	Grid,
-} from "@material-ui/core";
-import SettingsIcon from "@material-ui/icons/Settings";
-import { indigo, grey } from "@material-ui/core/colors";
+	Theme,
+} from "@mui/material";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { indigo, grey } from "@mui/material/colors";
 import useLocalStorage from "../../../store/useLocalStorage";
 import { THEME, TthemeKey, TthemeType } from "../../../styles/types";
 
-const useStyles = makeStyles<Theme>((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		root: {
 			display: "flex",
@@ -81,7 +82,7 @@ export default function FixedSetting(): React.ReactElement {
 
 	return (
 		<Box className={classes.root}>
-			<IconButton onClick={handleClick}>
+			<IconButton onClick={handleClick} size="large">
 				<SettingsIcon />
 			</IconButton>
 

@@ -39,9 +39,10 @@ export const useLogin = () => {
 
 export const useLogout = () => {
 	const dispatch = useDispatch();
-	const onLogout = useCallback(() => dispatch(actions.asyncLogout()), [
-		dispatch,
-	]);
+	const onLogout = useCallback(
+		() => dispatch(actions.asyncLogout()),
+		[dispatch],
+	);
 
 	return onLogout;
 };

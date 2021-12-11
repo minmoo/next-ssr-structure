@@ -1,10 +1,10 @@
-import { MuiThemeProvider } from "@material-ui/core";
+import { ThemeProvider } from "@mui/material/styles";
 import themeMap from "./theme/base";
 import { TthemeKey, THEME, TthemeType } from "./types";
 import useLocalStorage from "../store/useLocalStorage";
 
 // export default useMemo(() => getMuiTheme(type), [type]);
-const ThemeProvider: React.FC = (props) => {
+const MuiThemeProvider: React.FC = (props) => {
 	const [theme, _setTheme] = useLocalStorage<TthemeKey>(
 		"appTheme",
 		THEME.INDIGO,
@@ -15,9 +15,7 @@ const ThemeProvider: React.FC = (props) => {
 		? themeMap[theme](type)
 		: themeMap[THEME.INDIGO](type);
 
-	return (
-		<MuiThemeProvider theme={currentTheme}>{props.children}</MuiThemeProvider>
-	);
+	return <ThemeProvider theme={currentTheme}>{props.children}</ThemeProvider>;
 };
 
-export default ThemeProvider;
+export default MuiThemeProvider;

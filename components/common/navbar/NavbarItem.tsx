@@ -5,14 +5,16 @@ import {
 	ListItem,
 	ListItemIcon,
 	ListItemText,
-} from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+} from "@mui/material";
+import { Theme } from "@mui/material/styles";
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { createElement, ReactElement, useState } from "react";
 import { TnavItem } from "../../../store/admin";
 import Link from "next/link";
-import Icon from "@material-ui/core/Icon";
+import Icon from "@mui/material/Icon";
 
 const useStyles = makeStyles<Theme>((theme) =>
 	createStyles({

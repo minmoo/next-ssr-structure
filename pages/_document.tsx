@@ -7,7 +7,7 @@ import Document, {
 } from "next/document";
 
 //MUI Core
-import { ServerStyleSheets } from "@material-ui/styles";
+import { ServerStyleSheets } from "@mui/styles";
 //Styled Component
 import { ServerStyleSheet } from "styled-components";
 

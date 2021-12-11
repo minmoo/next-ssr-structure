@@ -1,6 +1,6 @@
-import { Theme, ThemeOptions } from "@material-ui/core/styles/createMuiTheme";
+import { Theme, DeprecatedThemeOptions } from "@mui/material/styles";
 
-declare module "@material-ui/core/styles/createMuiTheme" {
+declare module "@mui/material/styles" {
 	export interface Theme {
 		custom: {
 			navbar: {

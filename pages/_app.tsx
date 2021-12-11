@@ -1,7 +1,7 @@
 import App, { AppContext, AppProps, AppInitialProps } from "next/app";
 import { Fragment, useEffect } from "react";
 import { wrapper } from "../store";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline } from "@mui/material";
 import ThemeProvider from "../styles/ThemeProvider";
 import GlobalStyles from "../styles/GlobalStyles";
 import Head from "next/head";
@@ -14,12 +14,9 @@ import { actions as authActions } from "../store/auth";
 import Admin from "../layout/Admin";
 import { useApollo } from "../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
-import {
-	SessionProvider,
-	signIn,
-	getSession,
-} from "next-auth/react";
+import { SessionProvider, signIn, getSession } from "next-auth/react";
 import Router from "next/router";
+import { StyledEngineProvider } from "@mui/material/styles";
 
 type Tprops = AppProps & {
 	Component: Page;
@@ -48,14 +45,16 @@ const MyApp = ({ Component, pageProps = {}, router }: Tprops) => {
 					content="width=device-width, initial-scale=1, minimum-scale=1"
 				/>
 			</Head>
-			<SessionProvider session={pageProps.session} refetchInterval={5*60}>
+			<SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
 				<ApolloProvider client={apolloClient}>
-					<ThemeProvider>
-						<GlobalStyles />
-						<Layout>
-							<Component {...pageProps} />
-						</Layout>
-					</ThemeProvider>
+					<StyledEngineProvider injectFirst>
+						<ThemeProvider>
+							<GlobalStyles />
+							<Layout>
+								<Component {...pageProps} />
+							</Layout>
+						</ThemeProvider>
+					</StyledEngineProvider>
 				</ApolloProvider>
 			</SessionProvider>
 		</>

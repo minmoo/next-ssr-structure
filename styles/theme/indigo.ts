@@ -1,10 +1,9 @@
-import { ThemeOptions, createMuiTheme } from "@material-ui/core";
+import { ThemeOptions, createTheme } from "@mui/material/styles";
 import { TthemeType } from "../types";
-import indigo from "@material-ui/core/colors/indigo";
-import pink from "@material-ui/core/colors/pink";
+import { indigo, pink } from "@mui/material/colors";
 
 export default function getIndigoTheme(type: TthemeType) {
-	return createMuiTheme({
+	return createTheme({
 		palette: {
 			type: type,
 			primary: {

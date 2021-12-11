@@ -6,7 +6,7 @@ import {
 	TableRow,
 	TableCell,
 	TableBody,
-} from "@material-ui/core";
+} from "@mui/material";
 
 const data = [
 	{

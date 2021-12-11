@@ -5,9 +5,11 @@ import {
 	Avatar,
 	Box,
 	Button,
-} from "@material-ui/core";
-import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import MoneyIcon from "@material-ui/icons/Money";
+} from "@mui/material";
+import { Theme } from "@mui/material/styles";
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import MoneyIcon from "@mui/icons-material/Money";
 import GridContainer from "../grid/GridContainer";
 import GridItem from "../grid/GridItem";
 import { useEffect, useRef } from "react";

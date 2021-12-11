@@ -1,7 +1,9 @@
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { Avatar, Grid, Grow, Paper, Typography } from "@material-ui/core";
+import { Theme } from "@mui/material/styles";
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import { Avatar, Grid, Grow, Paper, Typography } from "@mui/material";
 import GridContainer from "../components/common/grid/GridContainer";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -24,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 			justifyContent: "center",
 		},
 		side: {
-			[theme.breakpoints.down("sm")]: {
+			[theme.breakpoints.down('md')]: {
 				display: "none",
 			},
 			width: "50vw",

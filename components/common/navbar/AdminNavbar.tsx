@@ -7,19 +7,14 @@ import {
 	List,
 	Switch,
 	Typography,
-} from "@material-ui/core";
-import { deepPurple } from "@material-ui/core/colors";
-import {
-	createStyles,
-	makeStyles,
 	Theme,
-	useTheme,
-} from "@material-ui/core/styles";
+} from "@mui/material";
+import { createStyles, makeStyles, useTheme } from "@mui/styles";
 import Link from "next/link";
 import NavbarItem from "./NavbarItem";
 import { useNavbar } from "../../../store/admin";
 
-const useStyles = makeStyles<Theme>((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
 		drawer: {
 			width: theme.custom.navbar.width,
@@ -79,7 +74,7 @@ export default function AdminNavbar(): React.ReactElement {
 				</Box>
 			</Box>
 
-			<List component="nav" className={classes.navItems}>
+			<List component="nav">
 				{navbar.items.map((item) => (
 					<NavbarItem {...item} key={item.id} />
 				))}
@@ -96,7 +91,7 @@ export default function AdminNavbar(): React.ReactElement {
 					classes={{
 						paper: classes.paper,
 					}}
-					anchor={theme.direction == "rtl" ? "right" : "left"}
+					anchor={"right"}
 					onClose={handleClose}
 					open={navbar.isOpen}
 					ModalProps={{
@@ -107,7 +102,7 @@ export default function AdminNavbar(): React.ReactElement {
 				</Drawer>
 			</Hidden>
 			{/* PC */}
-			<Hidden xsDown implementation="css">
+			<Hidden smDown implementation="css">
 				<Drawer
 					className={`${classes.drawer} ${
 						navbar.isFix ? classes.paper : classes.miniPaper

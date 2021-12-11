@@ -6,7 +6,7 @@ import {
 	Divider,
 	CardContent,
 	Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
 	LineChart,
 	CartesianGrid,
@@ -16,8 +16,8 @@ import {
 	Legend,
 	Line,
 } from "recharts";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 const data = [
 	{
 		name: "Page A",

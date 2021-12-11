@@ -1,14 +1,7 @@
-import {
-	AppBar,
-	Button,
-	createStyles,
-	IconButton,
-	makeStyles,
-	Theme,
-	Toolbar,
-	Typography,
-} from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
+import { AppBar, Button, IconButton, Theme, Toolbar, Typography } from "@mui/material";
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import MenuIcon from "@mui/icons-material/Menu";
 import { useToolbar } from "../../../store/admin";
 
 const useStyles = makeStyles<Theme>((theme: Theme) =>
@@ -56,18 +49,18 @@ export default function ToolbarHeader(): React.ReactElement {
 	const classes = useStyles();
 
 	return (
-		<AppBar
+        <AppBar
 			position="fixed"
 			className={`${admin.navbar.isFix ? classes.appBar : classes.appBarMini}`}
 		>
 			<Toolbar>
 				<IconButton
-					edge="start"
-					className={classes.menuButton}
-					color="inherit"
-					aria-label="menu"
-					onClick={handleNavbarToggle}
-				>
+                    edge="start"
+                    className={classes.menuButton}
+                    color="inherit"
+                    aria-label="menu"
+                    onClick={handleNavbarToggle}
+                    size="large">
 					<MenuIcon />
 				</IconButton>
 				<Typography variant="h5" className={classes.title}>
@@ -82,5 +75,5 @@ export default function ToolbarHeader(): React.ReactElement {
 				</Button>
 			</Toolbar>
 		</AppBar>
-	);
+    );
 }
