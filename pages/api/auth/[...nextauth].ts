@@ -2,14 +2,13 @@ import NextAuth, { Awaitable, NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import { NextApiRequest, NextApiResponse } from "next";
 
-
 const options: NextAuthOptions = {
 	//configure one or more authentication providers
 	providers: [
 		GithubProvider({
-			clientId:process.env.GITHUB_CLIENT_ID,
+			clientId: process.env.GITHUB_CLIENT_ID,
 			clientSecret: process.env.GITHUB_CLIENT_SECRET,
-		})
+		}),
 	],
 	debug: process.env.NODE_ENV === "development",
 	secret: process.env.AUTH_SECRET,
@@ -25,9 +24,9 @@ const options: NextAuthOptions = {
 		signIn: "/auth/login",
 	},
 	callbacks: {
-		async redirect({url, baseUrl}){
-			return "/";
-		}
+		async redirect({ url, baseUrl }) {
+			return "/admin/dashboard";
+		},
 	},
 };
 

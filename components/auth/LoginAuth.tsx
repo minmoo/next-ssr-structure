@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
+import { getProviders, signIn, useSession } from "next-auth/react";
 import Router from "next/router";
 import { FormInputText } from "components/mui/form/FormInputText";
 
@@ -38,7 +38,11 @@ const schema = yup.object().shape({
 	password: yup.string().required("password를 입력해주세요."),
 });
 
-export default function LoginForm(): React.ReactElement {
+export default function LoginForm({
+	providers,
+}: {
+	providers: ReturnType<typeof getProviders>;
+}): React.ReactElement {
 	const classes = useStyles();
 	const { data: session, status } = useSession();
 	const loading = status === "loading";
@@ -87,6 +91,17 @@ export default function LoginForm(): React.ReactElement {
 					Log In
 				</Button>
 			</form>
+			<div>
+				{Object.values(providers).map((provider) => {
+					return (
+						<div key={provider.name}>
+							<Button onClick={() => signIn(provider.id)}>
+								Sign in with {provider.name}
+							</Button>
+						</div>
+					);
+				})}
+			</div>
 
 			<Box className={classes.box}>
 				<Typography variant="body2">Don't have an account?</Typography>
