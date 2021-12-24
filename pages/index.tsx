@@ -33,15 +33,16 @@ const index: NextPage = () => {
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
-	async ({ store }) => {
-		try {
-			console.log(process.env.NEXT_PUBLIC_API_URL, "서버");
-			return { props: {} };
-		} catch (e) {
-			console.log(e);
-			return { props: {} };
-		}
-	},
+	(store) =>
+		async ({ req, res, ...etc }) => {
+			try {
+				console.log(process.env.NEXT_PUBLIC_API_URL, "서버");
+				return { props: {} };
+			} catch (e) {
+				console.log(e);
+				return { props: {} };
+			}
+		},
 );
 
 export default index;
