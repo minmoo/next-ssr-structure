@@ -25,14 +25,22 @@ const options: NextAuthOptions = {
 				userId: { label: "userId", type: "text", placeholder: "id" },
 				password: { label: "password", type: "password" },
 			},
-			async authorize(credentials, req): Promise<{ userId: string } | null> {
+			async authorize(
+				credentials,
+				req,
+			): Promise<{ userId: string; role: string } | null> {
 				if (!credentials) {
 					return null;
 				}
 
 				const { userId, password } = credentials;
+
 				if (userId === "admin" && password === "admin") {
-					return { userId };
+					return { userId, role: "admin" };
+				}
+
+				if (userId === "guest" && password === "guest") {
+					return { userId, role: "guest" };
 				}
 				throw new Error("아이디 혹은 패스워드가 틀립니다.");
 			},
@@ -45,7 +53,7 @@ const options: NextAuthOptions = {
 	},
 	session: {
 		strategy: "jwt", //no database
-		maxAge: 30, // 30초
+		maxAge: 10, // 30초
 	},
 	pages: {
 		//custom page url
@@ -56,8 +64,10 @@ const options: NextAuthOptions = {
 			if (user && account) {
 				if (account?.provider === "credentials") {
 					token.userId = user?.userId;
+					token.role = user?.role;
 				} else if (account?.provider === "github") {
 					token.userId = user?.id;
+					token.role = "guest";
 				}
 				token.something = "something";
 			}
@@ -65,7 +75,8 @@ const options: NextAuthOptions = {
 		},
 		async session({ session, user, token }) {
 			if (token) {
-				session.userId = token.userId;
+				session.user.id = token.userId as string;
+				session.user.role = token.role as string;
 				session.something = token.something;
 			}
 			return session;

@@ -44,7 +44,7 @@ export const useToolbar = () => {
 	const admin = useSelector(({ admin }) => admin);
 
 	const handleSignOut = () => {
-		signOut();
+		signOut({ callbackUrl: "/auth/login" });
 	};
 
 	const handleSignIn = () => {
