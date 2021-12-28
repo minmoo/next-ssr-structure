@@ -1,12 +1,13 @@
 import { createStyles, makeStyles } from "@mui/styles";
-import { Box, Button, TextField, Typography, Theme } from "@mui/material";
+import { Box, Button, Typography, Theme } from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
-import { getProviders, signIn, useSession } from "next-auth/react";
+import { getProviders, signIn } from "next-auth/react";
 import Router from "next/router";
 import { FormInputText } from "components/mui/form/FormInputText";
+import { RedirectableProviderType } from "next-auth/providers";
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -44,8 +45,6 @@ export default function LoginForm({
 	providers: ReturnType<typeof getProviders>;
 }): React.ReactElement {
 	const classes = useStyles();
-	const { data: session, status } = useSession();
-	const loading = status === "loading";
 
 	const {
 		handleSubmit,
@@ -59,7 +58,7 @@ export default function LoginForm({
 	const onSubmit: SubmitHandler<TformData> = async (data) => {
 		const callbackUrl = `${window.location.origin}/admin/dashboard`;
 
-		const res = await signIn("credentials", {
+		const res = await signIn<RedirectableProviderType>("credentials", {
 			...data,
 			callbackUrl,
 			redirect: false,
@@ -68,9 +67,8 @@ export default function LoginForm({
 		if (res?.error) {
 			alert(res?.error);
 		} else {
-			Router.push(res?.url as string);
+			Router.push(res?.url ?? "/admin/dashboard");
 		}
-		console.log(`result: ${res}`);
 	};
 
 	return (

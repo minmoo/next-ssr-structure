@@ -1,8 +1,8 @@
 import { Container, Button } from "@mui/material";
 import Head from "next/head";
 import { Theme } from "@mui/material/styles";
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import createStyles from "@mui/styles/createStyles";
+import makeStyles from "@mui/styles/makeStyles";
 import GridContainer from "../../components/common/grid/GridContainer";
 import GridItem from "../../components/common/grid/GridItem";
 import ChartCard from "../../components/common/card/ChartCard";
@@ -10,7 +10,7 @@ import MiniCard from "../../components/common/card/MiniCard";
 import TableCard from "../../components/common/card/TableCard";
 import axios from "lib/api";
 
-const dashboard = () => {
+const Dashboard = () => {
 	return (
 		<>
 			<Head>
@@ -60,4 +60,4 @@ const dashboard = () => {
 	);
 };
 
-export default dashboard;
+export default Dashboard;

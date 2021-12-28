@@ -25,6 +25,11 @@ const initialState: Tadmin = {
 				icon: "map",
 			},
 			{
+				id: "secret",
+				title: "Secret",
+				url: "/admin/secret",
+			},
+			{
 				id: "pages",
 				title: "Pages",
 				icon: "libraryBooks",

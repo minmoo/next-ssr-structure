@@ -39,7 +39,7 @@ export const useNavbar = () => {
 export const useToolbar = () => {
 	const handleNavbarToggle = useNavbarOpenToggle();
 	const router = useRouter();
-	const {data:session} = useSession();
+	const { data: session } = useSession();
 
 	const admin = useSelector(({ admin }) => admin);
 

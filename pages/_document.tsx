@@ -12,6 +12,29 @@ import { ServerStyleSheets } from "@mui/styles";
 import { ServerStyleSheet } from "styled-components";
 
 class MyDocument extends Document {
+	/**
+	 * On the server:
+	 * 1. app.getInitialProps
+	 * 2. page.getInitialProps
+	 * 3. document.getInitialProps
+	 * 4. app.render
+	 * 5. page.render
+	 * 6. document.render
+	 *
+	 * On the server with Error:
+	 * 1. document.getInitialProps
+	 * 2. app.render
+	 * 3. page.render
+	 * 4. document.render
+	 *
+	 * On the client
+	 * 1. app.getInitialProps
+	 * 2. apge.getInitialProps
+	 * 3. app.render
+	 * 4. page.render
+	 * @param ctx
+	 * @returns
+	 */
 	static async getInitialProps(ctx: DocumentContext) {
 		const sheet = new ServerStyleSheet();
 		const muiSheets = new ServerStyleSheets();
