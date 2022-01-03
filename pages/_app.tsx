@@ -2,7 +2,6 @@ import { AppProps } from "next/app";
 import React, { Fragment, useEffect } from "react";
 import { wrapper } from "../store";
 import ThemeProvider from "../styles/ThemeProvider";
-import GlobalStyles from "../styles/GlobalStyles";
 import Head from "next/head";
 import withReduxSaga from "next-redux-saga";
 import type { Page, Role } from "../types/page";
@@ -10,22 +9,30 @@ import Admin from "../layout/Admin";
 import { useApollo } from "../lib/apolloClient";
 import { ApolloProvider } from "@apollo/client";
 import { SessionProvider, signIn, useSession } from "next-auth/react";
-import { StyledEngineProvider } from "@mui/material/styles";
 import Router from "next/router";
+import createEmotionCache from "styles/createEmotionCache";
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import { CssBaseline } from "@mui/material";
 
-type Tprops = AppProps & {
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+
+interface MyAppProps extends AppProps {
 	Component: Page;
-};
+	emotionCache?: EmotionCache;
+}
 
-const MyApp = ({ Component, pageProps = {}, router }: Tprops) => {
-	useEffect(() => {
-		//서버사이드에서 삽입한 CSS를 제거
-		const jssStyles = document.querySelector("#jss-server-side");
-		if (jssStyles) {
-			jssStyles.parentElement?.removeChild(jssStyles);
-		}
-	}, []);
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache();
 
+const MyApp: React.FunctionComponent<MyAppProps> = ({
+	Component,
+	emotionCache = clientSideEmotionCache,
+	pageProps = {},
+	router,
+}) => {
 	// Apollo (SSG, SSR)
 	const apolloClient = useApollo(pageProps);
 
@@ -34,18 +41,17 @@ const MyApp = ({ Component, pageProps = {}, router }: Tprops) => {
 
 	const Common = (
 		<ApolloProvider client={apolloClient}>
-			<StyledEngineProvider injectFirst>
-				<ThemeProvider>
-					<GlobalStyles />
-					<Layout>
-						<Component {...pageProps} />
-					</Layout>
-				</ThemeProvider>
-			</StyledEngineProvider>
+			<ThemeProvider>
+				{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+				<CssBaseline />
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</ThemeProvider>
 		</ApolloProvider>
 	);
 	return (
-		<>
+		<CacheProvider value={emotionCache}>
 			<Head>
 				<meta
 					name="viewport"
@@ -59,7 +65,7 @@ const MyApp = ({ Component, pageProps = {}, router }: Tprops) => {
 					<>{Common}</>
 				)}
 			</SessionProvider>
-		</>
+		</CacheProvider>
 	);
 };
 

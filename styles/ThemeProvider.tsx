@@ -1,4 +1,4 @@
-import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, responsiveFontSizes } from "@mui/material/styles";
 import themeMap from "./theme/base";
 import { TthemeKey, THEME, TthemeType } from "./types";
 import useLocalStorage from "../store/useLocalStorage";
@@ -15,7 +15,10 @@ const MuiThemeProvider: React.FC = (props) => {
 		? themeMap[theme](type)
 		: themeMap[THEME.INDIGO](type);
 
-	return <ThemeProvider theme={currentTheme}>{props.children}</ThemeProvider>;
+	const respoonsiveTheme = responsiveFontSizes(currentTheme);
+	return (
+		<ThemeProvider theme={respoonsiveTheme}>{props.children}</ThemeProvider>
+	);
 };
 
 export default MuiThemeProvider;

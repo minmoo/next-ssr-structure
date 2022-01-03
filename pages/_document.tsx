@@ -5,11 +5,9 @@ import Document, {
 	NextScript,
 	DocumentContext,
 } from "next/document";
-
-//MUI Core
-import { ServerStyleSheets } from "@mui/styles";
-//Styled Component
-import { ServerStyleSheet } from "styled-components";
+import createEmotionCache from "styles/createEmotionCache";
+import React from "react";
+import createEmotionServer from "@emotion/server/create-instance";
 
 class MyDocument extends Document {
 	/**
@@ -29,44 +27,58 @@ class MyDocument extends Document {
 	 *
 	 * On the client
 	 * 1. app.getInitialProps
-	 * 2. apge.getInitialProps
+	 * 2. page.getInitialProps
 	 * 3. app.render
 	 * 4. page.render
 	 * @param ctx
 	 * @returns
 	 */
+	// `getInitialProps` belongs to `_document` (instead of `_app`),
+	// it's compatible with static-site generation (SSG).
 	static async getInitialProps(ctx: DocumentContext) {
-		const sheet = new ServerStyleSheet();
-		const muiSheets = new ServerStyleSheets();
 		const originalRenderPage = ctx.renderPage;
 
-		try {
-			ctx.renderPage = () =>
-				originalRenderPage({
-					enhanceApp: (App) => (props) =>
-						sheet.collectStyles(muiSheets.collect(<App {...props} />)),
-				});
+		// You can consider sharing the same emotion cache between all the SSR requests to speed up performance.
+		// However, be aware that it can have global side effects.
+		const cache = createEmotionCache();
+		const { extractCriticalToChunks } = createEmotionServer(cache);
 
-			const initialProps = await Document.getInitialProps(ctx);
-			return {
-				...initialProps,
-				styles: (
-					<>
-						{initialProps.styles}
-						{sheet.getStyleElement()}
-						{muiSheets.getStyleElement()}
-					</>
-				),
-			};
-		} finally {
-			sheet.seal();
-		}
+		/* eslint-disable */
+		ctx.renderPage = () =>
+			originalRenderPage({
+				enhanceApp: (App: any) => (props) =>
+					<App emotionCache={cache} {...props} />,
+			});
+		/* eslint-enable */
+
+		const initialProps = await Document.getInitialProps(ctx);
+
+		// This is important. It prevents emotion to render invalid HTML.
+		// See https://github.com/mui-org/material-ui/issues/26561#issuecomment-855286153
+		const emotionStyles = extractCriticalToChunks(initialProps.html);
+		const emotionStyleTags = emotionStyles.styles.map((style) => (
+			<style
+				data-emotion={`${style.key} ${style.ids.join(" ")}`}
+				key={style.key}
+				dangerouslySetInnerHTML={{ __html: style.css }}
+			/>
+		));
+		return {
+			...initialProps,
+			// Styles fragment is rendered after the app and page rendering finish.
+			styles: [
+				...React.Children.toArray(initialProps.styles),
+				...emotionStyleTags,
+			],
+		};
 	}
 
 	render() {
 		return (
 			<Html lang="ko">
 				<Head>
+					{/* PWA primary color */}
+					{/* <meta name="theme-color" content={theme.palette.primary.main} /> */}
 					<meta name="title" content="next framwork" />
 					<meta name="description" content="next framework description" />
 					<link
@@ -74,6 +86,10 @@ class MyDocument extends Document {
 						href="https://fonts.googleapis.com/icon?family=Material+Icons"
 					/>
 					{/* Font add */}
+					<link // MUI5 using ROboto font(essential)
+						rel="stylesheet"
+						href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+					/>
 					<link
 						href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700&display=swap"
 						rel="stylesheet"

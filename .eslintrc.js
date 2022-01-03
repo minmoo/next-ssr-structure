@@ -28,7 +28,6 @@ module.exports = {
 	},
 	plugins: ["react", "react-hooks", "@typescript-eslint", "prettier"], //규칙 집합을 확장(플러그인만으로 규칙이 적용되진 않는다.)
 	rules: {
-		"prettier/prettier": ["error", { endOfLine: "auto" }],
 		// 프로젝트에서 사용하는 규칙을 수정
 		"quotes": ["error", "double", { allowTemplateLiterals: true }], //더블 쿼터 + 백틱 사용
 		"@typescript-eslint/quotes": [
