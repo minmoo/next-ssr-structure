@@ -17,6 +17,7 @@ const Hero = ({ imgSrc, imgAlt, title, subtitle }: HeroProps) => {
 				position: "relative",
 				height: "100vh", //device 화면 전체
 				width: "100vw",
+				maxWidth: "100%", //가로 스크롤바 제거
 				overflow: "hidden",
 				zIndex: -100,
 				mb: 15,
