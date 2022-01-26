@@ -18,7 +18,8 @@
 		"paths": {
 			//절대경로 설정
 			"@components/*": ["components/*"],
-			"@layout/*": ["layout/*"]
+			"@layout/*": ["layout/*"],
+			"@lib/*": ["lib/*"]
 		}
 	},
 	"include": [

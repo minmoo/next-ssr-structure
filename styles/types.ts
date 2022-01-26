@@ -2,6 +2,7 @@ import { Theme } from "@mui/material";
 export const THEME = {
 	INDIGO: "indigo",
 	GREY: "grey",
+	MAIN: "main",
 } as const;
 
 export type TthemeKey = typeof THEME[keyof typeof THEME];

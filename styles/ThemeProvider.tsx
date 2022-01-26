@@ -5,15 +5,12 @@ import useLocalStorage from "../store/useLocalStorage";
 
 // export default useMemo(() => getMuiTheme(type), [type]);
 const MuiThemeProvider: React.FC = (props) => {
-	const [theme, _setTheme] = useLocalStorage<TthemeKey>(
-		"appTheme",
-		THEME.INDIGO,
-	);
+	const [theme, _setTheme] = useLocalStorage<TthemeKey>("appTheme", THEME.MAIN);
 	const [type, _setType] = useLocalStorage<TthemeType>("appThemeType", "light");
 
 	const currentTheme = Object.values(THEME).includes(theme)
 		? themeMap[theme](type)
-		: themeMap[THEME.INDIGO](type);
+		: themeMap[THEME.MAIN](type);
 
 	const respoonsiveTheme = responsiveFontSizes(currentTheme);
 	return (

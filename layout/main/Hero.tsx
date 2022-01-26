@@ -1,6 +1,9 @@
 import { ArrowDownward } from "@mui/icons-material";
-import { Grid, Typography } from "@mui/material";
+import { Button, Container, Grid, Paper, Typography } from "@mui/material";
 import Image from "next/image";
+import Hori from "./parallax/Hori";
+import Iphone from "./parallax/Iphone";
+import Test from "./parallax/Test";
 
 type HeroProps = {
 	imgSrc: string;
@@ -10,29 +13,32 @@ type HeroProps = {
 };
 const Hero = ({ imgSrc, imgAlt, title, subtitle }: HeroProps) => {
 	return (
-		<Grid
-			component="section"
-			container
+		<Paper
 			sx={{
 				position: "relative",
-				height: "100vh", //device 화면 전체
+				height: "300vh",
 				width: "100vw",
 				maxWidth: "100%", //가로 스크롤바 제거
-				overflow: "hidden",
 				zIndex: -100,
 				mb: 15,
+				overflowX: "hidden",
+				// backgroundColor: "blue",
 			}}
 		>
-			<Image src={imgSrc} alt={imgAlt} layout="fill" objectFit="cover" />
-			{/* 이미지에 필터를 적용한다 */}
-			<Grid
-				container
-				sx={{
-					position: "absolute",
-					inset: 0, // IMAGE 컨테이너 전체를 포함한다.
-					backgroundColor: "rgba(0,0,0,.7)",
-				}}
-			>
+			{/* <Hori />
+			<Test /> */}
+			<Grid component="section" container>
+				<Iphone />
+				{/* <Image src={imgSrc} alt={imgAlt} layout="fill" objectFit="cover" /> */}
+				{/* 이미지에 필터를 적용한다 */}
+				{/* <Grid
+					container
+					sx={{
+						position: "absolute",
+						inset: 0, // IMAGE 컨테이너 전체를 포함한다.
+						backgroundColor: "rgba(0,0,0,.7)",
+					}}
+				> */}
 				<Grid
 					container
 					item
@@ -71,7 +77,8 @@ const Hero = ({ imgSrc, imgAlt, title, subtitle }: HeroProps) => {
 					<ArrowDownward fontSize="large" color="secondary" />
 				</Grid>
 			</Grid>
-		</Grid>
+			{/* </Grid> */}
+		</Paper>
 	);
 };
 
