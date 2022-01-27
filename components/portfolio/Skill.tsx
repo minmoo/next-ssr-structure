@@ -11,7 +11,7 @@ import {
 	Typography,
 } from "@mui/material";
 import { useState } from "react";
-import portfolio, { Skill } from "@lib/data/portfolio";
+import portfolio, { TSkill } from "@lib/data/portfolio";
 
 const SkillPaper = styled("div")(({ theme }) => ({
 	backgroundColor: theme.palette.background.paper,
@@ -42,7 +42,7 @@ const Skill2 = () => {
 			acc[val.category] = [val];
 		}
 		return acc;
-	}, {} as { [index: string]: Array<Skill> });
+	}, {} as { [index: string]: Array<TSkill> });
 
 	return (
 		<Grid container spacing={2}>

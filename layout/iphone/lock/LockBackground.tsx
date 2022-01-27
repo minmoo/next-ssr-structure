@@ -1,8 +1,10 @@
-import { Box, Paper } from "@mui/material";
+import { Box } from "@mui/material";
 import Image from "next/image";
 import WifiIcon from "@mui/icons-material/Wifi";
 import { ParallaxWrapProps } from "../../../components/common/Parallax";
 import { useEffect, useRef } from "react";
+import IphonePaper from "../common/IphonePaper";
+import { PARALLAX } from "@lib/constants/base";
 
 const LockBackground = ({ callbackRef }: ParallaxWrapProps) => {
 	const bgRef = useRef<HTMLDivElement | null>(null);
@@ -18,10 +20,13 @@ const LockBackground = ({ callbackRef }: ParallaxWrapProps) => {
 		//100~300까지 filter 적용
 		const offset = window.scrollY;
 		if (bgRef.current) {
-			if (offset < 100) {
+			if (offset < PARALLAX.LOCK_PAPER[0]) {
 				bgRef.current.style.filter = "blur(0)";
-			} else if (offset >= 100 && offset < 300) {
-				const filterOffset = (offset - 100) / 40;
+			} else if (
+				offset >= PARALLAX.LOCK_PAPER[0] &&
+				offset < PARALLAX.LOCK_PAPER[1]
+			) {
+				const filterOffset = (offset - PARALLAX.LOCK_PAPER[0]) / 40;
 				bgRef.current.style.filter = `blur(${filterOffset}px)`;
 			} else {
 				bgRef.current.style.filter = `blur(5px)`;
@@ -30,20 +35,9 @@ const LockBackground = ({ callbackRef }: ParallaxWrapProps) => {
 	};
 
 	return (
-		<Paper //blur효과를 child 빼고 주기 위해서 사용
-			sx={{
-				// Paper들의 기본 가운데 정렬을 위해서
-				position: "absolute",
-				top: "0",
-				left: "50%",
-				p: "0 30px",
-				height: "100vh",
-				width: "100%",
-				minHeight: "560px",
-				willChange: "transform",
-				transition: "transform 300ms ease-in-out",
-			}}
-			style={{ transform: "translate(-50%, 0)" }}
+		<IphonePaper //blur효과를 child 빼고 주기 위해서 사용
+			transitionMs={200}
+			full
 			ref={(element) => {
 				bgRef.current = element;
 				callbackRef(element);
@@ -57,7 +51,7 @@ const LockBackground = ({ callbackRef }: ParallaxWrapProps) => {
 			<Box sx={{ position: "absolute", top: "5px", right: "35px" }}>
 				<Image src="/battery.png" height={20} width={50} />
 			</Box>
-		</Paper>
+		</IphonePaper>
 	);
 };
 

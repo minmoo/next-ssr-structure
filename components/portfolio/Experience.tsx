@@ -10,6 +10,7 @@ import FastfoodIcon from "@mui/icons-material/Fastfood";
 import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import HotelIcon from "@mui/icons-material/Hotel";
 import RepeatIcon from "@mui/icons-material/Repeat";
+import { COMPONENT_HEIGHT } from "@lib/constants/base";
 
 function CustomizedTimeline() {
 	return (
@@ -101,7 +102,7 @@ const Experience = () => {
 			sx={{
 				backgroundColor: "primary.main",
 				borderRadius: "20px",
-				height: "500px",
+				height: `${COMPONENT_HEIGHT.EXPERIENCE}px`,
 			}}
 		>
 			<Grid item lg={4}>

@@ -4,6 +4,7 @@ import ParallaxWrapper, {
 } from "@components/common/Parallax";
 import LockBackground from "./LockBackground";
 import LockContent from "./LockContent";
+import { PARALLAX } from "@lib/constants/base";
 
 const Lock = ({ callbackRef }: ParallaxWrapProps) => {
 	return (
@@ -28,9 +29,27 @@ const Lock = ({ callbackRef }: ParallaxWrapProps) => {
 	);
 };
 
-const PxLock = ParallaxWrapper(Lock, "spin", 0, 100, "1.8deg");
-const PxBackground = ParallaxWrapper(LockBackground, "up", 100, 300, "0.5%");
-const PxContent = ParallaxWrapper(LockContent, "up", 100, 300, "0.5%");
+const PxLock = ParallaxWrapper(
+	Lock,
+	"spin",
+	PARALLAX.LOCK_COMPONENT[0],
+	PARALLAX.LOCK_COMPONENT[1],
+	"1.8deg",
+);
+const PxBackground = ParallaxWrapper(
+	LockBackground,
+	"up",
+	PARALLAX.LOCK_PAPER[0],
+	PARALLAX.LOCK_PAPER[1],
+	"0.5%",
+);
+const PxContent = ParallaxWrapper(
+	LockContent,
+	"up",
+	PARALLAX.LOCK_PAPER[0],
+	PARALLAX.LOCK_PAPER[1],
+	"0.5%",
+);
 
 const LockPaper = () => {
 	return (

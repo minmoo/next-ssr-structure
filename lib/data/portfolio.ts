@@ -1,11 +1,50 @@
-export interface Skill {
+export interface TSkill {
 	category: string;
 	title: string;
 	icon: string;
 	proficient: number;
 }
 
+export interface TProject {
+	title: string;
+	desc: string;
+	image: string;
+	skills: string[];
+}
+
 export default {
+	projects: [
+		{
+			title: "Project1",
+			desc: "desc",
+			image: "/bg.jpg",
+			skills: ["react", "nextjs"],
+		},
+		{
+			title: "Project2",
+			desc: "desc",
+			image: "/bg.jpg",
+			skills: ["react", "nextjs"],
+		},
+		{
+			title: "Project3",
+			desc: "desc",
+			image: "/bg.jpg",
+			skills: ["react", "nextjs"],
+		},
+		{
+			title: "Project3",
+			desc: "desc",
+			image: "/bg.jpg",
+			skills: ["react", "nextjs"],
+		},
+		{
+			title: "Project3",
+			desc: "desc",
+			image: "/bg.jpg",
+			skills: ["react", "nextjs"],
+		},
+	],
 	skills: [
 		{
 			category: "Frontend",

@@ -1,9 +1,10 @@
-import { Box, Grid, Paper, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { MIN_ONE_VH } from "@lib/constants/base";
 import FlashIcon from "@mui/icons-material/FlashlightOn";
 import CameraIcon from "@mui/icons-material/CameraAlt";
 import ArrowDownIcon from "@mui/icons-material/ArrowDownwardRounded";
 import { ParallaxWrapProps } from "@components/common/Parallax";
+import IphonePaper from "../common/IphonePaper";
 
 interface LockContentProps extends ParallaxWrapProps {
 	children: JSX.Element;
@@ -14,22 +15,7 @@ const LockContent = ({
 	callbackRef,
 }: LockContentProps): JSX.Element => {
 	return (
-		<Paper
-			sx={{
-				position: "absolute",
-				top: "0",
-				left: "50%",
-				background: "rgba(0, 0, 0, 0)", //child를 제외하고 parent만 투명효과를 주기위해 사용
-				p: "0 30px",
-				height: "100vh",
-				width: "100%",
-				minHeight: "560px",
-				willChange: "transform",
-				transition: "transform 300ms ease-in-out",
-			}}
-			style={{ transform: "translate(-50%, 0)" }}
-			ref={callbackRef}
-		>
+		<IphonePaper full transparent transitionMs={200} ref={callbackRef}>
 			<Grid component="section" container height="100vh" pt="30px">
 				{/* LOCK  */}
 				<Grid
@@ -171,8 +157,8 @@ const LockContent = ({
 					flexDirection="column"
 					alignItems="center"
 					justifyContent="center"
-					height="5vh"
-					minHeight={MIN_ONE_VH * 5}
+					height="10vh"
+					minHeight={MIN_ONE_VH * 10}
 				>
 					<Grid
 						item
@@ -203,7 +189,7 @@ const LockContent = ({
 					</Grid>
 				</Grid>
 			</Grid>
-		</Paper>
+		</IphonePaper>
 	);
 };
 
