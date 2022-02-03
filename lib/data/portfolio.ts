@@ -33,13 +33,13 @@ export default {
 			skills: ["react", "nextjs"],
 		},
 		{
-			title: "Project3",
+			title: "Project4",
 			desc: "desc",
 			image: "/bg.jpg",
 			skills: ["react", "nextjs"],
 		},
 		{
-			title: "Project3",
+			title: "Project5",
 			desc: "desc",
 			image: "/bg.jpg",
 			skills: ["react", "nextjs"],

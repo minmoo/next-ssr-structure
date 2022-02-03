@@ -3,6 +3,7 @@ import portfolio from "@lib/data/portfolio";
 const base: { [key: string]: any } = {
 	MIN_PAPER_HEIGHT: "560px", //페이지 최소 크기 지원
 	MIN_ONE_VH: 5.6,
+	GAP: 100,
 };
 
 export const COMPONENT_HEIGHT = {
@@ -16,10 +17,11 @@ export const PARALLAX: { [key: string]: [number, number] } = {
 };
 
 PARALLAX.PROJECT_SLIDER = [
-	PARALLAX.LOCK_PAPER[1] + COMPONENT_HEIGHT.EXPERIENCE,
+	PARALLAX.LOCK_PAPER[1] + COMPONENT_HEIGHT.EXPERIENCE + base.GAP,
 	PARALLAX.LOCK_PAPER[1] +
 		COMPONENT_HEIGHT.EXPERIENCE +
+		base.GAP +
 		(portfolio.projects.length - 1) * 100,
 ];
 
-export const { MIN_PAPER_HEIGHT, MIN_ONE_VH } = base;
+export const { MIN_PAPER_HEIGHT, MIN_ONE_VH, GAP } = base;

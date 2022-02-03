@@ -16,7 +16,7 @@ const LockContent = ({
 }: LockContentProps): JSX.Element => {
 	return (
 		<IphonePaper full transparent transitionMs={200} ref={callbackRef}>
-			<Grid component="section" container height="100vh" pt="30px">
+			<Grid component="section" container height="100%" pt="30px">
 				{/* LOCK  */}
 				<Grid
 					item
@@ -24,8 +24,8 @@ const LockContent = ({
 					flexDirection="column"
 					justifyContent="center"
 					alignItems="center"
-					height="15vh"
-					minHeight={MIN_ONE_VH * 15}
+					height="20%"
+					// minHeight={MIN_ONE_VH * 15}
 				>
 					<Grid item>{children}</Grid>
 					<Grid item>
@@ -46,8 +46,8 @@ const LockContent = ({
 					flexDirection="column"
 					justifyContent="flex-start"
 					alignItems="center"
-					height="60vh"
-					minHeight={MIN_ONE_VH * 60}
+					height="55%"
+					// minHeight={MIN_ONE_VH * 60}
 				>
 					<Grid
 						item
@@ -104,8 +104,8 @@ const LockContent = ({
 					justifyContent="space-between"
 					// spacing={10}
 					// sx={{ height: "calc(100% - 100px)" }}
-					height="15vh"
-					minHeight={MIN_ONE_VH * 15}
+					height="15%"
+					// minHeight={MIN_ONE_VH * 15}
 				>
 					<Grid item pl="3vw">
 						<Box
@@ -157,8 +157,8 @@ const LockContent = ({
 					flexDirection="column"
 					alignItems="center"
 					justifyContent="center"
-					height="10vh"
-					minHeight={MIN_ONE_VH * 10}
+					height="10%"
+					// minHeight={MIN_ONE_VH * 10}
 				>
 					<Grid
 						item

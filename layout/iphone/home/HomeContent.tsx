@@ -6,9 +6,11 @@ import Project from "@components/portfolio/Project";
 import Skill2 from "@components/portfolio/Skill";
 import Tools from "@components/portfolio/Tools";
 import IphonePaper from "../common/IphonePaper";
-import portfolio from "@lib/data/portfolio";
-import { COMPONENT_HEIGHT, PARALLAX } from "@lib/constants/base";
+import { COMPONENT_HEIGHT, GAP, PARALLAX } from "@lib/constants/base";
 
+/**
+ * Parallax의 전체 페이지 스크롤을 만들어주기 위해 사용
+ */
 const DummyPortal = ({ height }: { height: string }) => {
 	return ReactDOM.createPortal(
 		<Box sx={{ height: { height }, width: "100px" }} />,
@@ -16,12 +18,11 @@ const DummyPortal = ({ height }: { height: string }) => {
 	);
 };
 
-const MainContent = (): JSX.Element => {
+const HomeContent = (): JSX.Element => {
 	const contentRef = useRef<HTMLDivElement>(null);
 	const [fade, setFade] = useState(false);
 	const [showPortal, setShowPortal] = useState(false);
 	const [portalHeight, setHeight] = useState("");
-	const projects = portfolio.projects;
 
 	useEffect(() => {
 		setShowPortal(true);
@@ -33,6 +34,17 @@ const MainContent = (): JSX.Element => {
 			window.removeEventListener("resize", handleResize);
 		};
 	}, []);
+
+	useEffect(() => {
+		if (fade) {
+			//scroll 막기
+			document.body.style.overflow = "hidden";
+			setTimeout(() => {
+				document.body.style.overflow = "auto";
+				window.scrollTo(0, 300);
+			}, 200);
+		}
+	}, [fade]);
 
 	const handleResize = () => {
 		// 300(페이지 넘기기) + 200(project 넘기기)
@@ -56,13 +68,15 @@ const MainContent = (): JSX.Element => {
 				contentRef.current.style.transform = "translate(-50%, 0)";
 			} else if (
 				offset >= PARALLAX.LOCK_PAPER[1] &&
-				offset < PARALLAX.LOCK_PAPER[1] + COMPONENT_HEIGHT.EXPERIENCE
+				offset < PARALLAX.LOCK_PAPER[1] + COMPONENT_HEIGHT.EXPERIENCE + GAP
 			) {
 				setFade(true);
 				const contentOffset = offset - PARALLAX.LOCK_PAPER[1];
 				contentRef.current.style.transform = `translate(-50%, -${contentOffset}px)`;
 			} else {
-				contentRef.current.style.transform = `translate(-50%, -500px)`;
+				contentRef.current.style.transform = `translate(-50%, -${
+					COMPONENT_HEIGHT.EXPERIENCE + GAP
+				}px)`;
 			}
 
 			if (offset >= PARALLAX.PROJECT_SLIDER[1]) {
@@ -84,17 +98,12 @@ const MainContent = (): JSX.Element => {
 					component="section"
 					container
 					pt="30px"
-					gap={"30px"}
+					gap={`${GAP}px`}
 					direction={"column"}
 				>
 					{/* 모든 항목들은 MIN HEIGHT 가 560PX - 위아래 패딩(30 + 30 ) -> 500PX */}
 					{/* 시작일 경우에만 스크롤 여유 공간으로 100PX 씩 준다 */}
-					{/* 각 항목마다 50PX 씩 여유공간 */}
-					{/* Experience 고정 500px height*/}
-					<Grid item>
-						<Box sx={{ height: "200px", backgroundColor: "red" }}></Box>
-					</Grid>
-
+					{/* 각 항목마다 100PX 씩 여유공간 */}
 					<Experience />
 
 					{/* PROJECT */}
@@ -110,4 +119,4 @@ const MainContent = (): JSX.Element => {
 	);
 };
 
-export default MainContent;
+export default HomeContent;
