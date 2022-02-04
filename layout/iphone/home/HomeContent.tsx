@@ -81,7 +81,7 @@ const HomeContent = (): JSX.Element => {
 				contentRef.current.style.transform = `translate(-50%, -${contentOffset}px)`;
 			} else {
 				contentRef.current.style.transform = `translate(-50%, -${
-					COMPONENT_HEIGHT.EXPERIENCE + GAP
+					COMPONENT_HEIGHT.EXPERIENCE + GAP + GAP / 2
 				}px)`;
 			}
 

@@ -17,7 +17,10 @@ export const PARALLAX: { [key: string]: [number, number] } = {
 };
 
 const projectStart =
-	PARALLAX.LOCK_PAPER[1] + COMPONENT_HEIGHT.EXPERIENCE + base.GAP;
+	PARALLAX.LOCK_PAPER[1] +
+	COMPONENT_HEIGHT.EXPERIENCE +
+	base.GAP +
+	base.GAP / 2;
 
 PARALLAX.PROJECT_SLIDER = [
 	projectStart,
