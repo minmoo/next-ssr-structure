@@ -4,6 +4,7 @@ import {
 	Box,
 	Grid,
 	LinearProgress,
+	LinearProgressProps,
 	List,
 	ListItem,
 	ListItemAvatar,
@@ -12,15 +13,19 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import portfolio, { TSkill } from "@lib/data/portfolio";
+import WidgetMulti from "@components/mui/grid/WidgetMulti";
+import { blueGrey, grey, indigo, lightGreen, lime } from "@mui/material/colors";
 
 const SkillPaper = styled("div")(({ theme }) => ({
 	backgroundColor: theme.palette.background.paper,
 }));
 
-const LinearProgressWithLabel = (props) => {
+const LinearProgressWithLabel = (
+	props: LinearProgressProps & { value: number },
+) => {
 	return (
 		<Box sx={{ display: "flex", alignItems: "center" }}>
-			<Box sx={{ width: "100%", mr: 1 }}>
+			<Box sx={{ width: "90%", mr: 1 }}>
 				<LinearProgress variant="buffer" {...props} />
 			</Box>
 			<Box sx={{ minWidth: 35 }}>
@@ -32,9 +37,7 @@ const LinearProgressWithLabel = (props) => {
 	);
 };
 
-const Skill2 = () => {
-	const [percent, setPercent] = useState(0);
-
+const Skill = () => {
 	const categorySkill = portfolio.skills.reduce((acc, val) => {
 		if (val.category in acc) {
 			acc[val.category].push(val);
@@ -45,46 +48,47 @@ const Skill2 = () => {
 	}, {} as { [index: string]: Array<TSkill> });
 
 	return (
-		<Grid container spacing={2}>
-			<Grid item md={12}>
-				<Typography variant="h2">My Skills</Typography>
-			</Grid>
-			{Object.entries(categorySkill).map(([key, value]) => (
-				<Grid item md={6} xs={12} key={key}>
-					<Typography
-						variant="h6"
-						component="div"
-						onClick={() => setPercent(70)}
-						onDoubleClick={() => setPercent(0)}
-					>
+		<WidgetMulti
+			title="My Skills"
+			primaryColor={blueGrey[700]}
+			secondaryColor={blueGrey[400]}
+			items={Object.entries(categorySkill).map(([key, value]) => (
+				<Box
+					sx={{
+						borderRadius: "20px",
+						bgcolor: blueGrey[200],
+						p: "10px",
+					}}
+					key={key}
+				>
+					<Typography variant="h6" component="div" color="chocolate">
 						{key}
 					</Typography>
-					<SkillPaper>
-						<List dense>
-							{value.map((skill) => (
-								<ListItem key={skill.icon}>
-									<ListItemAvatar>
-										<Avatar src={skill.icon} variant="square" />
-									</ListItemAvatar>
-									<ListItemText
-										primary={
-											<LinearProgressWithLabel
-												value={skill.proficient}
-												valueBuffer={0}
-												color="success"
-											/>
-										}
-										secondary={skill.title}
-										secondaryTypographyProps={{ color: "black" }}
-									/>
-								</ListItem>
-							))}
-						</List>
-					</SkillPaper>
-				</Grid>
+
+					<List dense>
+						{value.map((skill) => (
+							<ListItem key={skill.icon}>
+								<ListItemAvatar>
+									<Avatar src={skill.icon} variant="square" />
+								</ListItemAvatar>
+								<ListItemText
+									primary={
+										<LinearProgressWithLabel
+											value={skill.proficient}
+											valueBuffer={0}
+											color="success"
+										/>
+									}
+									secondary={skill.title}
+									secondaryTypographyProps={{ color: "black" }}
+								/>
+							</ListItem>
+						))}
+					</List>
+				</Box>
 			))}
-		</Grid>
+		/>
 	);
 };
 
-export default Skill2;
+export default Skill;

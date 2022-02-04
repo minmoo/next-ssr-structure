@@ -100,7 +100,7 @@ const Iphone = ({ children }: { children: React.ReactNode }) => {
 				</Box>
 			</Container>
 			{/* DUMMY 스크롤용으로 만들어야한다. */}
-			<div id="dummy"></div>
+			<Box id="dummy" sx={{ height: "100vh" }}></Box>
 		</Box>
 	);
 };

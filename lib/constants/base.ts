@@ -16,12 +16,23 @@ export const PARALLAX: { [key: string]: [number, number] } = {
 	LOCK_PAPER: [100, 300],
 };
 
+const projectStart =
+	PARALLAX.LOCK_PAPER[1] + COMPONENT_HEIGHT.EXPERIENCE + base.GAP;
+
 PARALLAX.PROJECT_SLIDER = [
-	PARALLAX.LOCK_PAPER[1] + COMPONENT_HEIGHT.EXPERIENCE + base.GAP,
-	PARALLAX.LOCK_PAPER[1] +
-		COMPONENT_HEIGHT.EXPERIENCE +
-		base.GAP +
-		(portfolio.projects.length - 1) * 100,
+	projectStart,
+	projectStart + (portfolio.projects.length - 1) * 100,
 ];
 
 export const { MIN_PAPER_HEIGHT, MIN_ONE_VH, GAP } = base;
+
+export const COLOR = {
+	PINK: "#ff2d55",
+	PURPLE: "#5856d6",
+	ORANGE: "#ff9500",
+	YELLOW: "#ffcc00",
+	RED: "#ff3b30",
+	TEALBLUE: "#5ac8fa",
+	BLUE: "#007aff",
+	GREEN: "#4cd964",
+};

@@ -1,13 +1,13 @@
-import MainBackground from "./HomeBackground";
-import MainContent from "./HomeContent";
+import HomeBackground from "./HomeBackground";
+import HomeContent from "./HomeContent";
 
-const MainPaper = () => {
+const HomePaper = () => {
 	return (
 		<>
-			<MainBackground />
-			<MainContent />
+			<HomeBackground />
+			<HomeContent />
 		</>
 	);
 };
 
-export default MainPaper;
+export default HomePaper;

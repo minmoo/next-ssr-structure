@@ -5,9 +5,13 @@ import { ParallaxWrapProps } from "../../../components/common/Parallax";
 import { useEffect, useRef } from "react";
 import IphonePaper from "../common/IphonePaper";
 import { PARALLAX } from "@lib/constants/base";
+import lockBackgroundImage from "@public/bg.jpg";
+import { useDispatch } from "react-redux";
+import { actions } from "store/iphone";
 
 const LockBackground = ({ callbackRef }: ParallaxWrapProps) => {
 	const bgRef = useRef<HTMLDivElement | null>(null);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		document.addEventListener("scroll", handleScroll);
@@ -43,7 +47,16 @@ const LockBackground = ({ callbackRef }: ParallaxWrapProps) => {
 				callbackRef(element);
 			}}
 		>
-			<Image src="/bg.jpg" layout="fill" objectFit="cover" />
+			<Image
+				src={lockBackgroundImage}
+				layout="fill"
+				objectFit="cover"
+				priority
+				placeholder="blur"
+				onLoadingComplete={(e) => {
+					dispatch(actions.setLoading(false));
+				}}
+			/>
 			<Box sx={{ position: "absolute", top: "5px", right: "100px" }}>
 				<WifiIcon fontSize="medium" sx={{ color: "white" }} />
 			</Box>

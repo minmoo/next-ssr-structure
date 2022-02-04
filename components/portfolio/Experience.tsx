@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
 import Timeline from "@mui/lab/Timeline";
 import TimelineItem from "@mui/lab/TimelineItem";
 import TimelineSeparator from "@mui/lab/TimelineSeparator";
@@ -11,109 +11,75 @@ import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import HotelIcon from "@mui/icons-material/Hotel";
 import RepeatIcon from "@mui/icons-material/Repeat";
 import { COMPONENT_HEIGHT, GAP } from "@lib/constants/base";
+import portfolio from "@lib/data/portfolio";
+import Image from "next/image";
+import WidgetBase from "@components/mui/grid/WidgetBase";
+import { blueGrey, deepPurple } from "@mui/material/colors";
 
 function CustomizedTimeline() {
+	const experienceSize = portfolio.experience.length;
 	return (
 		<Timeline position="alternate">
-			<TimelineItem>
-				<TimelineOppositeContent
-					sx={{ m: "auto 0" }}
-					align="right"
-					variant="body2"
-					color="text.secondary"
+			{portfolio.experience.map((item, idx) => (
+				<TimelineItem
+					key={item.role}
+					sx={{
+						minHeight: {
+							lg: `${450 / experienceSize}px`,
+							md: `${400 / experienceSize}px`,
+						},
+					}}
 				>
-					9:30 am
-				</TimelineOppositeContent>
-				<TimelineSeparator>
-					<TimelineConnector />
-					<TimelineDot>
-						<FastfoodIcon />
-					</TimelineDot>
-					<TimelineConnector />
-				</TimelineSeparator>
-				<TimelineContent sx={{ py: "12px", px: 2 }}>
-					<Typography variant="h6" component="span">
-						Eat
-					</Typography>
-					<Typography>Because you need strength</Typography>
-				</TimelineContent>
-			</TimelineItem>
-			<TimelineItem>
-				<TimelineOppositeContent
-					sx={{ m: "auto 0" }}
-					variant="body2"
-					color="text.secondary"
-				>
-					10:00 am
-				</TimelineOppositeContent>
-				<TimelineSeparator>
-					<TimelineConnector />
-					<TimelineDot color="primary">
-						<LaptopMacIcon />
-					</TimelineDot>
-					<TimelineConnector />
-				</TimelineSeparator>
-				<TimelineContent sx={{ py: "12px", px: 2 }}>
-					<Typography variant="h6" component="span">
-						Code
-					</Typography>
-					<Typography>Because it&apos;s awesome!</Typography>
-				</TimelineContent>
-			</TimelineItem>
-			<TimelineItem>
-				<TimelineSeparator>
-					<TimelineConnector />
-					<TimelineDot color="primary" variant="outlined">
-						<HotelIcon />
-					</TimelineDot>
-					<TimelineConnector sx={{ bgcolor: "secondary.main" }} />
-				</TimelineSeparator>
-				<TimelineContent sx={{ py: "12px", px: 2 }}>
-					<Typography variant="h6" component="span">
-						Sleep
-					</Typography>
-					<Typography>Because you need rest</Typography>
-				</TimelineContent>
-			</TimelineItem>
-			<TimelineItem>
-				<TimelineSeparator>
-					<TimelineConnector sx={{ bgcolor: "secondary.main" }} />
-					<TimelineDot color="secondary">
-						<RepeatIcon />
-					</TimelineDot>
-					<TimelineConnector />
-				</TimelineSeparator>
-				<TimelineContent sx={{ py: "12px", px: 2 }}>
-					<Typography variant="h6" component="span">
-						Repeat
-					</Typography>
-					<Typography>Because this is the life you love!</Typography>
-				</TimelineContent>
-			</TimelineItem>
+					<TimelineOppositeContent
+						sx={{ m: "auto 0" }}
+						align={idx % 2 === 0 ? "right" : "left"}
+						variant="body2"
+						color="white"
+					>
+						{`${item.period[0]} ~ ${item.period[1]}`}
+					</TimelineOppositeContent>
+					<TimelineSeparator>
+						<TimelineConnector sx={{ bgcolor: "primary.main" }} />
+						<Avatar
+							src={item.image}
+							variant="rounded"
+							sx={{
+								width: {
+									lg: `${((450 / experienceSize) * 2) / 3}px`,
+									md: `${((370 / experienceSize) * 2) / 3}px`,
+								},
+								height: {
+									lg: `${((450 / experienceSize) * 2) / 3}px`,
+									md: `${((370 / experienceSize) * 2) / 3}px`,
+								},
+								my: "10px",
+							}}
+						/>
+						<TimelineConnector sx={{ bgcolor: "primary.main" }} />
+					</TimelineSeparator>
+					<TimelineContent sx={{ py: "12px", px: 2 }}>
+						<Typography variant="h6" component="span" color="secondary">
+							{item.company}
+						</Typography>
+						<Typography color="text.primary">{item.role}</Typography>
+					</TimelineContent>
+				</TimelineItem>
+			))}
 		</Timeline>
 	);
 }
 
 const Experience = () => {
 	return (
-		<Grid
-			container
-			direction="row"
-			sx={{
-				backgroundColor: "primary.main",
-				borderRadius: "20px",
-				height: `${COMPONENT_HEIGHT.EXPERIENCE}px`,
-				mt: `${GAP}px`,
-			}}
+		<WidgetBase
+			title="Experience"
+			subTitle="subtitle"
+			primaryColor={deepPurple[700]}
+			secondaryColor={deepPurple[400]}
+			sx={{ height: `${COMPONENT_HEIGHT.EXPERIENCE}px`, mt: `${GAP}px` }}
 		>
-			<Grid item lg={4}>
-				<Typography variant="h2">Experience</Typography>
-			</Grid>
-
-			<Grid item lg={8}>
-				<CustomizedTimeline />
-			</Grid>
-		</Grid>
+			<CustomizedTimeline />
+		</WidgetBase>
 	);
 };
 

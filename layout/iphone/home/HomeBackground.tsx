@@ -2,11 +2,17 @@ import { Box } from "@mui/material";
 import Image from "next/image";
 import WifiIcon from "@mui/icons-material/Wifi";
 import IphonePaper from "../common/IphonePaper";
+import homeBackgroundImage from "@public/bg4.jpg";
 
 const HomeBackground = () => {
 	return (
 		<IphonePaper full>
-			<Image src="/bg4.jpg" layout="fill" objectFit="cover" />
+			<Image
+				src={homeBackgroundImage}
+				layout="fill"
+				objectFit="cover"
+				priority
+			/>
 			<Box sx={{ position: "absolute", top: "5px", right: "100px" }}>
 				<WifiIcon fontSize="medium" sx={{ color: "white" }} />
 			</Box>

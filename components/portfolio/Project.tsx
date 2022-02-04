@@ -6,6 +6,7 @@ import {
 	CardActions,
 	CardContent,
 	CardMedia,
+	Chip,
 	Divider,
 	Grid,
 	Typography,
@@ -15,6 +16,8 @@ import ParallaxWrapper, {
 } from "@components/common/Parallax";
 import portfolio, { TProject } from "@lib/data/portfolio";
 import { PARALLAX } from "@lib/constants/base";
+import WidgetBase from "@components/mui/grid/WidgetBase";
+import { brown } from "@mui/material/colors";
 
 interface SliderProps extends ParallaxWrapProps {
 	projects: TProject[];
@@ -25,11 +28,14 @@ const Slider = ({ callbackRef, projects }: SliderProps) => {
 		<Box //slider
 			sx={{
 				position: "relative",
+				top: "50%",
 				width: "100%",
-				height: "400px",
+				height: "380px",
 				cursor: "all-scroll",
 				userSelect: "none",
+				mt: "10px",
 			}}
+			style={{ transform: "translate(0, -50%)" }}
 			ref={callbackRef}
 		>
 			{projects.map((project, idx) => (
@@ -43,6 +49,7 @@ const Slider = ({ callbackRef, projects }: SliderProps) => {
 						willChange: "transform",
 						transform: "translate3d(0,0,0)",
 						overflow: "visible",
+						borderRadius: "20px",
 					}}
 					key={project.title}
 				>
@@ -58,11 +65,11 @@ const Slider = ({ callbackRef, projects }: SliderProps) => {
 								bottom: "20px",
 								left: "50%",
 								transform: "translate(-50%, 0)",
-								borderRadius: "4px",
+								borderRadius: "20px",
 							}}
 						/>
 						<CardContent
-							sx={{ pt: "0px", height: "150px", overflow: "hidden" }}
+							sx={{ pt: "0px", height: "130px", overflow: "hidden" }}
 						>
 							<Typography gutterBottom variant="h5" component="div">
 								{project.title}
@@ -75,7 +82,13 @@ const Slider = ({ callbackRef, projects }: SliderProps) => {
 						<Divider variant="middle" />
 						<CardActions>
 							{project.skills.map((skill, idx) => (
-								<Avatar src={`/icon/${skill}.png`} variant="square" key={idx} />
+								<Chip
+									key={idx}
+									label={skill}
+									avatar={
+										<Avatar src={`/icon/${skill}.png`} variant="square" />
+									}
+								/>
 							))}
 						</CardActions>
 					</CardActionArea>
@@ -96,19 +109,17 @@ const Project = () => {
 	); // 카드의 넓이가 60%이기때문에 60% + 10%(공백)씩 이동
 
 	return (
-		<Grid container direction="row" sx={{ height: "500px" }}>
-			<Grid item lg={4}>
-				<Typography variant="h1">PROJECT</Typography>
-			</Grid>
-
-			<Grid
-				item
-				lg={8}
-				sx={{ flexBasis: "100%", overflow: "hidden", pt: "20px" }}
-			>
+		<WidgetBase
+			title="Project"
+			subTitle="subtitle"
+			primaryColor={brown[700]}
+			secondaryColor={brown[400]}
+			sx={{ height: "500px" }}
+		>
+			<div style={{ overflow: "hidden", height: "100%" }}>
 				<PxSlider projects={projects} />
-			</Grid>
-		</Grid>
+			</div>
+		</WidgetBase>
 	);
 };
 

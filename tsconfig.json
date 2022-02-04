@@ -19,7 +19,8 @@
 			//절대경로 설정
 			"@components/*": ["components/*"],
 			"@layout/*": ["layout/*"],
-			"@lib/*": ["lib/*"]
+			"@lib/*": ["lib/*"],
+			"@public/*": ["public/*"]
 		}
 	},
 	"include": [

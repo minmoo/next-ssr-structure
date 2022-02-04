@@ -13,6 +13,26 @@ export interface TProject {
 }
 
 export default {
+	experience: [
+		{
+			company: "SSG.com",
+			period: ["2016.07", "2019.04"],
+			role: "배송(TMS) 및 관제 개발 및 운영",
+			image: "/icon/ssg.png",
+		},
+		{
+			company: "SSG.com",
+			period: ["2019.04", "2021.07"],
+			role: "AI 서비스 개발 및 운영",
+			image: "/icon/ssg.png",
+		},
+		{
+			company: "ZIGBANG",
+			period: ["2021.07", "ing"],
+			role: "호갱노노 서비스 Frontend 개발 및 운영",
+			image: "/icon/zigbang.png",
+		},
+	],
 	projects: [
 		{
 			title: "Project1",
@@ -111,6 +131,40 @@ export default {
 			title: "TensorFlow",
 			icon: "/icon/tensorflow.png",
 			proficient: 70, //0~100
+		},
+	],
+	tools: [
+		{
+			title: "Git",
+			icon: "/icon/git.png",
+		},
+		{
+			title: "Gitlab",
+			icon: "/icon/gitlab.png",
+		},
+		{
+			title: "Docker",
+			icon: "/icon/docker.png",
+		},
+		{
+			title: "Jenkins",
+			icon: "/icon/jenkins.png",
+		},
+		{
+			title: "Airflow",
+			icon: "/icon/airflow.png",
+		},
+		{
+			title: "AWS",
+			icon: "/icon/aws.png",
+		},
+		{
+			title: "Azure",
+			icon: "/icon/azure.png",
+		},
+		{
+			title: "Cordova",
+			icon: "/icon/cordova.png",
 		},
 	],
 };
