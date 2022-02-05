@@ -16,7 +16,7 @@ const Tool = () => {
 					sx={{ borderRadius: "20px", backgroundColor: orange[200], p: "15px" }}
 					key={idx}
 				>
-					<Box sx={{ position: "relative", height: "70px" }}>
+					<Box sx={{ position: "relative", height: "50px" }}>
 						<Image
 							src={tool.icon}
 							blurDataURL={tool.icon}

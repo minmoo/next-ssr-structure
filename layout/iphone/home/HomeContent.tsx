@@ -3,10 +3,11 @@ import ReactDOM from "react-dom";
 import { useEffect, useRef, useState } from "react";
 import Experience from "@components/portfolio/Experience";
 import Project from "@components/portfolio/Project";
-import Skill2 from "@components/portfolio/Skill";
+import Skill from "@components/portfolio/Skill";
 import Tools from "@components/portfolio/Tool";
 import IphonePaper from "../common/IphonePaper";
 import { COMPONENT_HEIGHT, GAP, PARALLAX } from "@lib/constants/base";
+import Contact from "@components/portfolio/Contact";
 
 /**
  * Parallax의 전체 페이지 스크롤을 만들어주기 위해 사용
@@ -116,15 +117,13 @@ const HomeContent = (): JSX.Element => {
 					{/* 각 항목마다 100PX 씩 여유공간 */}
 					<Experience />
 
-					{/* PROJECT */}
 					<Project />
-					{/* SKILL */}
-					<Skill2 />
 
-					{/* Tools */}
+					<Skill />
+
 					<Tools />
 
-					<Box sx={{ height: "100px" }}></Box>
+					<Contact />
 				</Grid>
 			</Slide>
 		</IphonePaper>
