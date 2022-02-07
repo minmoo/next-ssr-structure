@@ -2,7 +2,6 @@ import { styled } from "@mui/material/styles";
 import {
 	Avatar,
 	Box,
-	Grid,
 	LinearProgress,
 	LinearProgressProps,
 	List,
@@ -11,14 +10,10 @@ import {
 	ListItemText,
 	Typography,
 } from "@mui/material";
-import { useState } from "react";
 import portfolio, { TSkill } from "@lib/data/portfolio";
 import WidgetMulti from "@components/mui/grid/WidgetMulti";
 import { blueGrey, grey, indigo, lightGreen, lime } from "@mui/material/colors";
-
-const SkillPaper = styled("div")(({ theme }) => ({
-	backgroundColor: theme.palette.background.paper,
-}));
+import { useSkills } from "@lib/query/portfolio/skill";
 
 const LinearProgressWithLabel = (
 	props: LinearProgressProps & { value: number },
@@ -38,7 +33,14 @@ const LinearProgressWithLabel = (
 };
 
 const Skill = () => {
-	const categorySkill = portfolio.skills.reduce((acc, val) => {
+	const {
+		isLoading,
+		error,
+		data: skills,
+	} = useSkills({
+		staleTime: 1000 * 60,
+	});
+	const categorySkill = skills?.reduce((acc, val) => {
 		if (val.category in acc) {
 			acc[val.category].push(val);
 		} else {
@@ -46,6 +48,10 @@ const Skill = () => {
 		}
 		return acc;
 	}, {} as { [index: string]: Array<TSkill> });
+
+	if (isLoading) {
+		return <></>;
+	}
 
 	return (
 		<WidgetMulti

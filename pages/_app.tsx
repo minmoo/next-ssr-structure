@@ -13,6 +13,9 @@ import Router from "next/router";
 import createEmotionCache from "styles/createEmotionCache";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
+import { useState } from "react";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -36,19 +39,27 @@ const MyApp: React.FunctionComponent<MyAppProps> = ({
 	// Apollo (SSG, SSR)
 	const apolloClient = useApollo(pageProps);
 
+	// React Query
+	const [queryClient] = useState(() => new QueryClient());
+
 	const AdminLayout = router.pathname.startsWith("/admin/") ? Admin : Fragment;
 	const Layout = Component.layout || AdminLayout;
 
 	const Common = (
-		<ApolloProvider client={apolloClient}>
-			<ThemeProvider>
-				{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-				<CssBaseline />
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
-			</ThemeProvider>
-		</ApolloProvider>
+		<QueryClientProvider client={queryClient}>
+			<Hydrate state={pageProps.dehydratedState}>
+				<ReactQueryDevtools initialIsOpen={false} />
+				<ApolloProvider client={apolloClient}>
+					<ThemeProvider>
+						{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+						<CssBaseline />
+						<Layout>
+							<Component {...pageProps} />
+						</Layout>
+					</ThemeProvider>
+				</ApolloProvider>
+			</Hydrate>
+		</QueryClientProvider>
 	);
 	return (
 		<CacheProvider value={emotionCache}>

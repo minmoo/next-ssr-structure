@@ -8,6 +8,7 @@ import Tools from "@components/portfolio/Tool";
 import IphonePaper from "../common/IphonePaper";
 import { COMPONENT_HEIGHT, GAP, PARALLAX } from "@lib/constants/base";
 import Contact from "@components/portfolio/Contact";
+import useResizeObserver from "@lib/hooks/useObserver";
 
 /**
  * Parallax의 전체 페이지 스크롤을 만들어주기 위해 사용
@@ -29,16 +30,13 @@ const HomeContent = (): JSX.Element => {
 
 	useEffect(() => {
 		setShowPortal(true);
-		handleResize();
 		//scroll 맨위로 이동
 		setTimeout(() => {
 			window.scrollTo(0, 0);
 		}, 500);
-		window.addEventListener("resize", handleResize);
 		document.addEventListener("scroll", handleScroll);
 		return () => {
 			document.removeEventListener("scroll", handleScroll);
-			window.removeEventListener("resize", handleResize);
 		};
 	}, []);
 
@@ -53,18 +51,21 @@ const HomeContent = (): JSX.Element => {
 		}
 	}, [fade]);
 
-	const handleResize = () => {
-		// 300(페이지 넘기기) + 200(project 넘기기)
-		if (contentRef.current) {
-			setHeight(
-				`${
-					contentRef.current.clientHeight +
-					PARALLAX.LOCK_PAPER[1] +
-					(PARALLAX.PROJECT_SLIDER[1] - PARALLAX.PROJECT_SLIDER[0])
-				}px`,
-			);
-		}
-	};
+	useResizeObserver({
+		callback: () => {
+			// 300(페이지 넘기기) + 200(project 넘기기)
+			if (contentRef.current) {
+				setHeight(
+					`${
+						contentRef.current.clientHeight +
+						PARALLAX.LOCK_PAPER[1] +
+						(PARALLAX.PROJECT_SLIDER[1] - PARALLAX.PROJECT_SLIDER[0])
+					}px`,
+				);
+			}
+		},
+		element: contentRef,
+	});
 
 	const handleScroll = () => {
 		const offset = window.scrollY;

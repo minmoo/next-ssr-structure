@@ -1,10 +1,21 @@
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { orange } from "@mui/material/colors";
 import WidgetMulti from "@components/mui/grid/WidgetMulti";
-import portfolio from "@lib/data/portfolio";
 import Image from "next/image";
+import { useTools } from "@lib/query/portfolio/tool";
 const Tool = () => {
-	const tools = portfolio.tools;
+	const {
+		isLoading,
+		error,
+		data: tools,
+	} = useTools({
+		staleTime: 1000 * 60,
+	});
+
+	if (isLoading) {
+		return <></>;
+	}
+
 	return (
 		<WidgetMulti
 			title="Tools I Use"

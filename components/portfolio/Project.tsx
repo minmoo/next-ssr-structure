@@ -14,16 +14,17 @@ import {
 import ParallaxWrapper, {
 	ParallaxWrapProps,
 } from "@components/common/Parallax";
-import portfolio, { TProject } from "@lib/data/portfolio";
+import { TProject } from "@lib/data/portfolio";
 import { PARALLAX } from "@lib/constants/base";
 import WidgetBase from "@components/mui/grid/WidgetBase";
 import { brown } from "@mui/material/colors";
+import { useProjects } from "@lib/query/portfolio/project";
 
 interface SliderProps extends ParallaxWrapProps {
 	projects: TProject[];
 }
 
-const Slider = ({ callbackRef, projects }: SliderProps) => {
+const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
 	return (
 		<Box //slider
 			sx={{
@@ -99,7 +100,13 @@ const Slider = ({ callbackRef, projects }: SliderProps) => {
 };
 
 const Project = () => {
-	const projects = portfolio.projects;
+	const {
+		isLoading,
+		error,
+		data: projects,
+	} = useProjects({
+		staleTime: 1000 * 60,
+	});
 	const PxSlider = ParallaxWrapper(
 		Slider,
 		"right",
@@ -116,9 +123,11 @@ const Project = () => {
 			secondaryColor={brown[400]}
 			sx={{ height: "500px" }}
 		>
-			<div style={{ overflow: "hidden", height: "100%" }}>
-				<PxSlider projects={projects} />
-			</div>
+			{!isLoading && (
+				<div style={{ overflow: "hidden", height: "100%" }}>
+					<PxSlider projects={projects} />
+				</div>
+			)}
 		</WidgetBase>
 	);
 };
