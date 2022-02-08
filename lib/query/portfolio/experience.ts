@@ -1,4 +1,5 @@
 import axios from "@lib/api";
+import { ModelExperience } from "@models/experience";
 import {
 	QueryFunctionContext,
 	useQuery,
@@ -22,8 +23,10 @@ const keys = {
 const fetch = async ({
 	queryKey: [{ sorting }],
 }: QueryFunctionContext<ReturnType<typeof keys["list"]>>) => {
-	const response = await axios.get(`/api/portfolio/${KEY}?sorting=${sorting}`);
-	return response.data.result;
+	const response = await axios.get<ModelExperience[]>(
+		`/api/portfolio/${KEY}?sorting=${sorting}`,
+	);
+	return response.data;
 };
 
 export const useExperiences = (options: any) => {

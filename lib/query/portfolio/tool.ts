@@ -1,4 +1,5 @@
 import axios from "@lib/api";
+import { ModelTool } from "@models/tool";
 import { QueryClient, QueryFunctionContext, useQuery } from "react-query";
 
 const KEY = "tool";
@@ -12,8 +13,10 @@ const keys = {
 const fetch = async ({
 	queryKey: [{ sorting }],
 }: QueryFunctionContext<ReturnType<typeof keys["list"]>>) => {
-	const response = await axios.get(`/api/portfolio/${KEY}?sorting=${sorting}`);
-	return response.data.result;
+	const response = await axios.get<ModelTool[]>(
+		`/api/portfolio/${KEY}?sorting=${sorting}`,
+	);
+	return response.data;
 };
 
 export const useTools = (options: any) => {

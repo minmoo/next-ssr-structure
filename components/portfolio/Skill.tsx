@@ -11,9 +11,10 @@ import {
 	Typography,
 } from "@mui/material";
 import portfolio, { TSkill } from "@lib/data/portfolio";
-import WidgetMulti from "@components/mui/grid/WidgetMulti";
+import WidgetMulti from "@components/mui/widget/WidgetMulti";
 import { blueGrey, grey, indigo, lightGreen, lime } from "@mui/material/colors";
 import { useSkills } from "@lib/query/portfolio/skill";
+import { ModelSkill } from "@models/skill";
 
 const LinearProgressWithLabel = (
 	props: LinearProgressProps & { value: number },
@@ -40,14 +41,15 @@ const Skill = () => {
 	} = useSkills({
 		staleTime: 1000 * 60,
 	});
-	const categorySkill = skills?.reduce((acc, val) => {
-		if (val.category in acc) {
-			acc[val.category].push(val);
-		} else {
-			acc[val.category] = [val];
-		}
-		return acc;
-	}, {} as { [index: string]: Array<TSkill> });
+	const categorySkill =
+		skills?.reduce((acc, val) => {
+			if (val.category in acc) {
+				acc[val.category].push(val);
+			} else {
+				acc[val.category] = [val];
+			}
+			return acc;
+		}, {} as { [index: string]: Array<ModelSkill> }) ?? {};
 
 	if (isLoading) {
 		return <></>;

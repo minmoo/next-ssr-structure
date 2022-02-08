@@ -1,4 +1,5 @@
 import axios from "@lib/api";
+import { ModelSkill } from "@models/skill";
 import { QueryClient, QueryFunctionContext, useQuery } from "react-query";
 
 const KEY = "skill";
@@ -12,8 +13,10 @@ const keys = {
 const fetch = async ({
 	queryKey: [{ sorting }],
 }: QueryFunctionContext<ReturnType<typeof keys["list"]>>) => {
-	const response = await axios.get(`/api/portfolio/${KEY}?sorting=${sorting}`);
-	return response.data.result;
+	const response = await axios.get<ModelSkill[]>(
+		`/api/portfolio/${KEY}?sorting=${sorting}`,
+	);
+	return response.data;
 };
 
 export const useSkills = (options: any) => {

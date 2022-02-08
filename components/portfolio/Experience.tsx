@@ -7,7 +7,7 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import { COMPONENT_HEIGHT, GAP } from "@lib/constants/base";
 import Image from "next/image";
-import WidgetBase from "@components/mui/grid/WidgetBase";
+import WidgetBase from "@components/mui/widget/WidgetBase";
 import { blueGrey, deepPurple } from "@mui/material/colors";
 import { useEffect, useState } from "react";
 import axios from "@lib/api";
@@ -21,13 +21,12 @@ function CustomizedTimeline() {
 	} = useExperiences({
 		staleTime: 1000 * 60,
 	});
-	const experienceSize = experiences.length;
-	console.log(experiences);
+	const experienceSize = experiences?.length ?? 0;
 
 	return (
 		<Timeline position="alternate">
 			{!isLoading &&
-				experiences.map((item, idx) => (
+				experiences?.map((item, idx) => (
 					<TimelineItem
 						key={item.role}
 						sx={{

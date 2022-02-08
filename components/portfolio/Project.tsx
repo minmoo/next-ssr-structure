@@ -16,7 +16,7 @@ import ParallaxWrapper, {
 } from "@components/common/Parallax";
 import { TProject } from "@lib/data/portfolio";
 import { PARALLAX } from "@lib/constants/base";
-import WidgetBase from "@components/mui/grid/WidgetBase";
+import WidgetBase from "@components/mui/widget/WidgetBase";
 import { brown } from "@mui/material/colors";
 import { useProjects } from "@lib/query/portfolio/project";
 

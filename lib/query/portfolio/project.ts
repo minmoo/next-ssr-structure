@@ -1,4 +1,5 @@
 import axios from "@lib/api";
+import { ModelProject } from "@models/project";
 import { QueryClient, QueryFunctionContext, useQuery } from "react-query";
 
 const KEY = "project";
@@ -12,8 +13,10 @@ const keys = {
 const fetch = async ({
 	queryKey: [{ sorting }],
 }: QueryFunctionContext<ReturnType<typeof keys["list"]>>) => {
-	const response = await axios.get(`/api/portfolio/${KEY}?sorting=${sorting}`);
-	return response.data.result;
+	const response = await axios.get<ModelProject[]>(
+		`/api/portfolio/${KEY}?sorting=${sorting}`,
+	);
+	return response.data;
 };
 
 export const useProjects = (options: any) => {

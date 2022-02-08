@@ -20,14 +20,10 @@
 			"@components/*": ["components/*"],
 			"@layout/*": ["layout/*"],
 			"@lib/*": ["lib/*"],
-			"@public/*": ["public/*"]
+			"@public/*": ["public/*"],
+			"@models/*": ["models/*"]
 		}
 	},
-	"include": [
-		"next-env.d.ts",
-		"**/*.ts",
-		"**/*.tsx",
-		"pages/vegetable/test.js"
-	],
+	"include": ["next-env.d.ts", "additional.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]
 }

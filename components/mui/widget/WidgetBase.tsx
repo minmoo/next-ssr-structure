@@ -35,7 +35,7 @@ const WidgetBase = ({
 				direction="column"
 				justifyContent="center"
 				alignItems="center"
-				md={4}
+				md={3}
 				xs={12}
 				sx={{
 					...(primaryColor && {
@@ -58,7 +58,7 @@ const WidgetBase = ({
 			{/* content */}
 			<Grid
 				item
-				md={8}
+				md={9}
 				xs={12}
 				sx={{
 					...(secondaryColor && {
