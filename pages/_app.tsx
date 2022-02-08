@@ -40,7 +40,16 @@ const MyApp: React.FunctionComponent<MyAppProps> = ({
 	const apolloClient = useApollo(pageProps);
 
 	// React Query
-	const [queryClient] = useState(() => new QueryClient());
+	const [queryClient] = useState(
+		() =>
+			new QueryClient({
+				defaultOptions: {
+					queries: {
+						staleTime: 5000, //5초 동안 query 유지
+					},
+				},
+			}),
+	);
 
 	const AdminLayout = router.pathname.startsWith("/admin/") ? Admin : Fragment;
 	const Layout = Component.layout || AdminLayout;

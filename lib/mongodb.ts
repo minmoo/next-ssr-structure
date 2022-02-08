@@ -1,4 +1,5 @@
 /*
+import * as mongoDB from "mongodb";
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_DB = process.env.DB_NAME;
 
@@ -30,7 +31,7 @@ export async function connectToDatabase() {
 	};
 
 	// Connect to cluster
-	const client = new MongoClient(MONGODB_URI as string, options as any);
+	const client = new mongoDB.MongoClient(MONGODB_URI as string, options as any);
 	await client.connect();
 	const db = client.db(MONGODB_DB);
 
@@ -44,3 +45,4 @@ export async function connectToDatabase() {
 	};
 }
 */
+export {};
