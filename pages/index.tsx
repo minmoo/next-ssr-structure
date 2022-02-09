@@ -1,5 +1,5 @@
-import Main from "@layout/main";
-import Hero from "@layout/main/Hero";
+import Main from "@/layout/main";
+import Hero from "@/layout/main/Hero";
 import { Page } from "types/page";
 
 const Home: Page = () => {

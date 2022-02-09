@@ -1,4 +1,4 @@
-import Iphone from "@layout/main/parallax/Iphone";
+import Iphone from "@/layout/main/parallax/Iphone";
 import { Page } from "types/page";
 
 const Test: Page = () => {

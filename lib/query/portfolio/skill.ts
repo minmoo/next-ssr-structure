@@ -1,5 +1,5 @@
-import axios from "@lib/api";
-import { ModelSkill } from "@models/skill";
+import axios from "@/lib/api";
+import { ModelSkill } from "@/models/skill";
 import { QueryClient, QueryFunctionContext, useQuery } from "react-query";
 
 const KEY = "skill";

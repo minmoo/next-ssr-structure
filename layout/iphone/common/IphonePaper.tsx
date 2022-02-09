@@ -1,5 +1,5 @@
 import { Paper, styled, PaperProps } from "@mui/material";
-import { MIN_PAPER_HEIGHT } from "@lib/constants/base";
+import { MIN_PAPER_HEIGHT } from "@/lib/constants/base";
 import { forwardRef } from "react";
 
 interface IphonePaperProps {

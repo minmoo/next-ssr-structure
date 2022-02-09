@@ -3,7 +3,7 @@
 	/page/[...slug].js will match with routes like /page/1/2, but not /page/
 	/page/[[...slug]].js will match with routes like /page/1/2 and /page/
 */
-import dbConnect from "@lib/dbConnect";
+import dbConnect from "@/lib/dbConnect";
 import { NextApiRequest, NextApiResponse } from "next";
 import Experience from "models/experience";
 import Project from "models/project";

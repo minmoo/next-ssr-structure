@@ -1,4 +1,4 @@
-import portfolio from "@lib/data/portfolio";
+import portfolio from "@/lib/data/portfolio";
 
 const base: { [key: string]: any } = {
 	MIN_PAPER_HEIGHT: "560px", //페이지 최소 크기 지원

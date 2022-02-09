@@ -4,7 +4,7 @@ import { FormInputText } from "components/mui/form/FormInputText";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { GAP } from "@lib/constants/base";
+import { GAP } from "@/lib/constants/base";
 type TformData = {
 	name: string;
 	phoneNumber: string;

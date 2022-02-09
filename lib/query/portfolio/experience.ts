@@ -1,5 +1,5 @@
-import axios from "@lib/api";
-import { ModelExperience } from "@models/experience";
+import axios from "@/lib/api";
+import { ModelExperience } from "@/models/experience";
 import {
 	QueryFunctionContext,
 	useQuery,

@@ -1,5 +1,5 @@
-import axios from "@lib/api";
-import { ModelProject } from "@models/project";
+import axios from "@/apilib/api";
+import { ModelProject } from "@/models/project";
 import { QueryClient, QueryFunctionContext, useQuery } from "react-query";
 
 const KEY = "project";

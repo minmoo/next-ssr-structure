@@ -1,4 +1,4 @@
-import Link from "@components/mui/link/Link";
+import Link from "@/components/mui/link/Link";
 import { Stack, Toolbar } from "@mui/material";
 import { TNavLink } from "./Header";
 

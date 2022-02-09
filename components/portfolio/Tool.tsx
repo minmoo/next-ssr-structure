@@ -1,8 +1,8 @@
 import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { orange } from "@mui/material/colors";
-import WidgetMulti from "@components/mui/widget/WidgetMulti";
+import WidgetMulti from "@/components/mui/widget/WidgetMulti";
 import Image from "next/image";
-import { useTools } from "@lib/query/portfolio/tool";
+import { useTools } from "@/lib/query/portfolio/tool";
 const Tool = () => {
 	const {
 		isLoading,

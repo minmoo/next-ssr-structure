@@ -1,6 +1,6 @@
 import { Box, Container } from "@mui/material";
 import { createSvgIcon } from "@mui/material/utils";
-import { MIN_PAPER_HEIGHT } from "@lib/constants/base";
+import { MIN_PAPER_HEIGHT } from "@/lib/constants/base";
 const OutSideRoundIcon = createSvgIcon(
 	<path d="M0 0 L 0 24 L 24 24 Q 0 24 0 0" />,
 	"OutSideRound",

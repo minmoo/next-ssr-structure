@@ -2,7 +2,7 @@ import { Stack } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { Facebook, Instagram } from "@mui/icons-material";
-import Link from "@components/mui/link/Link";
+import Link from "@/components/mui/link/Link";
 
 const Footer = () => {
 	return (

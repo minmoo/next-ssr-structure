@@ -1,14 +1,14 @@
 import { Box, Grid, Slide } from "@mui/material";
 import ReactDOM from "react-dom";
 import { useEffect, useRef, useState } from "react";
-import Experience from "@components/portfolio/Experience";
-import Project from "@components/portfolio/Project";
-import Skill from "@components/portfolio/Skill";
-import Tools from "@components/portfolio/Tool";
+import Experience from "@/components/portfolio/Experience";
+import Project from "@/components/portfolio/Project";
+import Skill from "@/components/portfolio/Skill";
+import Tools from "@/components/portfolio/Tool";
 import IphonePaper from "../common/IphonePaper";
-import { COMPONENT_HEIGHT, GAP, PARALLAX } from "@lib/constants/base";
-import Contact from "@components/portfolio/Contact";
-import useResizeObserver from "@lib/hooks/useObserver";
+import { COMPONENT_HEIGHT, GAP, PARALLAX } from "@/lib/constants/base";
+import Contact from "@/components/portfolio/Contact";
+import useResizeObserver from "@/lib/hooks/useObserver";
 
 /**
  * Parallax의 전체 페이지 스크롤을 만들어주기 위해 사용

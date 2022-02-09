@@ -1,5 +1,5 @@
-import axios from "@lib/api";
-import { ModelTool } from "@models/tool";
+import axios from "@/lib/api";
+import { ModelTool } from "@/models/tool";
 import { QueryClient, QueryFunctionContext, useQuery } from "react-query";
 
 const KEY = "tool";

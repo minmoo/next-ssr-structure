@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/icons-material/Menu";
 import { useState } from "react";
 import { TNavLink } from "./Header";
-import Link from "@components/mui/link/Link";
+import Link from "@/components/mui/link/Link";
 import {
 	ListItemIcon,
 	ListItemText,

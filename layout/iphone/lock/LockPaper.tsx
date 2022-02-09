@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
 import ParallaxWrapper, {
 	ParallaxWrapProps,
-} from "@components/common/Parallax";
+} from "@/components/common/Parallax";
 import LockBackground from "./LockBackground";
 import LockContent from "./LockContent";
-import { PARALLAX } from "@lib/constants/base";
+import { PARALLAX } from "@/lib/constants/base";
 
 const Lock = ({ callbackRef }: ParallaxWrapProps) => {
 	return (

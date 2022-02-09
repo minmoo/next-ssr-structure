@@ -3,10 +3,10 @@ import Image from "next/image";
 import WifiIcon from "@mui/icons-material/Wifi";
 import IphonePaper from "../common/IphonePaper";
 import homeBackgroundImage from "@public/bg4.jpg";
-import Link from "@components/mui/link/Link";
+import Link from "@/components/mui/link/Link";
 import { Home } from "@mui/icons-material";
-import Navbar from "@layout/main/Navbar";
-import SideDrawer from "@layout/main/SideDrawer";
+import Navbar from "@/layout/main/Navbar";
+import SideDrawer from "@/layout/main/SideDrawer";
 
 export type TNavLink = {
 	title: string;

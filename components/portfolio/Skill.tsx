@@ -10,11 +10,10 @@ import {
 	ListItemText,
 	Typography,
 } from "@mui/material";
-import portfolio, { TSkill } from "@lib/data/portfolio";
-import WidgetMulti from "@components/mui/widget/WidgetMulti";
+import WidgetMulti from "@/components/mui/widget/WidgetMulti";
 import { blueGrey, grey, indigo, lightGreen, lime } from "@mui/material/colors";
-import { useSkills } from "@lib/query/portfolio/skill";
-import { ModelSkill } from "@models/skill";
+import { useSkills } from "@/lib/query/portfolio/skill";
+import { ModelSkill } from "@/models/skill";
 
 const LinearProgressWithLabel = (
 	props: LinearProgressProps & { value: number },

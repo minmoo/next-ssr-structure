@@ -13,12 +13,12 @@ import {
 } from "@mui/material";
 import ParallaxWrapper, {
 	ParallaxWrapProps,
-} from "@components/common/Parallax";
-import { TProject } from "@lib/data/portfolio";
-import { PARALLAX } from "@lib/constants/base";
-import WidgetBase from "@components/mui/widget/WidgetBase";
+} from "@/components/common/Parallax";
+import { TProject } from "@/lib/data/portfolio";
+import { PARALLAX } from "@/lib/constants/base";
+import WidgetBase from "@/components/mui/widget/WidgetBase";
 import { brown } from "@mui/material/colors";
-import { useProjects } from "@lib/query/portfolio/project";
+import { useProjects } from "@/lib/query/portfolio/project";
 
 interface SliderProps extends ParallaxWrapProps {
 	projects: TProject[];

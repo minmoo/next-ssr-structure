@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import FlashIcon from "@mui/icons-material/FlashlightOn";
 import CameraIcon from "@mui/icons-material/CameraAlt";
 import ArrowDownIcon from "@mui/icons-material/ArrowDownwardRounded";
-import { ParallaxWrapProps } from "@components/common/Parallax";
+import { ParallaxWrapProps } from "@/components/common/Parallax";
 import IphonePaper from "../common/IphonePaper";
 interface LockContentProps extends ParallaxWrapProps {
 	children: JSX.Element;

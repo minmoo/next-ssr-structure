@@ -17,11 +17,7 @@
 		"incremental": true,
 		"paths": {
 			//절대경로 설정
-			"@components/*": ["components/*"],
-			"@layout/*": ["layout/*"],
-			"@lib/*": ["lib/*"],
-			"@public/*": ["public/*"],
-			"@models/*": ["models/*"]
+			"@/*": ["*"]
 		}
 	},
 	"include": ["next-env.d.ts", "additional.d.ts", "**/*.ts", "**/*.tsx"],

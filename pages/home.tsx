@@ -1,19 +1,18 @@
-import Iphone from "@layout/iphone";
-import LockPaper from "@layout/iphone/lock/LockPaper";
-import MainPaper from "@layout/iphone/home/HomePaper";
-import LoadingPaper from "@layout/iphone/common/LoadingPaper";
+import Iphone from "@/layout/iphone";
+import LockPaper from "@/layout/iphone/lock/LockPaper";
+import MainPaper from "@/layout/iphone/home/HomePaper";
+import LoadingPaper from "@/layout/iphone/common/LoadingPaper";
 import { useSelector } from "store";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { actions } from "store/iphone";
-import { connectToDatabase } from "@lib/mongodb";
-import axios from "@lib/api";
+import axios from "@/lib/api";
 import { dehydrate, QueryClient } from "react-query";
 import { GetServerSideProps } from "next";
-import { preExperiecnes } from "@lib/query/portfolio/experience";
-import { preSkills } from "@lib/query/portfolio/skill";
-import { preProjects } from "@lib/query/portfolio/project";
-import { preTools } from "@lib/query/portfolio/tool";
+import { preExperiecnes } from "@/lib/query/portfolio/experience";
+import { preSkills } from "@/lib/query/portfolio/skill";
+import { preProjects } from "@/lib/query/portfolio/project";
+import { preTools } from "@/lib/query/portfolio/tool";
 
 const Home = () => {
 	const isLoading = useSelector((state) => state.iphone.isLoading);

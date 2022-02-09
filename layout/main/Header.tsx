@@ -3,7 +3,7 @@ import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
 import { styled } from "@mui/material/styles";
 import { IconButton } from "@mui/material";
-import Link from "@components/mui/link/Link";
+import Link from "@/components/mui/link/Link";
 import { Home } from "@mui/icons-material";
 import Navbar from "./Navbar";
 import SideDrawer from "./SideDrawer";
