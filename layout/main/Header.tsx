@@ -16,8 +16,9 @@ const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 export type TNavLink = {
 	title: string;
-	path: string;
+	path: string | number;
 };
+
 const navLinks: TNavLink[] = [
 	{ title: "home", path: "/" },
 	{ title: "menu", path: "/menu" },

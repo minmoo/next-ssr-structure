@@ -3,26 +3,22 @@ import {
 	Container,
 	IconButton,
 	Slide,
+	Stack,
 	Toolbar,
 	useScrollTrigger,
 } from "@mui/material";
-import Link from "@/components/mui/link/Link";
 import { Home } from "@mui/icons-material";
-import Navbar from "@/layout/main/Navbar";
 import SideDrawer from "@/layout/main/SideDrawer";
 import { useEffect, useState } from "react";
 import { PARALLAX } from "@/lib/constants/base";
 import { grey } from "@mui/material/colors";
+import Navbar from "@/layout/main/Navbar";
+import { TNavLink } from "@/layout/main/Header";
 
-export type TNavLink = {
-	title: string;
-	path: string;
-};
 const navLinks: TNavLink[] = [
-	{ title: "home", path: "/" },
-	{ title: "menu", path: "/menu" },
-	{ title: "test", path: "/test" },
-	{ title: "test2", path: "/test2" },
+	{ title: "experience", path: PARALLAX.LOCK_PAPER[1] },
+	{ title: "project", path: PARALLAX.PROJECT_SLIDER[0] },
+	{ title: "contact", path: -1 },
 ];
 
 const HomeHeader = () => {
@@ -61,13 +57,17 @@ const HomeHeader = () => {
 						maxWidth="lg"
 						sx={{ display: `flex`, justifyContent: `space-between` }}
 					>
-						<IconButton edge="start" aria-label="home">
-							<Link href="/">
-								<Home
-									sx={{ color: (theme) => theme.palette.common.white }}
-									fontSize="large"
-								/>
-							</Link>
+						<IconButton
+							edge="start"
+							aria-label="home"
+							onClick={() => {
+								window.scrollTo(0, 0);
+							}}
+						>
+							<Home
+								sx={{ color: (theme) => theme.palette.common.white }}
+								fontSize="large"
+							/>
 						</IconButton>
 						<Navbar navLinks={navLinks} />
 						<SideDrawer navLinks={navLinks} />

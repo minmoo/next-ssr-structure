@@ -150,7 +150,8 @@ const ParallaxWrapper = <P extends ParallaxWrapProps>(
 				ref.current = element;
 			}
 
-			if (element !== null) {
+			//초기화 작업은 한번만 수행
+			if (element !== null && !initialRef.current) {
 				initialRef.current = element.style.transform || "none";
 				parseRef.current = initTransform(initialRef.current);
 			}

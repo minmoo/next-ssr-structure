@@ -5,7 +5,6 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/icons-material/Menu";
 import { useState } from "react";
 import { TNavLink } from "./Header";
-import Link from "@/components/mui/link/Link";
 import {
 	ListItemIcon,
 	ListItemText,
@@ -14,6 +13,7 @@ import {
 	Stack,
 } from "@mui/material";
 import { ContentCopy } from "@mui/icons-material";
+import LinkWithScroll from "@/components/mui/link/LinkWithScroll";
 
 const SideDrawer = ({ navLinks }: { navLinks: TNavLink[] }) => {
 	const [state, setState] = useState({
@@ -53,9 +53,9 @@ const SideDrawer = ({ navLinks }: { navLinks: TNavLink[] }) => {
 									textTransform: `uppercase`,
 								}}
 							>
-								<Link sx={{ color: "common.white" }} href={path}>
+								<LinkWithScroll sx={{ color: "common.white" }} path={path}>
 									{title}
-								</Link>
+								</LinkWithScroll>
 							</Typography>
 						</ListItemText>
 					</MenuItem>

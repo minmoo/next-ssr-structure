@@ -1,4 +1,4 @@
-import Link from "@/components/mui/link/Link";
+import LinkWithScroll from "@/components/mui/link/LinkWithScroll";
 import { Stack, Toolbar } from "@mui/material";
 import { TNavLink } from "./Header";
 
@@ -7,14 +7,14 @@ const Navbar = ({ navLinks }: { navLinks: TNavLink[] }) => {
 		<Toolbar component="nav" sx={{ display: { xs: "none", md: "flex" } }}>
 			<Stack direction="row" spacing={4}>
 				{navLinks.map(({ title, path }, i) => (
-					<Link
+					<LinkWithScroll
 						key={`${title}${i}`}
-						href={path}
+						path={path}
 						variant="button"
 						sx={{ color: "white", opacity: 0.7 }}
 					>
 						{title}
-					</Link>
+					</LinkWithScroll>
 				))}
 			</Stack>
 		</Toolbar>
