@@ -5,7 +5,7 @@ import { ParallaxWrapProps } from "../../../components/common/Parallax";
 import { useEffect, useRef } from "react";
 import IphonePaper from "../common/IphonePaper";
 import { PARALLAX } from "@/lib/constants/base";
-import lockBackgroundImage from "@public/bg.jpg";
+import lockBackgroundImage from "@/public/bg.jpg";
 import { useDispatch } from "react-redux";
 import { actions } from "store/iphone";
 

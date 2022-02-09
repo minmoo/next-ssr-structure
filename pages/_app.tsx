@@ -1,7 +1,6 @@
 import { AppProps } from "next/app";
 import React, { Fragment, useEffect } from "react";
 import { wrapper } from "../store";
-import ThemeProvider from "../styles/ThemeProvider";
 import Head from "next/head";
 import withReduxSaga from "next-redux-saga";
 import type { Page, Role } from "../types/page";
@@ -21,6 +20,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import ResponsiveThemeProvider from "@/components/mui/ResponsiveThemeProvider";
 
 interface MyAppProps extends AppProps {
 	Component: Page;
@@ -59,13 +59,13 @@ const MyApp: React.FunctionComponent<MyAppProps> = ({
 			<Hydrate state={pageProps.dehydratedState}>
 				<ReactQueryDevtools initialIsOpen={false} />
 				<ApolloProvider client={apolloClient}>
-					<ThemeProvider>
+					<ResponsiveThemeProvider>
 						{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
 						<CssBaseline />
 						<Layout>
 							<Component {...pageProps} />
 						</Layout>
-					</ThemeProvider>
+					</ResponsiveThemeProvider>
 				</ApolloProvider>
 			</Hydrate>
 		</QueryClientProvider>

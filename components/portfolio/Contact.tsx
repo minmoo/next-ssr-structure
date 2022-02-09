@@ -1,5 +1,5 @@
 import { Box, Grid, Typography, Button } from "@mui/material";
-import { lightBlue } from "@mui/material/colors";
+import { green, lightBlue } from "@mui/material/colors";
 import { FormInputText } from "components/mui/form/FormInputText";
 import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
@@ -60,7 +60,7 @@ const Contact = () => {
 			<Box
 				component="form"
 				onSubmit={handleSubmit(onSubmit)}
-				sx={{ borderRadius: "20px", bgcolor: lightBlue[200] }}
+				sx={{ borderRadius: "20px", bgcolor: green[400] }}
 			>
 				<Grid
 					container
@@ -71,7 +71,7 @@ const Contact = () => {
 				>
 					<Grid item>
 						<Box p="10px">
-							<Typography variant="h5" component="div">
+							<Typography variant="h5" component="div" color="white">
 								Contact
 							</Typography>
 						</Box>
