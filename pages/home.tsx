@@ -9,7 +9,7 @@ import { actions } from "store/iphone";
 import axios from "@/lib/api";
 import { dehydrate, QueryClient } from "react-query";
 import { GetServerSideProps } from "next";
-import { preExperiecnes } from "@/lib/query/portfolio/experience";
+import { preExperiences } from "@/lib/query/portfolio/experience";
 import { preSkills } from "@/lib/query/portfolio/skill";
 import { preProjects } from "@/lib/query/portfolio/project";
 import { preTools } from "@/lib/query/portfolio/tool";
@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 	const queryClient = new QueryClient();
 
 	await Promise.allSettled([
-		preExperiecnes(queryClient),
+		preExperiences(queryClient),
 		preSkills(queryClient),
 		preProjects(queryClient),
 		preTools(queryClient),

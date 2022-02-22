@@ -1,8 +1,10 @@
-import { Paper, styled, PaperProps } from "@mui/material";
+import { Paper, PaperProps } from "@mui/material";
 import { MIN_PAPER_HEIGHT } from "@/lib/constants/base";
 import { forwardRef } from "react";
+import Image, { ImageProps } from "next/image";
 
-interface IphonePaperProps {
+interface IphonePaperProps
+	extends Partial<Pick<ImageProps, "src" | "onLoadingComplete">> {
 	transitionMs?: number;
 	transparent?: boolean;
 	full?: boolean;
@@ -15,6 +17,8 @@ const IphonePaper = forwardRef<HTMLDivElement, PaperProps & IphonePaperProps>(
 			transitionMs = 0,
 			transparent = false,
 			full = false,
+			src,
+			onLoadingComplete,
 			sx = [],
 			...rest
 		},
@@ -53,6 +57,16 @@ const IphonePaper = forwardRef<HTMLDivElement, PaperProps & IphonePaperProps>(
 				ref={ref}
 				{...rest}
 			>
+				{src && (
+					<Image
+						src={src}
+						layout="fill"
+						objectFit="cover"
+						priority
+						placeholder="blur"
+						onLoadingComplete={onLoadingComplete}
+					/>
+				)}
 				{children}
 			</Paper>
 		);

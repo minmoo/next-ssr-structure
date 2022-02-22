@@ -5,10 +5,10 @@
 */
 import dbConnect from "@/lib/dbConnect";
 import { NextApiRequest, NextApiResponse } from "next";
-import Experience from "models/experience";
-import Project from "models/project";
-import Skill from "models/skill";
-import Tool from "models/tool";
+import Experience, { ModelExperience } from "models/experience";
+import Project, { ModelProject } from "models/project";
+import Skill, { ModelSkill } from "models/skill";
+import Tool, { ModelTool } from "models/tool";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const { slug } = req.query;
@@ -16,17 +16,56 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const collection = slug[0];
 	await dbConnect();
 
-	const handleModel: { [key: string]: any } = {
+	const handleGetModel: { [key: string]: any } = {
 		experience: () => Experience.find({}),
 		project: () => Project.find({}),
 		skill: () => Skill.find({}),
 		tool: () => Tool.find({}),
 	};
 
+	const handlePostModel: { [key: string]: any } = {
+		experience: (data: ModelExperience) => Experience.insertMany(data),
+		project: (data: ModelProject) => Project.insertMany(data),
+		skill: (data: ModelSkill) => Skill.insertMany(data),
+		tool: (data: ModelTool) => Tool.insertMany(data),
+	};
+
+	const handlePutModel: { [key: string]: any } = {
+		experience: (data: ModelExperience) =>
+			Experience.findOneAndReplace({ _id: data._id }, data),
+		project: (data: ModelProject) =>
+			Project.findOneAndReplace({ _id: data._id }, data),
+		skill: (data: ModelSkill) =>
+			Skill.findOneAndReplace({ _id: data._id }, data),
+		tool: (data: ModelTool) => Tool.findOneAndReplace({ _id: data._id }, data),
+	};
+
+	const handleDeleteModel: { [key: string]: any } = {
+		experience: (id: string) => Experience.deleteOne({ _id: id }),
+		project: (id: string) => Project.deleteOne({ _id: id }),
+		skill: (id: string) => Skill.deleteOne({ _id: id }),
+		tool: (id: string) => Tool.deleteOne({ _id: id }),
+	};
+
 	switch (req.method) {
 		case "GET":
-			const result = await handleModel[collection]();
+			const result = await handleGetModel[collection]();
 			res.status(200).json(result);
+			break;
+
+		case "POST":
+			await handlePostModel[collection](req.body);
+			res.status(200).json({ message: "success" });
+			break;
+
+		case "PUT":
+			await handlePutModel[collection](req.body);
+			res.status(200).json({ message: "success" });
+			break;
+
+		case "DELETE":
+			await handleDeleteModel[collection](req.query.id);
+			res.status(200).json({ message: "success" });
 			break;
 	}
 };

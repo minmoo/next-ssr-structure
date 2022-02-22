@@ -46,8 +46,12 @@ const LockBackground = ({ callbackRef }: ParallaxWrapProps) => {
 				bgRef.current = element;
 				callbackRef(element);
 			}}
+			src={lockBackgroundImage}
+			onLoadingComplete={(e) => {
+				dispatch(actions.setLoading(false));
+			}}
 		>
-			<Image
+			{/* <Image
 				src={lockBackgroundImage}
 				layout="fill"
 				objectFit="cover"
@@ -56,7 +60,7 @@ const LockBackground = ({ callbackRef }: ParallaxWrapProps) => {
 				onLoadingComplete={(e) => {
 					dispatch(actions.setLoading(false));
 				}}
-			/>
+			/> */}
 			<Box sx={{ position: "absolute", top: "5px", right: "100px" }}>
 				<WifiIcon fontSize="medium" sx={{ color: "white" }} />
 			</Box>

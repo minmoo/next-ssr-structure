@@ -11,18 +11,19 @@ const keys = {
 };
 
 const fetch = async ({
-	queryKey: [{ sorting }],
-}: QueryFunctionContext<ReturnType<typeof keys["list"]>>) => {
-	const response = await axios.get<ModelProject[]>(
-		`/api/portfolio/${KEY}?sorting=${sorting}`,
-	);
+	queryKey,
+}: QueryFunctionContext<ReturnType<typeof keys["lists"]>>) => {
+	const response = await axios.get<ModelProject[]>(`/api/portfolio/${KEY}`);
 	return response.data;
 };
 
 export const useProjects = (options: any) => {
-	return useQuery(keys.list("desc"), fetch, options);
+	return {
+		...useQuery(keys.lists(), fetch, options),
+		queryKey: keys.lists(),
+	};
 };
 
 export const preProjects = (client: QueryClient, options?: any) => {
-	return client.prefetchQuery(keys.list("desc"), fetch, options);
+	return client.prefetchQuery(keys.lists(), fetch, options);
 };

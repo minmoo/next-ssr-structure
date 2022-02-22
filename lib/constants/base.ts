@@ -39,3 +39,7 @@ export const COLOR = {
 	BLUE: "#007aff",
 	GREEN: "#4cd964",
 };
+
+export const AUTHORITY = {
+	ADMIN: "admin",
+};

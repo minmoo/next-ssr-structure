@@ -19,6 +19,9 @@ import { PARALLAX } from "@/lib/constants/base";
 import WidgetBase from "@/components/mui/widget/WidgetBase";
 import { brown } from "@mui/material/colors";
 import { useProjects } from "@/lib/query/portfolio/project";
+import { useDispatch } from "react-redux";
+import { actions } from "@/store/iphone";
+import { useShowDialog } from "@/store/iphone/hooks";
 
 interface SliderProps extends ParallaxWrapProps {
 	projects: TProject[];
@@ -100,10 +103,12 @@ const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
 };
 
 const Project = () => {
+	const onShowDialog = useShowDialog();
 	const {
 		isLoading,
 		error,
 		data: projects,
+		queryKey,
 	} = useProjects({
 		staleTime: 1000 * 60,
 	});
@@ -122,6 +127,13 @@ const Project = () => {
 			primaryColor={brown[700]}
 			secondaryColor={brown[400]}
 			sx={{ height: "500px" }}
+			onAdminEdit={() => {
+				onShowDialog({
+					open: true,
+					title: "Project",
+					queryKey: queryKey,
+				});
+			}}
 		>
 			{!isLoading && (
 				<div style={{ overflow: "hidden", height: "100%" }}>

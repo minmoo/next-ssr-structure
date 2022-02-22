@@ -23,6 +23,7 @@
     "@mui/lab": "^5.0.0-alpha.64",
     "@mui/material": "^5.2.3",
     "@mui/styles": "^5.2.3",
+    "@mui/x-data-grid": "^5.5.0",
     "@react-spring/parallax": "^9.4.0",
     "@react-spring/web": "^9.4.0",
     "@sentry/nextjs": "^6.16.1",

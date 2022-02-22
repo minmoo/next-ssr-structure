@@ -6,13 +6,7 @@ import homeBackgroundImage from "@/public/bg4.jpg";
 
 const HomeBackground = () => {
 	return (
-		<IphonePaper full>
-			<Image
-				src={homeBackgroundImage}
-				layout="fill"
-				objectFit="cover"
-				priority
-			/>
+		<IphonePaper full src={homeBackgroundImage}>
 			<Box sx={{ position: "absolute", top: "5px", right: "100px" }}>
 				<WifiIcon fontSize="medium" sx={{ color: "white" }} />
 			</Box>

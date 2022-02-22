@@ -1,11 +1,6 @@
 import axios from "@/lib/api";
 import { ModelExperience } from "@/models/experience";
-import {
-	QueryFunctionContext,
-	useQuery,
-	QueryClient,
-	FetchQueryOptions,
-} from "react-query";
+import { QueryFunctionContext, useQuery, QueryClient } from "react-query";
 
 const KEY = "experience";
 
@@ -21,20 +16,31 @@ const keys = {
 // QueryFunctionContext을 사용하지 않고 useQuery(key, fetch(param)) 이런식으로 사용하면
 // param이 key에 포함되지 않는경우가 생겨서 제대로 caching되지 않는다
 const fetch = async ({
+	queryKey,
+}: QueryFunctionContext<ReturnType<typeof keys["lists"]>>) => {
+	const response = await axios.get<ModelExperience[]>(`/api/portfolio/${KEY}`);
+	return response.data;
+};
+
+//Example list param
+const fetchListSorting = async ({
 	queryKey: [{ sorting }],
 }: QueryFunctionContext<ReturnType<typeof keys["list"]>>) => {
 	const response = await axios.get<ModelExperience[]>(
-		`/api/portfolio/${KEY}?sorting=${sorting}`,
+		`/api/portfolio/${KEY}/?sorting=${sorting}`,
 	);
 	return response.data;
 };
 
 export const useExperiences = (options: any) => {
-	return useQuery(keys.list("desc"), fetch, options);
+	return {
+		...useQuery(keys.lists(), fetch, options),
+		queryKey: keys.lists(),
+	};
 };
 
-export const preExperiecnes = (client: QueryClient, options?: any) => {
-	return client.prefetchQuery(keys.list("desc"), fetch, options);
+export const preExperiences = (client: QueryClient, options?: any) => {
+	return client.prefetchQuery(keys.lists(), fetch, options);
 };
 
 // 🕺 remove everything related to the experiences feature

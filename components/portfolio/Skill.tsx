@@ -14,6 +14,8 @@ import WidgetMulti from "@/components/mui/widget/WidgetMulti";
 import { blueGrey, grey, indigo, lightGreen, lime } from "@mui/material/colors";
 import { useSkills } from "@/lib/query/portfolio/skill";
 import { ModelSkill } from "@/models/skill";
+import { useDispatch } from "react-redux";
+import { useShowDialog } from "@/store/iphone/hooks";
 
 const LinearProgressWithLabel = (
 	props: LinearProgressProps & { value: number },
@@ -33,10 +35,12 @@ const LinearProgressWithLabel = (
 };
 
 const Skill = () => {
+	const onShowDialog = useShowDialog();
 	const {
 		isLoading,
 		error,
 		data: skills,
+		queryKey,
 	} = useSkills({
 		staleTime: 1000 * 60,
 	});
@@ -59,6 +63,13 @@ const Skill = () => {
 			title="My Skills"
 			primaryColor={blueGrey[700]}
 			secondaryColor={blueGrey[400]}
+			onAdminEdit={() => {
+				onShowDialog({
+					open: true,
+					title: "Skill",
+					queryKey: queryKey,
+				});
+			}}
 			items={Object.entries(categorySkill).map(([key, value]) => (
 				<Box
 					sx={{

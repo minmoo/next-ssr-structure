@@ -13,7 +13,12 @@ import createEmotionCache from "styles/createEmotionCache";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import { useState } from "react";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import {
+	Hydrate,
+	QueryClient,
+	QueryClientProvider,
+	QueryFunctionContext,
+} from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
 import "@fontsource/roboto/300.css";
@@ -21,6 +26,10 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import ResponsiveThemeProvider from "@/components/mui/ResponsiveThemeProvider";
+import AdminDialog from "@/components/mui/modal/AdminDialog";
+import axios from "@/lib/api";
+import ConfirmProvider from "@/lib/context/ConfirmContext";
+import SnackbarProvider from "@/lib/context/SnackbarContext";
 
 interface MyAppProps extends AppProps {
 	Component: Page;
@@ -40,12 +49,24 @@ const MyApp: React.FunctionComponent<MyAppProps> = ({
 	const apolloClient = useApollo(pageProps);
 
 	// React Query
+	// 전체에서 공용으로 사용하는 Query
+	// query key만으로 사용 가능하다.
+	const defaultQueryFn = async ({ queryKey }: { queryKey: any }) => {
+		const [{ scope }] = queryKey;
+		if (scope) {
+			const { data } = await axios.get(`/api/portfolio/${scope}`);
+			return data;
+		}
+		throw new Error("Invalid QueryKey");
+	};
+
 	const [queryClient] = useState(
 		() =>
 			new QueryClient({
 				defaultOptions: {
 					queries: {
 						staleTime: 5000, //5초 동안 query 유지
+						queryFn: defaultQueryFn,
 					},
 				},
 			}),
@@ -62,9 +83,14 @@ const MyApp: React.FunctionComponent<MyAppProps> = ({
 					<ResponsiveThemeProvider>
 						{/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
 						<CssBaseline />
-						<Layout>
-							<Component {...pageProps} />
-						</Layout>
+						<SnackbarProvider>
+							<ConfirmProvider>
+								<Layout>
+									<AdminDialog />
+									<Component {...pageProps} />
+								</Layout>
+							</ConfirmProvider>
+						</SnackbarProvider>
 					</ResponsiveThemeProvider>
 				</ApolloProvider>
 			</Hydrate>

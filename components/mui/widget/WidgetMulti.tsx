@@ -1,11 +1,14 @@
-import { Grid, GridProps, Typography } from "@mui/material";
-
+import { Chip, Grid, GridProps, Stack, Typography } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import { AUTHORITY } from "@/lib/constants/base";
+import { useSelector } from "@/store";
 interface WidgetMultiProps {
 	title: string;
 	primaryColor: string;
 	secondaryColor: string;
 	columnCount?: 2 | 4;
 	items: React.ReactNode[];
+	onAdminEdit?: () => void;
 }
 
 const WidgetMulti = ({
@@ -14,8 +17,10 @@ const WidgetMulti = ({
 	primaryColor,
 	columnCount = 2,
 	secondaryColor,
+	onAdminEdit,
 	sx = [],
 }: WidgetMultiProps & GridProps) => {
+	const authority = useSelector((state) => state.iphone.authority);
 	return (
 		<Grid
 			item
@@ -30,9 +35,25 @@ const WidgetMulti = ({
 			]}
 		>
 			<Grid item sx={{ p: "10px", bgcolor: primaryColor }}>
-				<Typography variant="h3" color="white">
-					{title}
-				</Typography>
+				<Stack
+					direction="row"
+					justifyContent="center"
+					alignItems="center"
+					spacing={1}
+				>
+					<Typography variant="h3" color="white">
+						{title}
+					</Typography>
+					{authority === AUTHORITY.ADMIN && (
+						<Chip
+							label="Edit"
+							color="secondary"
+							size="small"
+							icon={<EditIcon />}
+							onClick={onAdminEdit}
+						/>
+					)}
+				</Stack>
 			</Grid>
 
 			<Grid item container sx={{ bgcolor: secondaryColor }}>
