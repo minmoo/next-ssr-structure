@@ -4,6 +4,7 @@ import {
 	Divider,
 	Grid,
 	GridProps,
+	Paper,
 	Stack,
 	Typography,
 } from "@mui/material";
@@ -36,6 +37,7 @@ const WidgetBase = ({
 				{
 					borderRadius: "20px",
 					overflow: "hidden",
+					boxShadow: 3,
 				},
 				...(Array.isArray(sx) ? sx : [sx]),
 			]}

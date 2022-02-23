@@ -26,6 +26,7 @@ const Home = () => {
 
 	useEffect(() => {
 		dispatch(actions.setLoading(true));
+		window.scrollTo(0, 0); //scroll 맨위로 이동
 		getData();
 	}, [dispatch]);
 

@@ -30,6 +30,7 @@ const WidgetMulti = ({
 				{
 					borderRadius: "20px",
 					overflow: "hidden",
+					boxShadow: 3,
 				},
 				...(Array.isArray(sx) ? sx : [sx]),
 			]}

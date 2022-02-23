@@ -60,7 +60,7 @@ const Contact = () => {
 			<Box
 				component="form"
 				onSubmit={handleSubmit(onSubmit)}
-				sx={{ borderRadius: "20px", bgcolor: green[400] }}
+				sx={{ boxShadow: 3, borderRadius: "20px", bgcolor: green[400] }}
 			>
 				<Grid
 					container
