@@ -4,7 +4,20 @@ import { deepPurple } from "@mui/material/colors";
 import { useExperiences } from "@/lib/query/portfolio/experience";
 import { useShowDialog } from "@/store/iphone/hooks";
 import CustomizedTimeline from "./CustomizedTimeline";
+import { Button } from "@mui/material";
+import { motion } from "framer-motion";
+import CustomButton from "@/components/mui/motion/BounceButton";
+import BounceButton from "@/components/mui/motion/BounceButton";
 
+const variantButton = {
+	hover: {
+		scale: 1.3,
+		transition: {
+			duration: 0.3,
+			yoyo: Infinity,
+		},
+	},
+};
 const Experience = () => {
 	const onShowDialog = useShowDialog();
 	const {

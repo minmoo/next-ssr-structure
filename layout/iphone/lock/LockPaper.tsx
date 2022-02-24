@@ -23,6 +23,7 @@ const Lock = ({ callbackRef }: ParallaxWrapProps) => {
 				top: "3px",
 				willChange: "transform",
 				transformOrigin: { md: "35px 40px", xs: "25px 30px" },
+				transitionDuration: "300ms",
 			}}
 			ref={callbackRef}
 		></Box>

@@ -13,7 +13,7 @@ const LockContent = ({
 	callbackRef,
 }: LockContentProps): JSX.Element => {
 	return (
-		<IphonePaper full transparent transitionMs={200} ref={callbackRef}>
+		<IphonePaper full transparent transitionMs={300} ref={callbackRef}>
 			<Grid component="section" container height="100%" pt="30px">
 				{/* LOCK  */}
 				<Grid

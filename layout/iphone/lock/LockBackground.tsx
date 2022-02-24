@@ -40,7 +40,7 @@ const LockBackground = ({ callbackRef }: ParallaxWrapProps) => {
 
 	return (
 		<IphonePaper //blur효과를 child 빼고 주기 위해서 사용
-			transitionMs={200}
+			transitionMs={300}
 			full
 			ref={(element) => {
 				bgRef.current = element;

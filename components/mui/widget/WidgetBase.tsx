@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { AUTHORITY } from "@/lib/constants/base";
+import BounceText from "../motion/BounceText";
 interface WidgetBaseProps {
 	title: string;
 	subTitle: string;
@@ -64,9 +65,9 @@ const WidgetBase = ({
 						alignItems="center"
 						spacing={1}
 					>
-						<Typography variant="h3" color="white">
+						<BounceText variant="h3" color="white">
 							{title}
-						</Typography>
+						</BounceText>
 						{authority === AUTHORITY.ADMIN && (
 							<Chip
 								label="Edit"

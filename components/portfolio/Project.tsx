@@ -38,6 +38,7 @@ const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
 				cursor: "all-scroll",
 				userSelect: "none",
 				mt: "10px",
+				transitionDuration: "300ms",
 			}}
 			style={{ transform: "translate(0, -50%)" }}
 			ref={callbackRef}
