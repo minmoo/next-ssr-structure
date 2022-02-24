@@ -37,7 +37,7 @@ const WidgetBase = ({
 				{
 					borderRadius: "20px",
 					overflow: "hidden",
-					boxShadow: 3,
+					boxShadow: 5,
 				},
 				...(Array.isArray(sx) ? sx : [sx]),
 			]}

@@ -54,6 +54,7 @@ const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
 						transform: "translate3d(0,0,0)",
 						overflow: "visible",
 						borderRadius: "20px",
+						boxShadow: 5,
 					}}
 					key={project.title}
 				>
@@ -70,6 +71,7 @@ const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
 								left: "50%",
 								transform: "translate(-50%, 0)",
 								borderRadius: "20px",
+								boxShadow: 5,
 							}}
 						/>
 						<CardContent

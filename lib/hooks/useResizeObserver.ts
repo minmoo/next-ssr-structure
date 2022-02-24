@@ -1,17 +1,15 @@
 import { RefObject, useEffect, useRef } from "react";
 import ResizeObserver from "resize-observer-polyfill";
 
-interface IuseResizeObserver {
-	callback: ResizeObserverCallback;
-	element: RefObject<any>;
-}
-
 /**
  * element의 크기 변화를 감지하는 observer
  * @param param0 {callback: Function, element: ref}
  */
-const useResizeObserver = ({ callback, element }: IuseResizeObserver) => {
-	const current = element && element.current;
+const useResizeObserver = (
+	elementRef: RefObject<HTMLElement>,
+	callback: ResizeObserverCallback,
+) => {
+	const current = elementRef && elementRef.current;
 	const observer = useRef<ResizeObserver | null>(null);
 
 	useEffect(() => {
@@ -21,8 +19,8 @@ const useResizeObserver = ({ callback, element }: IuseResizeObserver) => {
 		}
 
 		const observe = () => {
-			if (element && element.current && observer.current) {
-				observer.current.observe(element.current);
+			if (current && observer.current) {
+				observer.current.observe(current);
 			}
 		};
 
@@ -31,11 +29,11 @@ const useResizeObserver = ({ callback, element }: IuseResizeObserver) => {
 		observe();
 
 		return () => {
-			if (observer && observer.current && element && element.current) {
-				observer.current.unobserve(element.current);
+			if (observer && observer.current && current) {
+				observer.current.unobserve(current);
 			}
 		};
-	}, [callback, current, element]);
+	}, [callback, current, elementRef]);
 };
 
 export default useResizeObserver;

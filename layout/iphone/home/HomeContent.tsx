@@ -1,14 +1,14 @@
 import { Box, Grid, Slide } from "@mui/material";
 import ReactDOM from "react-dom";
 import { useEffect, useRef, useState } from "react";
-import Experience from "@/components/portfolio/Experience";
+import Experience from "@/components/portfolio/experience";
 import Project from "@/components/portfolio/Project";
-import Skill from "@/components/portfolio/Skill";
+import Skill from "@/components/portfolio/skill";
 import Tools from "@/components/portfolio/Tool";
 import IphonePaper from "../common/IphonePaper";
 import { COMPONENT_HEIGHT, GAP, PARALLAX } from "@/lib/constants/base";
 import Contact from "@/components/portfolio/Contact";
-import useResizeObserver from "@/lib/hooks/useObserver";
+import useResizeObserver from "@/lib/hooks/useResizeObserver";
 
 /**
  * Parallax의 전체 페이지 스크롤을 만들어주기 위해 사용
@@ -51,20 +51,17 @@ const HomeContent = (): JSX.Element => {
 		}
 	}, [fade]);
 
-	useResizeObserver({
-		callback: () => {
-			// 300(페이지 넘기기) + 200(project 넘기기)
-			if (contentRef.current) {
-				setHeight(
-					`${
-						contentRef.current.clientHeight +
-						PARALLAX.LOCK_PAPER[1] +
-						(PARALLAX.PROJECT_SLIDER[1] - PARALLAX.PROJECT_SLIDER[0])
-					}px`,
-				);
-			}
-		},
-		element: contentRef,
+	useResizeObserver(contentRef, () => {
+		// 300(페이지 넘기기) + 200(project 넘기기)
+		if (contentRef.current) {
+			setHeight(
+				`${
+					contentRef.current.clientHeight +
+					PARALLAX.LOCK_PAPER[1] +
+					(PARALLAX.PROJECT_SLIDER[1] - PARALLAX.PROJECT_SLIDER[0])
+				}px`,
+			);
+		}
 	});
 
 	const handleScroll = () => {
