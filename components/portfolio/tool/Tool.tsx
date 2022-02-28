@@ -1,9 +1,9 @@
-import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { orange } from "@mui/material/colors";
 import WidgetMulti from "@/components/mui/widget/WidgetMulti";
-import Image from "next/image";
 import { useTools } from "@/lib/query/portfolio/tool";
 import { useShowDialog } from "@/store/iphone/hooks";
+import ItemTool from "./ItemTool";
+
 const Tool = () => {
 	const onShowDialog = useShowDialog();
 	const {
@@ -33,27 +33,7 @@ const Tool = () => {
 				});
 			}}
 			items={
-				tools?.map((tool, idx) => (
-					<Box
-						sx={{
-							borderRadius: "20px",
-							backgroundColor: orange[200],
-							p: "15px",
-						}}
-						key={idx}
-					>
-						<Box sx={{ position: "relative", height: "50px" }}>
-							<Image
-								src={tool.icon}
-								blurDataURL={tool.icon}
-								layout="fill"
-								objectFit="contain"
-								placeholder="blur"
-								priority
-							></Image>
-						</Box>
-					</Box>
-				)) ?? []
+				tools?.map((tool, idx) => <ItemTool tool={tool} key={idx} />) ?? []
 			}
 		></WidgetMulti>
 	);

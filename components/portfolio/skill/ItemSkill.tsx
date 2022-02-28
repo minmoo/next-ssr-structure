@@ -1,15 +1,29 @@
 import LinearProgressWithLabel from "@/components/mui/common/LinearProgressWithLabel";
 import useIntersectionObserver from "@/lib/hooks/useIntersectionObserver";
 import { ModelSkill } from "@/models/skill";
-import { ListItem, ListItemAvatar, ListItemText, Avatar } from "@mui/material";
+import {
+	ListItem,
+	ListItemAvatar,
+	ListItemText,
+	Avatar,
+	Box,
+} from "@mui/material";
+import { orange } from "@mui/material/colors";
+import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 
+const spring = {
+	type: "spring",
+	stiffness: 500,
+	damping: 30,
+};
 interface ItemSkillProps {
 	skill: ModelSkill;
 }
 const ItemSkill = ({ skill }: ItemSkillProps) => {
 	const itemRef = useRef<HTMLLIElement>(null);
 	const [showValue, setShowValue] = useState<boolean>(false);
+	const [isHovered, setHovered] = useState<boolean>(false);
 
 	useIntersectionObserver(
 		itemRef,
@@ -28,7 +42,12 @@ const ItemSkill = ({ skill }: ItemSkillProps) => {
 	);
 
 	return (
-		<ListItem ref={itemRef}>
+		<ListItem
+			ref={itemRef}
+			onMouseEnter={() => setHovered(true)}
+			onMouseLeave={() => setHovered(false)}
+			sx={{ position: "relative" }}
+		>
 			<ListItemAvatar>
 				<Avatar src={skill.icon} variant="square" />
 			</ListItemAvatar>
@@ -43,6 +62,24 @@ const ItemSkill = ({ skill }: ItemSkillProps) => {
 				secondary={skill.title}
 				secondaryTypographyProps={{ color: "black" }}
 			/>
+			{isHovered && (
+				<Box
+					component={motion.div}
+					layoutId="outlineSkill"
+					initial={false}
+					animate={{ borderColor: orange[700] }}
+					transition={spring}
+					sx={{
+						position: "absolute",
+						top: "0px",
+						left: "0px",
+						right: "0px",
+						bottom: "0px",
+						borderLeft: "3mm ridge rgb(170, 50, 220, .6)",
+						borderRight: "3mm ridge rgb(170, 50, 220, .6)",
+					}}
+				/>
+			)}
 		</ListItem>
 	);
 };

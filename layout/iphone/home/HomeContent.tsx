@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Experience from "@/components/portfolio/experience";
 import Project from "@/components/portfolio/Project";
 import Skill from "@/components/portfolio/skill";
-import Tools from "@/components/portfolio/Tool";
+import Tools from "@/components/portfolio/tool";
 import IphonePaper from "../common/IphonePaper";
 import { COMPONENT_HEIGHT, GAP, PARALLAX } from "@/lib/constants/base";
 import Contact from "@/components/portfolio/Contact";

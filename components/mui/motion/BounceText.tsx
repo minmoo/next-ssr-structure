@@ -11,6 +11,10 @@ const variant = {
 	},
 };
 
+/**
+ * @param props props를 입력해랏
+ * @returns 바운스텍스트 나온다
+ */
 const BounceText = (props: TypographyProps<typeof motion.span>) => {
 	const { children, ...rest } = props;
 	return (

@@ -4,8 +4,8 @@ import { blueGrey, grey, indigo, lightGreen, lime } from "@mui/material/colors";
 import { useSkills } from "@/lib/query/portfolio/skill";
 import { ModelSkill } from "@/models/skill";
 import { useShowDialog } from "@/store/iphone/hooks";
-import { TransitionGroup } from "react-transition-group";
 import ItemSkill from "./ItemSkill";
+import { AnimateSharedLayout } from "framer-motion";
 
 const Skill = () => {
 	const onShowDialog = useShowDialog();
@@ -36,6 +36,7 @@ const Skill = () => {
 			title="My Skills"
 			primaryColor={blueGrey[700]}
 			secondaryColor={blueGrey[400]}
+			itemMargin
 			onAdminEdit={() => {
 				onShowDialog({
 					open: true,
@@ -57,11 +58,11 @@ const Skill = () => {
 					</Typography>
 
 					<List dense>
-						<TransitionGroup>
+						<AnimateSharedLayout>
 							{value.map((skill, idx) => (
 								<ItemSkill key={idx} skill={skill} />
 							))}
-						</TransitionGroup>
+						</AnimateSharedLayout>
 					</List>
 				</Box>
 			))}

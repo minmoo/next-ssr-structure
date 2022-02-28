@@ -8,7 +8,6 @@ import {
 	CardMedia,
 	Chip,
 	Divider,
-	Grid,
 	Typography,
 } from "@mui/material";
 import ParallaxWrapper, {
@@ -19,8 +18,6 @@ import { PARALLAX } from "@/lib/constants/base";
 import WidgetBase from "@/components/mui/widget/WidgetBase";
 import { brown } from "@mui/material/colors";
 import { useProjects } from "@/lib/query/portfolio/project";
-import { useDispatch } from "react-redux";
-import { actions } from "@/store/iphone";
 import { useShowDialog } from "@/store/iphone/hooks";
 
 interface SliderProps extends ParallaxWrapProps {
@@ -45,17 +42,24 @@ const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
 		>
 			{projects.map((project, idx) => (
 				<Card
+					// component={motion.div}
+					// whileHover={{ backgroundColor: "red", transition: { duration: 5 } }}
 					sx={{
-						position: "absolute",
-						top: 0,
-						left: `${idx * 70 + 20}%`,
-						width: "60%",
-						height: "100%",
-						willChange: "transform",
-						transform: "translate3d(0,0,0)",
-						overflow: "visible",
-						borderRadius: "20px",
-						boxShadow: 5,
+						"position": "absolute",
+						"top": 0,
+						"left": `${idx * 70 + 20}%`,
+						"width": "60%",
+						"height": "100%",
+						"willChange": "transform",
+						"transform": "translate3d(0,0,0)",
+						"overflow": "visible",
+						"borderRadius": "20px",
+						"boxShadow": 5,
+						"transition": "background 1s",
+						"background": "white",
+						"&:hover": {
+							background: "linear-gradient(blue, pink);",
+						},
 					}}
 					key={project.title}
 				>

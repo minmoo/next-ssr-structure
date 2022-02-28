@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
 import * as yup from "yup";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { GAP } from "@/lib/constants/base";
+import { motion } from "framer-motion";
 type TformData = {
 	name: string;
 	phoneNumber: string;
@@ -46,11 +47,15 @@ const Contact = () => {
 	});
 
 	const onSubmit: SubmitHandler<TformData> = async (data) => {
+		//TODO telegram 연결하기
 		console.log(data);
 	};
 
 	return (
 		<Grid
+			component={motion.div}
+			whileHover="hover"
+			variants={{ hover: { scale: 1.1, transition: { duration: 0.3 } } }}
 			container
 			direction="row"
 			justifyContent="center"
