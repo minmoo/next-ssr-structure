@@ -15,6 +15,7 @@
 		"isolatedModules": true,
 		"jsx": "preserve",
 		"incremental": true,
+		"downlevelIteration": true,
 		"paths": {
 			//절대경로 설정
 			"@/*": ["*"]

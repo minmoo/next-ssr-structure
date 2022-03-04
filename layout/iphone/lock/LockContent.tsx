@@ -4,9 +4,21 @@ import CameraIcon from "@mui/icons-material/CameraAlt";
 import ArrowDownIcon from "@mui/icons-material/ArrowDownwardRounded";
 import { ParallaxWrapProps } from "@/components/common/Parallax";
 import IphonePaper from "../common/IphonePaper";
+import LockTitle from "./LockTitle";
+import { motion } from "framer-motion";
 interface LockContentProps extends ParallaxWrapProps {
 	children: JSX.Element;
 }
+
+const barVariants = {
+	visible: {
+		y: "10px",
+		transition: {
+			duration: 0.8,
+			yoyo: Infinity,
+		},
+	},
+};
 
 const LockContent = ({
 	children,
@@ -14,7 +26,14 @@ const LockContent = ({
 }: LockContentProps): JSX.Element => {
 	return (
 		<IphonePaper full transparent transitionMs={300} ref={callbackRef}>
-			<Grid component="section" container height="100%" pt="30px">
+			<Grid
+				component={motion.section}
+				container
+				height="100%"
+				pt="30px"
+				initial="hidden"
+				whileInView="visible"
+			>
 				{/* LOCK  */}
 				<Grid
 					item
@@ -23,7 +42,6 @@ const LockContent = ({
 					justifyContent="center"
 					alignItems="center"
 					height="20%"
-					// minHeight={MIN_ONE_VH * 15}
 				>
 					<Grid item>{children}</Grid>
 					<Grid item>
@@ -47,50 +65,7 @@ const LockContent = ({
 					height="55%"
 					// minHeight={MIN_ONE_VH * 60}
 				>
-					<Grid
-						item
-						container
-						flexDirection="row"
-						alignItems="center"
-						justifyContent="center"
-						columnSpacing={3}
-					>
-						<Grid item>
-							<Typography variant="h1" color="white">
-								Hello, I'm
-							</Typography>
-						</Grid>
-						<Grid item>
-							<Typography variant="h1" color="primary">
-								Minsu Kim.
-							</Typography>
-						</Grid>
-					</Grid>
-
-					<Grid
-						item
-						container
-						flexDirection="row"
-						alignItems="center"
-						justifyContent="center"
-						columnSpacing={1}
-					>
-						<Grid item>
-							<Typography variant="h3" color="white">
-								I'm a
-							</Typography>
-						</Grid>
-						<Grid item>
-							<Typography variant="h3" color="secondary">
-								full-stack
-							</Typography>
-						</Grid>
-						<Grid item>
-							<Typography variant="h3" color="white">
-								developer.
-							</Typography>
-						</Grid>
-					</Grid>
+					<LockTitle />
 				</Grid>
 
 				{/* BOTTOM CAMERA FLASH */}
@@ -100,13 +75,16 @@ const LockContent = ({
 					flexDirection="row"
 					alignItems="center"
 					justifyContent="space-between"
-					// spacing={10}
-					// sx={{ height: "calc(100% - 100px)" }}
 					height="15%"
-					// minHeight={MIN_ONE_VH * 15}
 				>
 					<Grid item pl="3vw">
 						<Box
+							component={motion.div}
+							whileHover={{
+								borderRadius: 0,
+								backgroundColor: "rgba(0, 0, 0, 0.8)",
+								scale: 1.1,
+							}}
 							sx={{
 								height: "100px",
 								width: "100px",
@@ -127,6 +105,12 @@ const LockContent = ({
 					</Grid>
 					<Grid item pr="3vw">
 						<Box
+							component={motion.div}
+							whileHover={{
+								borderRadius: 0,
+								backgroundColor: "rgba(0, 0, 0, 0.8)",
+								scale: 1.1,
+							}}
 							sx={{
 								height: "100px",
 								width: "100px",
@@ -156,7 +140,8 @@ const LockContent = ({
 					alignItems="center"
 					justifyContent="center"
 					height="10%"
-					// minHeight={MIN_ONE_VH * 10}
+					component={motion.div}
+					variants={barVariants}
 				>
 					<Grid
 						item
@@ -171,7 +156,7 @@ const LockContent = ({
 							<Typography color="white">Scroll</Typography>
 						</Grid>
 						<Grid item sx={{ textAlign: "center", height: "30px" }}>
-							<ArrowDownIcon sx={{ fontSize: { md: "20px" } }} />
+							<ArrowDownIcon color="info" sx={{ fontSize: { md: "20px" } }} />
 						</Grid>
 					</Grid>
 					<Grid item>

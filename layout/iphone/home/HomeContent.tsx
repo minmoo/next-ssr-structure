@@ -102,7 +102,7 @@ const HomeContent = (): JSX.Element => {
 			sx={{ p: "0 25px", overflow: "hidden" }}
 		>
 			{showPortal && <DummyPortal height={portalHeight} />}
-			<Slide direction="right" in={fade} timeout={{ enter: 500, exit: 200 }}>
+			<Slide direction="right" in={fade} timeout={{ enter: 700, exit: 200 }}>
 				<Grid
 					component="section"
 					container

@@ -19,6 +19,7 @@ import WidgetBase from "@/components/mui/widget/WidgetBase";
 import { brown } from "@mui/material/colors";
 import { useProjects } from "@/lib/query/portfolio/project";
 import { useShowDialog } from "@/store/iphone/hooks";
+import { motion } from "framer-motion";
 
 interface SliderProps extends ParallaxWrapProps {
 	projects: TProject[];
@@ -109,6 +110,23 @@ const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
 	);
 };
 
+const list = {
+	visible: {
+		opacity: 1,
+		transition: {
+			delay: 0.8,
+			when: "beforeChildren",
+			staggerChildren: 0.3,
+		},
+	},
+	hidden: {
+		opacity: 0,
+		transition: {
+			when: "afterChildren",
+		},
+	},
+};
+
 const Project = () => {
 	const onShowDialog = useShowDialog();
 	const {
@@ -143,9 +161,14 @@ const Project = () => {
 			}}
 		>
 			{!isLoading && (
-				<div style={{ overflow: "hidden", height: "100%" }}>
+				<motion.div
+					initial="hidden"
+					whileInView="visible"
+					variants={list}
+					style={{ overflow: "hidden", height: "100%" }}
+				>
 					<PxSlider projects={projects} />
-				</div>
+				</motion.div>
 			)}
 		</WidgetBase>
 	);
