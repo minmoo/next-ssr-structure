@@ -51,10 +51,8 @@ const getCustomToolbar = (handleAddClick: () => void) => {
 	return CustomToolbar;
 };
 
-const AdminDialog = () => {
+const AdminDialog = ({ fullScreen }: { fullScreen: boolean }) => {
 	const {
-		fullScreen,
-		open,
 		handleClose,
 		title,
 		editRowsModel,
@@ -67,12 +65,7 @@ const AdminDialog = () => {
 	} = useAdminDialog();
 
 	return (
-		<Dialog
-			fullScreen={fullScreen}
-			open={open}
-			onClose={handleClose}
-			maxWidth="lg"
-		>
+		<>
 			<DialogTitle>{title}</DialogTitle>
 			<Alert severity="info" style={{ marginBottom: 8 }}>
 				<code>editRowsModel: {JSON.stringify(editRowsModel)}</code>
@@ -81,7 +74,13 @@ const AdminDialog = () => {
 				{isLoading ? (
 					<CircularProgress />
 				) : (
-					<div style={{ height: "60vh", width: "70vw", minHeight: "400px" }}>
+					<div
+						style={
+							fullScreen
+								? { height: "70vh", width: "90vw" }
+								: { height: "60vh", width: "50vw", minHeight: "400px" }
+						}
+					>
 						<DataGrid
 							editMode="row"
 							rows={rows}
@@ -101,19 +100,18 @@ const AdminDialog = () => {
 					Close
 				</Button>
 			</DialogActions>
-		</Dialog>
+		</>
 	);
 };
 
 const useAdminDialog = () => {
-	const theme = useTheme();
-	const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
 	const dispatch = useDispatch();
 	const [editRowsModel, setEditRowsModel] = useState<GridEditRowsModel>({});
 	const confirm = useConfirm();
 	const snackbar = useSnackbar();
-	const { open, title, queryKey } = useSelector((state) => state.iphone.modal);
+	const { title, options = {} } = useSelector((state) => state.iphone.modal);
+	const { queryKey } = options;
+
 	const cache = useQueryClient();
 	const { data, isLoading } = useQuery<any, unknown, { _id?: string }[]>(
 		queryKey,
@@ -253,10 +251,13 @@ const useAdminDialog = () => {
 		}
 		const editRowData = editRowsModel[id];
 
-		const data = Object.keys(editRowData).reduce(
-			(next, key) => ({ ...next, [key]: editRowData[key].value }),
-			{},
-		);
+		const data = Object.keys(editRowData).reduce((next, key) => {
+			let value = editRowData[key].value;
+			if (typeof value === "string" && value.indexOf(",") !== -1) {
+				value = value.split(",");
+			}
+			return { ...next, [key]: value };
+		}, {});
 
 		updateMutation.mutate(data);
 	};
@@ -266,8 +267,6 @@ const useAdminDialog = () => {
 	};
 
 	return {
-		fullScreen,
-		open,
 		title,
 		editRowsModel,
 		isLoading,

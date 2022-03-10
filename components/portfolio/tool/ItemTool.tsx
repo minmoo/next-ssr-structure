@@ -32,6 +32,7 @@ const ItemTool = ({ tool }: ItemToolProps) => {
 					backgroundColor: orange[200],
 					position: "relative",
 					height: "70px",
+					boxShadow: 5,
 				}}
 			>
 				<Image

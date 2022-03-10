@@ -10,6 +10,7 @@ export interface TProject {
 	desc: string;
 	image: string;
 	skills: string[];
+	notionId: string;
 }
 
 export default {
@@ -54,12 +55,6 @@ export default {
 		},
 		{
 			title: "Project4",
-			desc: "desc",
-			image: "/bg.jpg",
-			skills: ["react", "nextjs"],
-		},
-		{
-			title: "Project5",
 			desc: "desc",
 			image: "/bg.jpg",
 			skills: ["react", "nextjs"],

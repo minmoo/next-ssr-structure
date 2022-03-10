@@ -24,9 +24,10 @@ const Experience = () => {
 			secondaryColor={deepPurple[400]}
 			onAdminEdit={() => {
 				onShowDialog({
+					type: "admin",
 					open: true,
 					title: "Experience",
-					queryKey: queryKey,
+					options: { queryKey },
 				});
 			}}
 			sx={{ height: `${COMPONENT_HEIGHT.EXPERIENCE}px`, mt: `${GAP}px` }}

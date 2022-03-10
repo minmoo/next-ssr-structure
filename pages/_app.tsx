@@ -13,23 +13,20 @@ import createEmotionCache from "styles/createEmotionCache";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { CssBaseline } from "@mui/material";
 import { useState } from "react";
-import {
-	Hydrate,
-	QueryClient,
-	QueryClientProvider,
-	QueryFunctionContext,
-} from "react-query";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+// core styles shared by all of react-notion-x (required)
+import "react-notion-x/src/styles.css";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import ResponsiveThemeProvider from "@/components/mui/ResponsiveThemeProvider";
-import AdminDialog from "@/components/mui/modal/AdminDialog";
 import axios from "@/lib/api";
 import ConfirmProvider from "@/lib/context/ConfirmContext";
 import SnackbarProvider from "@/lib/context/SnackbarContext";
+import CustomDialog from "@/components/mui/modal/CustomDialog";
 
 interface MyAppProps extends AppProps {
 	Component: Page;
@@ -86,7 +83,7 @@ const MyApp: React.FunctionComponent<MyAppProps> = ({
 						<SnackbarProvider>
 							<ConfirmProvider>
 								<Layout>
-									<AdminDialog />
+									<CustomDialog />
 									<Component {...pageProps} />
 								</Layout>
 							</ConfirmProvider>

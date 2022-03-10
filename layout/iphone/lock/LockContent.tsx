@@ -12,9 +12,9 @@ interface LockContentProps extends ParallaxWrapProps {
 
 const barVariants = {
 	visible: {
-		y: "10px",
+		y: "-15px",
 		transition: {
-			duration: 0.8,
+			duration: 1,
 			yoyo: Infinity,
 		},
 	},

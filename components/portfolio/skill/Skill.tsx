@@ -39,9 +39,10 @@ const Skill = () => {
 			itemMargin
 			onAdminEdit={() => {
 				onShowDialog({
+					type: "admin",
 					open: true,
 					title: "Skill",
-					queryKey: queryKey,
+					options: { queryKey },
 				});
 			}}
 			items={Object.entries(categorySkill).map(([key, value]) => (
@@ -50,6 +51,7 @@ const Skill = () => {
 						borderRadius: "20px",
 						bgcolor: blueGrey[200],
 						p: "10px",
+						boxShadow: 5,
 					}}
 					key={key}
 				>

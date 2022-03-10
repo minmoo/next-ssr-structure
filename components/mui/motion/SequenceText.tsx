@@ -15,12 +15,12 @@ const SequenceText = (props: SequenceTextProps) => {
 		hidden: {
 			y: "100%",
 			color: "#0055FF",
-			transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.85 },
+			transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.75 },
 		},
 		visible: {
 			y: 0,
 			color,
-			transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.85 },
+			transition: { ease: [0.455, 0.03, 0.515, 0.955], duration: 0.75 },
 		},
 	};
 

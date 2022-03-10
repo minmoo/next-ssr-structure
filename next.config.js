@@ -1,7 +1,6 @@
 // module.exports = {
 // 	productionBrowserSourceMaps: true,
 // };
-
 const { withSentryConfig } = require("@sentry/nextjs");
 
 const moduleExports = {

@@ -6,6 +6,7 @@ export interface ModelProject {
 	desc: string;
 	image: string;
 	skills: string[];
+	notionId: string;
 }
 
 const schema = new Schema<ModelProject>({
@@ -24,6 +25,10 @@ const schema = new Schema<ModelProject>({
 	},
 	skills: {
 		type: [String],
+		required: [true, "required"],
+	},
+	notionId: {
+		type: String,
 		required: [true, "required"],
 	},
 });

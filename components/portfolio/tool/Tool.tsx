@@ -27,9 +27,10 @@ const Tool = () => {
 			secondaryColor={orange[400]}
 			onAdminEdit={() => {
 				onShowDialog({
+					type: "admin",
 					open: true,
 					title: "Tool",
-					queryKey: queryKey,
+					options: { queryKey },
 				});
 			}}
 			items={

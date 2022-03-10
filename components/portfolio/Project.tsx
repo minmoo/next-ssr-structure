@@ -9,6 +9,7 @@ import {
 	Chip,
 	Divider,
 	Typography,
+	useTheme,
 } from "@mui/material";
 import ParallaxWrapper, {
 	ParallaxWrapProps,
@@ -20,12 +21,26 @@ import { brown } from "@mui/material/colors";
 import { useProjects } from "@/lib/query/portfolio/project";
 import { useShowDialog } from "@/store/iphone/hooks";
 import { motion } from "framer-motion";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Image from "next/image";
 
 interface SliderProps extends ParallaxWrapProps {
 	projects: TProject[];
 }
 
 const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
+	const onShowDialog = useShowDialog();
+	const theme = useTheme();
+	const matches = useMediaQuery(theme.breakpoints.up("lg"));
+
+	const handleClick = (notionId: string) => {
+		onShowDialog({
+			type: "iframe",
+			open: true,
+			title: "Project",
+			options: { src: `/notion/${notionId}` },
+		});
+	};
 	return (
 		<Box //slider
 			sx={{
@@ -64,10 +79,10 @@ const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
 					}}
 					key={project.title}
 				>
-					<CardActionArea>
+					<CardActionArea onClick={() => handleClick(project.notionId)}>
 						<CardMedia
 							component="img"
-							height="200"
+							height="250"
 							image={project.image}
 							alt="green iguana"
 							sx={{
@@ -80,9 +95,7 @@ const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
 								boxShadow: 5,
 							}}
 						/>
-						<CardContent
-							sx={{ pt: "0px", height: "130px", overflow: "hidden" }}
-						>
+						<CardContent sx={{ pt: "0px", height: "80px", overflow: "hidden" }}>
 							<Typography gutterBottom variant="h5" component="div">
 								{project.title}
 							</Typography>
@@ -93,15 +106,28 @@ const Slider = ({ callbackRef, projects = [] }: SliderProps) => {
 
 						<Divider variant="middle" />
 						<CardActions>
-							{project.skills.map((skill, idx) => (
-								<Chip
-									key={idx}
-									label={skill}
-									avatar={
-										<Avatar src={`/icon/${skill}.png`} variant="square" />
-									}
-								/>
-							))}
+							{project.skills.map((skill, idx) => {
+								if (matches) {
+									return (
+										<Chip
+											key={idx}
+											label={skill}
+											avatar={
+												<Avatar src={`/icon/${skill}.png`} variant="square" />
+											}
+										/>
+									);
+								}
+
+								return (
+									<Avatar
+										key={idx}
+										src={`/icon/${skill}.png`}
+										variant="square"
+										sx={{ width: 24, height: 24 }}
+									/>
+								);
+							})}
 						</CardActions>
 					</CardActionArea>
 				</Card>
@@ -114,9 +140,9 @@ const list = {
 	visible: {
 		opacity: 1,
 		transition: {
-			delay: 0.8,
+			delay: 1,
 			when: "beforeChildren",
-			staggerChildren: 0.3,
+			staggerChildren: 0.2,
 		},
 	},
 	hidden: {
@@ -132,16 +158,17 @@ const Project = () => {
 	const {
 		isLoading,
 		error,
-		data: projects,
+		data: projects = [],
 		queryKey,
 	} = useProjects({
 		staleTime: 1000 * 60,
 	});
+
 	const PxSlider = ParallaxWrapper(
 		Slider,
 		"right",
 		PARALLAX.PROJECT_SLIDER[0],
-		PARALLAX.PROJECT_SLIDER[1],
+		PARALLAX.PROJECT_SLIDER[0] + (projects?.length - 1) * 100,
 		"0.7%",
 	); // 카드의 넓이가 60%이기때문에 60% + 10%(공백)씩 이동
 
@@ -154,9 +181,10 @@ const Project = () => {
 			sx={{ height: "500px" }}
 			onAdminEdit={() => {
 				onShowDialog({
+					type: "admin",
 					open: true,
 					title: "Project",
-					queryKey: queryKey,
+					options: { queryKey },
 				});
 			}}
 		>
