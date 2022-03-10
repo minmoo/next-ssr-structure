@@ -56,7 +56,13 @@ const ItemSkill = ({ skill }: ItemSkillProps) => {
 					<LinearProgressWithLabel
 						value={showValue ? skill.proficient : 0}
 						valueBuffer={0}
-						color="success"
+						color={
+							skill.proficient >= 80
+								? "primary"
+								: skill.proficient >= 60
+								? "info"
+								: "secondary"
+						}
 					/>
 				}
 				secondary={skill.title}
