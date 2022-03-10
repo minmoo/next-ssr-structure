@@ -1,13 +1,5 @@
 import { useSelector } from "@/store";
-import {
-	Chip,
-	Divider,
-	Grid,
-	GridProps,
-	Paper,
-	Stack,
-	Typography,
-} from "@mui/material";
+import { Chip, Grid, GridProps, Stack, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { AUTHORITY } from "@/lib/constants/base";
 import BounceText from "../motion/BounceText";

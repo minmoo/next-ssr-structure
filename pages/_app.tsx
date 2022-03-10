@@ -27,6 +27,7 @@ import axios from "@/lib/api";
 import ConfirmProvider from "@/lib/context/ConfirmContext";
 import SnackbarProvider from "@/lib/context/SnackbarContext";
 import CustomDialog from "@/components/mui/modal/CustomDialog";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 interface MyAppProps extends AppProps {
 	Component: Page;
@@ -101,13 +102,15 @@ const MyApp: React.FunctionComponent<MyAppProps> = ({
 					content="width=device-width, initial-scale=1, minimum-scale=1"
 				/>
 			</Head>
-			<SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
-				{Component.auth ? (
-					<Auth {...Component.auth}>{Common}</Auth>
-				) : (
-					<>{Common}</>
-				)}
-			</SessionProvider>
+			<ErrorBoundary>
+				<SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
+					{Component.auth ? (
+						<Auth {...Component.auth}>{Common}</Auth>
+					) : (
+						<>{Common}</>
+					)}
+				</SessionProvider>
+			</ErrorBoundary>
 		</CacheProvider>
 	);
 };
