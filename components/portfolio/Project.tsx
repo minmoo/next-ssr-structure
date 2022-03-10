@@ -140,7 +140,7 @@ const list = {
 	visible: {
 		opacity: 1,
 		transition: {
-			delay: 1,
+			delay: 0.8,
 			when: "beforeChildren",
 			staggerChildren: 0.2,
 		},

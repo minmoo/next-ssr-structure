@@ -11,7 +11,6 @@ const list = {
 	visible: {
 		opacity: 1,
 		transition: {
-			delay: 0.3,
 			when: "beforeChildren",
 			staggerChildren: 0.2,
 		},
