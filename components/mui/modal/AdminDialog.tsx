@@ -1,18 +1,13 @@
 import { useSelector } from "@/store";
-import { actions } from "@/store/iphone";
 import {
 	Alert,
 	Button,
 	CircularProgress,
-	Dialog,
 	DialogActions,
 	DialogContent,
 	DialogTitle,
-	useMediaQuery,
-	useTheme,
 } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
-import { useDispatch } from "react-redux";
 import {
 	DataGrid,
 	GridActionsCellItem,
@@ -33,6 +28,8 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import useConfirm from "@/lib/hooks/useConfirm";
 import useSnackbar from "@/lib/hooks/useSnackbar";
+import { useRouter } from "next/router";
+import { useCloseDialog } from "@/store/iphone/hooks";
 
 const getCustomToolbar = (handleAddClick: () => void) => {
 	const CustomToolbar = () => {
@@ -105,10 +102,11 @@ const AdminDialog = ({ fullScreen }: { fullScreen: boolean }) => {
 };
 
 const useAdminDialog = () => {
-	const dispatch = useDispatch();
+	const onCloseDialog = useCloseDialog();
 	const [editRowsModel, setEditRowsModel] = useState<GridEditRowsModel>({});
 	const confirm = useConfirm();
 	const snackbar = useSnackbar();
+	const router = useRouter();
 	const { title, options = {} } = useSelector((state) => state.iphone.modal);
 	const { queryKey } = options;
 
@@ -118,17 +116,31 @@ const useAdminDialog = () => {
 		{ enabled: !!queryKey },
 	); //Default Query
 
+	const handleError = (error: any) => {
+		snackbar({
+			message: "fail!",
+			severity: "error",
+		});
+		if (error?.response?.status === 401) {
+			onCloseDialog();
+			router.replace("/home");
+		}
+	};
+
+	const handleSuccess = () => {
+		cache.invalidateQueries(queryKey);
+		snackbar({
+			message: "success!",
+		});
+	};
+
 	const updateMutation = useMutation<any, unknown, any>(
 		(updateData) => {
 			return axios.put(`/api/portfolio/${queryKey[0].scope}`, updateData);
 		},
 		{
-			onSuccess: () => {
-				cache.invalidateQueries(queryKey);
-				snackbar({
-					message: "Update success!",
-				});
-			},
+			onSuccess: handleSuccess,
+			onError: handleError,
 		},
 	);
 
@@ -137,12 +149,8 @@ const useAdminDialog = () => {
 			return axios.delete(`/api/portfolio/${queryKey[0].scope}?id=${id}`);
 		},
 		{
-			onSuccess: () => {
-				cache.invalidateQueries(queryKey);
-				snackbar({
-					message: "Delete success!",
-				});
-			},
+			onSuccess: handleSuccess,
+			onError: handleError,
 		},
 	);
 
@@ -151,12 +159,8 @@ const useAdminDialog = () => {
 			return axios.post(`/api/portfolio/${queryKey[0].scope}`, row);
 		},
 		{
-			onSuccess: () => {
-				cache.invalidateQueries(queryKey);
-				snackbar({
-					message: "Insert success!",
-				});
-			},
+			onSuccess: handleSuccess,
+			onError: handleError,
 		},
 	);
 
@@ -263,7 +267,7 @@ const useAdminDialog = () => {
 	};
 
 	const handleClose = () => {
-		dispatch(actions.closeDialog());
+		onCloseDialog();
 	};
 
 	return {

@@ -103,7 +103,7 @@ const MyApp: React.FunctionComponent<MyAppProps> = ({
 				/>
 			</Head>
 			<ErrorBoundary>
-				<SessionProvider session={pageProps.session} refetchInterval={5 * 60}>
+				<SessionProvider session={pageProps.session} refetchInterval={15}>
 					{Component.auth ? (
 						<Auth {...Component.auth}>{Common}</Auth>
 					) : (

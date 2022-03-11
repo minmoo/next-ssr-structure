@@ -1,8 +1,8 @@
-import { useSelector } from "@/store";
 import { Chip, Grid, GridProps, Stack, Typography } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { AUTHORITY } from "@/lib/constants/base";
 import BounceText from "../motion/BounceText";
+import { useSession } from "next-auth/react";
 interface WidgetBaseProps {
 	title: string;
 	subTitle: string;
@@ -19,7 +19,8 @@ const WidgetBase = ({
 	onAdminEdit,
 	sx = [],
 }: WidgetBaseProps & GridProps) => {
-	const authority = useSelector((state) => state.iphone.authority);
+	const { data: session, status } = useSession();
+
 	return (
 		<Grid
 			item
@@ -60,7 +61,7 @@ const WidgetBase = ({
 						<BounceText variant="h3" color="white">
 							{title}
 						</BounceText>
-						{authority === AUTHORITY.ADMIN && (
+						{session?.user?.role === AUTHORITY.ADMIN && (
 							<Chip
 								label="Edit"
 								color="secondary"

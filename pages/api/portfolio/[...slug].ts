@@ -9,8 +9,9 @@ import Experience, { ModelExperience } from "models/experience";
 import Project, { ModelProject } from "models/project";
 import Skill, { ModelSkill } from "models/skill";
 import Tool, { ModelTool } from "models/tool";
+import withAuth from "@/middleware/withAuth";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { slug } = req.query;
 	// slug의 첫번째는 COLLECTION
 	const collection = slug[0];
@@ -69,3 +70,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 			break;
 	}
 };
+
+export default withAuth(handler);

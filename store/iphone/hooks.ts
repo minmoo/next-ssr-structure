@@ -12,3 +12,13 @@ export const useShowDialog = () => {
 
 	return onShowDialog;
 };
+
+export const useCloseDialog = () => {
+	const dispatch = useDispatch();
+	const onCloseDialog = useCallback(
+		() => dispatch(actions.closeDialog()),
+		[dispatch],
+	);
+
+	return onCloseDialog;
+};

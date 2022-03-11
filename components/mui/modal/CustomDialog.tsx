@@ -1,19 +1,19 @@
 import { Dialog, useMediaQuery, useTheme } from "@mui/material";
-import { useDispatch } from "react-redux";
 import { useSelector } from "@/store";
-import { actions } from "@/store/iphone";
 import AdminDialog from "./AdminDialog";
 import IframeDialog from "./IframeDialog";
+import AuthDialog from "./AuthDialog";
+import { useCloseDialog } from "@/store/iphone/hooks";
 
 const CustomDialog = () => {
 	const theme = useTheme();
-	const dispatch = useDispatch();
+	const onCloseDialog = useCloseDialog();
 	const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
 	const { open, type } = useSelector((state) => state.iphone.modal);
 
 	const handleClose = () => {
-		dispatch(actions.closeDialog());
+		onCloseDialog();
 	};
 
 	return (
@@ -22,13 +22,14 @@ const CustomDialog = () => {
 			open={open}
 			onClose={handleClose}
 			maxWidth="lg"
+			PaperProps={{ sx: { borderRadius: "20px" } }}
 		>
 			{open &&
-				(type === "admin" ? (
-					<AdminDialog fullScreen={fullScreen} />
-				) : (
-					<IframeDialog fullScreen={fullScreen} />
-				))}
+				{
+					admin: <AdminDialog fullScreen={fullScreen} />,
+					iframe: <IframeDialog fullScreen={fullScreen} />,
+					auth: <AuthDialog fullScreen={fullScreen} />,
+				}[type]}
 		</Dialog>
 	);
 };

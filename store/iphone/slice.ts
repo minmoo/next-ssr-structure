@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const name = "iphone";
 export interface Modal {
 	open: boolean;
-	type?: "admin" | "iframe";
+	type: "admin" | "iframe" | "auth";
 	title: string;
 	options?: {
 		queryKey?: any;
@@ -12,12 +12,10 @@ export interface Modal {
 }
 export interface State {
 	isLoading: boolean;
-	authority: "admin" | "guest";
 	modal: Modal;
 }
 const initialState: State = {
 	isLoading: true, //페이지의 초기 로딩을 보여준다.(이미지로딩이 끝날때 페이지를 보여주기 위해)
-	authority: "admin",
 	modal: {
 		type: "admin",
 		open: false,

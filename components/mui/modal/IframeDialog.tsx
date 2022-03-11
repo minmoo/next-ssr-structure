@@ -1,5 +1,5 @@
 import { useSelector } from "@/store";
-import { actions } from "@/store/iphone";
+import { useCloseDialog } from "@/store/iphone/hooks";
 import {
 	Box,
 	Button,
@@ -11,10 +11,9 @@ import {
 	DialogTitle,
 } from "@mui/material";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
 const IframeDialog = ({ fullScreen }: { fullScreen: boolean }) => {
-	const dispatch = useDispatch();
+	const onCloseDialog = useCloseDialog();
 	const { title, options = {} } = useSelector((state) => state.iphone.modal);
 	const [loading, setLoading] = useState<boolean>(true);
 
@@ -23,7 +22,7 @@ const IframeDialog = ({ fullScreen }: { fullScreen: boolean }) => {
 	};
 
 	const handleClose = () => {
-		dispatch(actions.closeDialog());
+		onCloseDialog();
 	};
 
 	return (
