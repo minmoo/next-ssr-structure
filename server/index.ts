@@ -1,4 +1,4 @@
-//환경변수 설정을 위해 제일 먼저 실행한다.
+oh//환경변수 설정을 위해 제일 먼저 실행한다.
 //import 할 경우 dotenv.config를 실행하기 전 까지는 환경변수 설정이 안되기 때문에 require 사용
 require("dotenv").config({
 	path: require("path").resolve(

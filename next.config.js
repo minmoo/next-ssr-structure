@@ -1,10 +1,16 @@
-// module.exports = {
-// 	productionBrowserSourceMaps: true,
-// };
+// @ts-check
+
+/**
+ * @type {import('next').NextConfig}
+ **/
+
 const { withSentryConfig } = require("@sentry/nextjs");
 
-const moduleExports = {
+const nextConfig = {
 	// Your existing module.exports
+	// experimental: {
+	// 	runtime: "nodejs", //TODO React 18을 위해 적용
+	// },
 };
 
 const SentryWebpackPluginOptions = {
@@ -19,4 +25,4 @@ const SentryWebpackPluginOptions = {
 
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
-module.exports = withSentryConfig(moduleExports, SentryWebpackPluginOptions);
+module.exports = withSentryConfig(nextConfig, SentryWebpackPluginOptions);

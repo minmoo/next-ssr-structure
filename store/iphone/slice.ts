@@ -16,7 +16,7 @@ export interface State {
 	modal: Modal;
 }
 const initialState: State = {
-	isLoading: false, //페이지의 초기 로딩을 보여준다.(이미지로딩이 끝날때 페이지를 보여주기 위해)
+	isLoading: true, //페이지의 초기 로딩을 보여준다.(이미지로딩이 끝날때 페이지를 보여주기 위해)
 	authority: "admin",
 	modal: {
 		type: "admin",
