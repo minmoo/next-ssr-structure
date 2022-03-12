@@ -2,6 +2,9 @@ import NextAuth, { Awaitable, NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextApiRequest, NextApiResponse } from "next";
+import dbConnect from "@/lib/dbConnect";
+import User from "@/models/user";
+import { AUTHORITY } from "@/lib/constants/base";
 
 const options: NextAuthOptions = {
 	//configure one or more authentication providers
@@ -34,15 +37,23 @@ const options: NextAuthOptions = {
 				}
 
 				const { userId, password } = credentials;
+				await dbConnect();
 
-				if (userId === "admin" && password === "admin") {
-					return { userId, role: "admin" };
+				const user = await User.findOne({ id: userId });
+				if (!user) {
+					throw new Error("아이디가 없습니다.");
 				}
 
-				if (userId === "guest" && password === "guest") {
-					return { userId, role: "guest" };
+				const ok = await user.comparePassword(password);
+				if (!ok) {
+					throw new Error("비밀번호가 틀립니다.");
 				}
-				throw new Error("아이디 혹은 패스워드가 틀립니다.");
+
+				if (user.id === process.env.ADMIN_ID) {
+					return { userId, role: AUTHORITY.ADMIN };
+				} else {
+					return { userId, role: AUTHORITY.GUEST };
+				}
 			},
 		}),
 	],

@@ -42,4 +42,5 @@ export const COLOR = {
 
 export const AUTHORITY = {
 	ADMIN: "admin",
+	GUEST: "guest",
 };
