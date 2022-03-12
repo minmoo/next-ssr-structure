@@ -16,7 +16,10 @@ const Home = () => {
 	const isLoading = useSelector((state) => state.iphone.isLoading);
 
 	useEffect(() => {
-		window.scrollTo(0, 0); //scroll 맨위로 이동
+		//scroll 맨위로 이동
+		window.onbeforeunload = function pushRefresh() {
+			window.scrollTo(0, 0);
+		};
 	}, []);
 
 	return (

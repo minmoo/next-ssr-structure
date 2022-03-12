@@ -28,8 +28,8 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import useConfirm from "@/lib/hooks/useConfirm";
 import useSnackbar from "@/lib/hooks/useSnackbar";
-import { useRouter } from "next/router";
 import { useCloseDialog } from "@/store/iphone/hooks";
+import { signOut } from "next-auth/react";
 
 const getCustomToolbar = (handleAddClick: () => void) => {
 	const CustomToolbar = () => {
@@ -106,7 +106,6 @@ const useAdminDialog = () => {
 	const [editRowsModel, setEditRowsModel] = useState<GridEditRowsModel>({});
 	const confirm = useConfirm();
 	const snackbar = useSnackbar();
-	const router = useRouter();
 	const { title, options = {} } = useSelector((state) => state.iphone.modal);
 	const { queryKey } = options;
 
@@ -123,7 +122,7 @@ const useAdminDialog = () => {
 		});
 		if (error?.response?.status === 401) {
 			onCloseDialog();
-			router.replace("/home");
+			signOut({ redirect: false });
 		}
 	};
 

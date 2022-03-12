@@ -18,7 +18,8 @@ const LinkWithScroll = (
 		<Link
 			href="#"
 			ref={ref}
-			onClick={() => {
+			onClick={(e) => {
+				e.preventDefault();
 				if (path < 0) {
 					path = document.body.scrollHeight;
 				}

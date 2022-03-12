@@ -103,7 +103,8 @@ const MyApp: React.FunctionComponent<MyAppProps> = ({
 				/>
 			</Head>
 			<ErrorBoundary>
-				<SessionProvider session={pageProps.session} refetchInterval={15}>
+				{/* refetchInterval은 session maxAge보다 큰 값이여야한다.(아니면 session 계속 유지된다.) */}
+				<SessionProvider session={pageProps.session} refetchInterval={10 * 6}>
 					{Component.auth ? (
 						<Auth {...Component.auth}>{Common}</Auth>
 					) : (
